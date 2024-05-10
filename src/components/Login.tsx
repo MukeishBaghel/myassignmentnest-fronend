@@ -11,6 +11,9 @@ import GradientButton from './inputs/GradientButton';
 import Button from './inputs/Button';
 import google from '/assets/icons/Google.svg'
 import { useGoogleLogin } from '@react-oauth/google';
+import { axiosInstance } from './utils/axios.instance';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCurrentUser, setCredentials } from '../redux/slices/user.slice';
 
 
 // Define Zod schema for form data
@@ -23,6 +26,9 @@ type FormFields = z.infer<typeof LoginSchema>
 const Login = () => {
     const navigate = useNavigate();
     const { state: prevState } = useLocation();
+    const dispatch = useDispatch();
+    const  user  = useSelector(selectCurrentUser)
+    console.log(user)
 
     const {
         register,
@@ -39,12 +45,61 @@ const Login = () => {
 
     const onSubmit = async (data: FormFields) => {
         console.log('Form Data:', data);
+        console.log(JSON.stringify(data))
+        try {
+            const resdata = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/login",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(data),
+                }
+            )
+            console.log(resdata)
+            const res = await resdata.json()
+            console.log(res)
+            if (res.data && res.data.token) {
+                dispatch(setCredentials(res.data))
+            }
+            // console.log(res.status)
+        }
+        catch (error) {
+            console.log(error)
+        }
 
     };
     const handleGoogleLogin = useGoogleLogin({
-        onSuccess: (tokenResponse) => {
+        onSuccess: async (tokenResponse) => {
             navigate(prevState || '/')
-            console.log(tokenResponse)
+            try {
+                // await axiosInstance.post('/auth/google-verification', "",
+                //     {
+                //         headers: {
+                //             Authorization: 'Bearer ' + tokenResponse.access_token
+                //         }
+
+                //     }
+
+                // )
+
+                const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Authorization": 'Bearer ' + tokenResponse.access_token
+                        }
+                    }
+                )
+                const res = await data.json()
+                console.log(res)
+                console.log(tokenResponse)
+            }
+            catch (err) {
+                console.log(err)
+            }
         },
         // todo: implement toast functionality 
         onError: () => navigate('/')

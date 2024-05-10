@@ -39,6 +39,9 @@ const SignUp = () => {
         flow: 'auth-code',
         onSuccess: (tokenResponse) => {
             navigate(prevState || '/')
+
+
+
             console.log(tokenResponse)
         },
         // todo: implement toast functionality 

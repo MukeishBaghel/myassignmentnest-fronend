@@ -1,4 +1,5 @@
 import axios from "axios";
+import { store } from "../../redux/Store";
 
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_URL,
@@ -10,10 +11,9 @@ export const axiosInstance = axios.create({
 });
 axiosInstance.interceptors.request.use(
   (config) => {
-    // const token = store.getState().user.token|| "";
-    const token = "";
+    const token = store.getState().user.token;
     if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+      config.headers.Authorization = `JWT ${token}`;
     }
     return config;
   },

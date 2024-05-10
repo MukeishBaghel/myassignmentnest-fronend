@@ -54,6 +54,7 @@ export default {
         form_shadow: "0px 0px 24.9px 8px #9F31F047",
       },
       screens: {
+        xs:"350px",
         sm: "640px",
         md: "768px",
         lg: "1024px",

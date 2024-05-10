@@ -5,6 +5,7 @@ import { z } from 'zod';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import check from '/assets/icons/tick.svg'
+import { axiosInstance } from './utils/axios.instance';
 
 const today = new Date();
 const FormSchema = z.object({
@@ -40,16 +41,17 @@ const AssignmentForm = () => {
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit = async (data:any) => {
+  const onSubmit = async (data: any) => {
     console.log(data)
+    // const { data } = await axiosInstance.post('/',)
   }
 
   return (
-    <div className='bg-rainbow bg-center bg-cover bg-no-repeat lg:h-screen mt-10 px-4 sm:px-10'>
-      <div className='bg-white  shadow-form_shadow h-full w-full py-10 px-10 md:px-28 max-w-7xl mx-auto'>
+    <div className='bg-rainbow bg-center bg-cover bg-no-repeat lg:h-screen mt-10 px-2 xs:px-4 sm:px-10'>
+      <div className='bg-white  shadow-form_shadow h-full w-full py-10 px-2 xs:px-6 sm:px-10 md:px-16 xl:px-28 max-w-7xl mx-auto'>
         <h1 className='text-xl lg:text-2xl text-center font-semibold text-secondary-200'>Receive immediate assistance from genuine experts, no AI involved.</h1>
         <form className='mt-16' onSubmit={handleSubmit(onSubmit)}>
-          <div className='grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-[5vw] lg:gap-[15vw]'>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-10 sm:gap-[5vw] md:gap-[8vw] xl:gap-[15vw]'>
             <div className='flex flex-col gap-12'>
               <FormTextField title='Enter Email address'{...register("email")} error={errors.email?.message} />
               <FormTextField title='Enter Subject / course code' {...register("subject")} error={errors.subject?.message} />
