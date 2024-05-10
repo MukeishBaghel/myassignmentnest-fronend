@@ -1,0 +1,20 @@
+import React, { ButtonHTMLAttributes } from 'react';
+import { cn } from '../utils/cn';
+
+interface GradientButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+    bgClassName?: string;
+    children?: React.ReactNode;
+}
+
+const GradientButton: React.FC<GradientButtonProps> = ({ children, bgClassName, className, ...props }) => {
+    return (
+        <button
+            className={cn(`bg-primary_100 hover:bg-none  h-12 group px-4 rounded-xl duration-200 ease-in-out transition-colors text-primary shadow-btn_shadow hover:shadow-none hover:border border-primary-100 ${bgClassName}`)}
+            {...props}
+        >
+            <span className={cn(`group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-primary_100 ${className}`)}>{children}</span>
+        </button>
+    );
+};
+
+export default GradientButton;
