@@ -40,7 +40,7 @@ const AssignmentForm = () => {
     resolver: zodResolver(FormSchema),
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data:any) => {
     console.log(data)
   }
 
