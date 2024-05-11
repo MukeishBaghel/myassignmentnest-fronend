@@ -20,6 +20,8 @@ export default {
         primary_100: "linear-gradient(90deg, #DA22FF 0%, #9733EE 100%)",
         secondary_100: "linear-gradient(90deg, #FFFFFF 0%, #000000 100%)",
         rainbow: "url(/assets/images/heroformbg.png)",
+        testimonial_card:
+          "linear-gradient(91.77deg, #F7F6FB 1.11%, #F7F6FB 42.04%, #F7F6FB 70.51%, rgba(247, 246, 251, 0.6) 98.49%)",
       },
 
       colors: {
@@ -52,9 +54,14 @@ export default {
         btn_shadow: "0px 4px 16.4px 0px #00000082",
         card_shadow: "1px 2px 6px 0px #B1BDD699",
         form_shadow: "0px 0px 24.9px 8px #9F31F047",
+        testimonial_card_1: "-8px 8px 40px 5px #000000B2",
+        testimonial_card_2: "-8px 40px 40px 0px #000000CC",
+        testimonial_card_3: "-8px 10px 40px 0px #000000CC",
+        testimonial_card_4: "-1px 9px 29.1px 0px #0000009C",
+        testimonial_card_5: "0px 16px 40px 0px #000000",
       },
       screens: {
-        xs:"350px",
+        xs: "350px",
         sm: "640px",
         md: "768px",
         lg: "1024px",

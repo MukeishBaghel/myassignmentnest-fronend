@@ -11,10 +11,16 @@ export const axiosInstance = axios.create({
 });
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = store.getState().user.token;
-    if (token) {
-      config.headers.Authorization = `JWT ${token}`;
+    const { contentType, authorizationToken } = config.headers;
+
+    
+    if (contentType) {
+      config.headers["Content-Type"] = contentType;
     }
+    if (authorizationToken) {
+      config.headers.Authorization = authorizationToken;
+    }
+
     return config;
   },
   (error) => {

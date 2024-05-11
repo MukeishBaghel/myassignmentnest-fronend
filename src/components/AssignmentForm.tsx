@@ -8,10 +8,23 @@ import check from '/assets/icons/tick.svg'
 import { axiosInstance } from './utils/axios.instance';
 
 const today = new Date();
+const MAX_UPLOAD_SIZE = 1024 * 1024 * 10; // 10MB
+const ACCEPTED_FILE_TYPES = [
+  'image/png',
+  'image/jpeg',
+  'image/jpg',
+  'image/webp',
+  'application/pdf',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  'application/vnd.ms-excel', // MIME type for Excel sheets (XLS)
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' // MIME type for Excel sheets (XLSX)
+];
+
 const FormSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
-  }),
+  }).trim().toLowerCase(),
   subject: z.string({
   }).min(1, {
     message: "Subject name / course code is required"
@@ -24,9 +37,23 @@ const FormSchema = z.object({
   phoneNumber: z.string().min(10, "Phone number must be at least 10 characters."),
   reference: z.array(z.string()).or(z.string()),
   description: z.string().min(1, {
-    message: "Write few words that describing your assignment"
-  }).trim()
-
+    message: "Try to briefly explain your Assignment"
+  }).trim(),
+  
+  files: z
+    .optional(z.nullable(z.instanceof(File)))
+    .refine((file) => {
+      return !file || (file instanceof File && file.size <= MAX_UPLOAD_SIZE);
+    }, {
+      message: 'File size must be less than 10MB',
+      path: ['files']
+    })
+    .refine((file) => {
+      return ACCEPTED_FILE_TYPES.includes((file as File).type);
+    }, {
+      message: 'File must be in valid format',
+      path: ['files']
+    })
 });
 type FormFields = z.infer<typeof FormSchema>
 

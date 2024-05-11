@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import loginImg from "/assets/images/login.svg";
 import logo from '/assets/icons/logo.svg';
 import chevronLeft from '/assets/icons/chevron-left.svg';
@@ -6,7 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import TextField from './inputs/TextField';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
+import { boolean, z } from 'zod';
 import GradientButton from './inputs/GradientButton';
 import Button from './inputs/Button';
 import google from '/assets/icons/Google.svg'
@@ -14,6 +14,7 @@ import { useGoogleLogin } from '@react-oauth/google';
 import { axiosInstance } from './utils/axios.instance';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser, setCredentials } from '../redux/slices/user.slice';
+import Loader from './shared/Loader';
 
 
 // Define Zod schema for form data
@@ -27,25 +28,27 @@ const Login = () => {
     const navigate = useNavigate();
     const { state: prevState } = useLocation();
     const dispatch = useDispatch();
-    const  user  = useSelector(selectCurrentUser)
-    console.log(user)
-
-    const {
-        register,
-        handleSubmit,
-        formState: { errors, isSubmitting },
-    } = useForm<FormFields>({
-        resolver: zodResolver(LoginSchema), // Use Zod resolver for form validation
-        defaultValues: {
-            email: "",
-            password: ""
-        }
-    });
+    const { userDetails } = useSelector(selectCurrentUser)
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    console.log(userDetails)
+    // if ()
+        const {
+            register,
+            handleSubmit,
+            formState: { errors, isSubmitting },
+        } = useForm<FormFields>({
+            resolver: zodResolver(LoginSchema), // Use Zod resolver for form validation
+            defaultValues: {
+                email: "",
+                password: ""
+            }
+        });
     console.log(errors)
 
     const onSubmit = async (data: FormFields) => {
         console.log('Form Data:', data);
         console.log(JSON.stringify(data))
+        setIsLoading(true)
         try {
             const resdata = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/login",
                 {
@@ -69,22 +72,15 @@ const Login = () => {
         catch (error) {
             console.log(error)
         }
+        finally {
+            setIsLoading(false)
+        }
 
     };
     const handleGoogleLogin = useGoogleLogin({
         onSuccess: async (tokenResponse) => {
             navigate(prevState || '/')
             try {
-                // await axiosInstance.post('/auth/google-verification', "",
-                //     {
-                //         headers: {
-                //             Authorization: 'Bearer ' + tokenResponse.access_token
-                //         }
-
-                //     }
-
-                // )
-
                 const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification",
                     {
                         method: "POST",
@@ -104,6 +100,11 @@ const Login = () => {
         // todo: implement toast functionality 
         onError: () => navigate('/')
     })
+    if (isLoading) {
+        return <div className='flex items-center justify-center h-screen'>
+            <Loader state={isLoading} />
+        </div>
+    }
 
     return (
         <section className='grid grid-cols-1 md:grid-cols-3  lg:grid-cols-8 xl:grid-cols-12 gap-10 min-h-screen relative '>
