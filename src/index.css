@@ -85,3 +85,8 @@ body {
     transform: scale(1) rotate(360deg);
   }
 }
+
+.swiper-pagination-bullet {
+  background-color: #7633ff !important;
+  background-image: linear-gradient(90deg, #da22ff 0%, #9733ee 100%);
+}
