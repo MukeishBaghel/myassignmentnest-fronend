@@ -24,9 +24,9 @@ const Navbar = () => {
           <img src={logo} alt="assignmentHelper" className='w-10 h-10' />
           <h1 className='text-xl lg:text-2xl text-[#1F1F1F]'>AssignmentHelper</h1>
         </div>
-        <ul className=' hidden lg:flex items-center justify-between gap-6 text-[#454545] text-lg xl:text-xl w-[66%] xl:w-[62%] '>
+        <ul className=' hidden lg:flex items-center justify-between gap-8 text-[#454545] text-lg xl:text-xl  '>
           {NavItems.map((item) => (
-            <NavLink to={item.path} key={item.name} className={({ isActive }) => `${isActive && "text-transparent bg-primary_100 bg-clip-text"}`}>
+            <NavLink to={item.path} key={item.name} className={({ isActive }) => `${isActive ? "gradient-text" : "hover:text-[#7633FF99]"} duration-150 ease-in `}>
               {item.name}
             </NavLink>
           ))}
