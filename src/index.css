@@ -94,7 +94,7 @@ body {
 input[type="file"] {
   width: 114px;
   border-radius: 20px;
-  overflow: hidden;
+  /* overflow: hidden; */
   cursor: pointer;
 }
 input[type="file"]::after {
@@ -103,7 +103,12 @@ input[type="file"]::after {
   /* margin-right: 30px; */
 }
 
-select option:hover {
-    color: #4410ac; /* Optional for text color change */
-    background: #000;
+:root {
+  --phoneInputWithCountrySelect-borderColor: rgba(255, 255, 255, 0.5);
+  --PhoneInputCountryFlag-borderColor: rgba(255, 255, 255, 1);
+  --PhoneInputCountrySelectArrow-color: #7633FF;
+}
+
+.PhoneInputInput {
+  outline: none;
 }

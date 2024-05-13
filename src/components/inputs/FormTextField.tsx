@@ -2,7 +2,7 @@ import React, { InputHTMLAttributes, forwardRef } from 'react';
 import { cn } from '../utils/cn';
 import { useId } from 'react';
 
-interface FormTextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
+ interface FormTextFieldProps extends InputHTMLAttributes<HTMLInputElement> {
     className?: string;
     placeholder?: string;
     type?: string;
