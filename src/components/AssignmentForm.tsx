@@ -39,7 +39,7 @@ const FormSchema = z.object({
   description: z.string().min(1, {
     message: "Try to briefly explain your Assignment"
   }).trim(),
-  
+
   files: z
     .optional(z.nullable(z.instanceof(File)))
     .refine((file) => {
@@ -82,7 +82,7 @@ const AssignmentForm = () => {
             <div className='flex flex-col gap-12'>
               <FormTextField title='Enter Email address'{...register("email")} error={errors.email?.message} />
               <FormTextField title='Enter Subject / course code' {...register("subject")} error={errors.subject?.message} />
-              <FormTextField title='Deadline' type='date' min={today.toISOString().split('T')[0]} {...register("deadline")} error={errors.deadline?.message} />
+              <FormTextField title='Deadline' type='date' min={today.toISOString().split('T')[0]} {...register("deadline")} error={ errors.deadline?.message} />
               <FormTextField title='Enter the total Pages' {...register("totalPages")} error={errors.totalPages?.message} type='number' min={0} />
             </div>
             <div className='flex flex-col gap-12'>
@@ -90,8 +90,10 @@ const AssignmentForm = () => {
               <FormTextField title='Reference of the assignment' {...register("reference")} error={errors.reference?.message} />
               <div>
                 <div className='border border-[#ADADAD] relative z-0  rounded-[4px] font-[Nunito]'>
-                  <textarea className=' w-full bg-transparent px-4 outline-none pt-6 pb-8 placeholder:text-base resize-none' {...register("description")} />
+                  <textarea className=' w-full z-10 bg-transparent  px-4 outline-none pt-3 pb-10 placeholder:text-base resize-none' {...register("description")} />
                   <label className='absolute left-1 text-primary-200 -top-2 font-medium bg-white text-sm z-10 pr-0.5 leading-none'>Order Description <span className='text-[#C5C5C5]'>(write or attach)</span></label>
+                  <input type='file' {...register("files")} multiple className='file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 left-2 
+      file:text-sm file:font-semibold z-20 file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 absolute bottom-1'/>
                 </div>
                 <p className='text-red-500 text-sm mt-1 font-[Nunito] leading-none'> {errors.description && errors.description?.message}</p>
               </div>

@@ -90,3 +90,15 @@ body {
   background-color: #7633ff !important;
   background-image: linear-gradient(90deg, #da22ff 0%, #9733ee 100%);
 }
+
+input[type="file"] {
+  width: 114px;
+  border-radius: 20px;
+  overflow: hidden;
+  cursor: pointer;
+}
+input[type="file"]::after {
+  content: "Attach Files";
+  /* color: black; */
+  /* margin-right: 30px; */
+}
