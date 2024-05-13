@@ -21,6 +21,22 @@ const ACCEPTED_FILE_TYPES = [
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' // MIME type for Excel sheets (XLSX)
 ];
 
+const References: string[] = [
+  "AGLC",
+  "APA",
+  "BMJ",
+  "Chicago",
+  "FootNotes and Biblograpy",
+  "Harvard",
+  "IEEE",
+  "MHRA",
+  "MLA",
+  "Open",
+  "OSCOLA",
+  "Oxford",
+  "Vancouver"
+]
+
 const FormSchema = z.object({
   email: z.string().email({
     message: "Please enter a valid email address.",
@@ -35,7 +51,7 @@ const FormSchema = z.object({
   }),
   totalPages: z.number({ message: "Please enter total pages" }).positive().safe(),
   phoneNumber: z.string().min(10, "Phone number must be at least 10 characters."),
-  reference: z.array(z.string()).or(z.string()),
+  reference: z.optional(z.nullable(z.array(z.string()).or(z.string()))),
   description: z.string().min(1, {
     message: "Try to briefly explain your Assignment"
   }).trim(),
@@ -82,23 +98,37 @@ const AssignmentForm = () => {
             <div className='flex flex-col gap-12'>
               <FormTextField title='Enter Email address'{...register("email")} error={errors.email?.message} />
               <FormTextField title='Enter Subject / course code' {...register("subject")} error={errors.subject?.message} />
-              <FormTextField title='Deadline' type='date' min={today.toISOString().split('T')[0]} {...register("deadline")} error={ errors.deadline?.message} />
+              <FormTextField title='Deadline' type='date' min={today.toISOString().split('T')[0]} {...register("deadline")} error={errors.deadline?.message} />
               <FormTextField title='Enter the total Pages' {...register("totalPages")} error={errors.totalPages?.message} type='number' min={0} />
             </div>
             <div className='flex flex-col gap-12'>
               <FormTextField title='Enter the Phone no' {...register("phoneNumber")} error={errors.phoneNumber?.message} />
-              <FormTextField title='Reference of the assignment' {...register("reference")} error={errors.reference?.message} />
+              <div>
+                <div className='border border-[#ADADAD] relative z-0  rounded-[4px] font-[Nunito] h-12'>
+                  <select className=' w-full z-10 bg-transparent  px-2 outline-none h-12  placeholder:text-base resize-none' {...register("reference")}>
+                    <option hidden defaultValue={""}></option>
+                    {
+                      References.map((reference, i) => (
+                        <option value={reference} key={i}>{reference}</option>
+                      ))
+                    }
+                  </select>
+                  <label className='absolute left-1 text-primary-200 -top-2 font-medium bg-white text-sm z-10 pr-0.5 leading-none'>Reference of the assignment</label>
+                </div>
+                <p className='text-red-500 text-sm mt-1 font-[Nunito] leading-none'> {errors.reference && errors.reference?.message}</p>
+              </div>
+
               <div>
                 <div className='border border-[#ADADAD] relative z-0  rounded-[4px] font-[Nunito]'>
                   <textarea className=' w-full z-10 bg-transparent  px-4 outline-none pt-3 pb-10 placeholder:text-base resize-none' {...register("description")} />
                   <label className='absolute left-1 text-primary-200 -top-2 font-medium bg-white text-sm z-10 pr-0.5 leading-none'>Order Description <span className='text-[#C5C5C5]'>(write or attach)</span></label>
                   <input type='file' {...register("files")} multiple className='file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 left-2 
-      file:text-sm file:font-semibold z-20 file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 absolute bottom-1'/>
+                    file:text-sm file:font-semibold z-20 file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 absolute bottom-1'/>
                 </div>
                 <p className='text-red-500 text-sm mt-1 font-[Nunito] leading-none'> {errors.description && errors.description?.message}</p>
               </div>
-
             </div>
+
           </div>
           <div className='flex items-center gap-4 mt-10'>
             <button type='button' className='border border-[#242424] h-6 w-6 rounded-md' onClick={() => setAgreeToTerms((prev) => (!prev))}>{agreeToTerms && <img src={check} className='mx-auto w-4 h-4' />}</button>
@@ -108,7 +138,7 @@ const AssignmentForm = () => {
             <GradientButton className='mx-auto w-fit sm:px-12 text-xl sm:text-2xl'>Get Assistance</GradientButton>
           </div>
         </form>
-      </div>
+      </div >
     </div >
   )
 }
