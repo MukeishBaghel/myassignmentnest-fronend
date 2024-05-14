@@ -12,11 +12,11 @@ import 'swiper/css/scrollbar';
 const Testimonial = () => {
     const swiper = useSwiper();
     return (
-        <section className='container lg:mb-60 lg:h-screen py-10 max-w-5xl px-10 relative mx-auto'>
+        <section className='container py-10 max-w-5xl px-10 relative mx-auto'>
             <h1 className='text-4xl leading-[3rem] max-md:text-center md:text-5xl md:leading-[3.75rem] lg:text-6xl xl:text-7xl lg:!leading-[4.5rem] font-[500] text-center bg-primary_100 bg-clip-text text-transparent lg:px-20'>Testimonials
             </h1>
             <p className='text-[#8C8888] text-center py-6 text-lg lg:text-2xl font-normal '>Get Our subscription to minimize your work load and get success.</p>
-            <div className='hidden lg:block lg:pt-5'>
+            <div className='hidden lg:block lg:pt-5 relative'>
                 <article className=' p-6 w-[518px] cursor-pointer bg-[#F7F6FB] rounded-2xl shadow-testimonial_card_1 relative left-72 z-50 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow group group-hover:opacity-0'>
                     <div className='flex gap-4'>
                         <img src={abhinavImg} alt="" className='self-start' />
@@ -47,7 +47,7 @@ const Testimonial = () => {
                     </div>
                     <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
                 </article>
-                <article className=' p-4 w-[418px] bg-[#EDEDED] cursor-pointer rounded-2xl shadow-testimonial_card_3 relative bottom-5 left-52 z-30 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow  group group-hover:opacity-0'>
+                <article className=' p-4 w-[418px] bg-[#EDEDED] cursor-pointer rounded-2xl shadow-testimonial_card_3 relative bottom-8 left-52 z-30 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow  group group-hover:opacity-0'>
                     <div className='flex gap-4'>
                         <img src={abhinavImg} alt="" className='self-start' />
                         <div>
@@ -62,7 +62,7 @@ const Testimonial = () => {
                     </div>
                     <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
                 </article>
-                <article className=' p-6 w-[518px] bg-[#E3E3E3] cursor-pointer rounded-2xl shadow-testimonial_card_4 relative z-20 bottom-[340px] hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow  backdrop-filter group group-hover:opacity-0'>
+                <article className=' p-6 w-[518px] bg-[#E3E3E3] cursor-pointer rounded-2xl shadow-testimonial_card_4 absolute z-20 bottom-[120px] left-10 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow  backdrop-filter group group-hover:opacity-0'>
                     <div className='flex gap-4'>
                         <img src={abhinavImg} alt="" className='self-start' />
                         <div>
@@ -77,7 +77,7 @@ const Testimonial = () => {
                     </div>
                     <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
                 </article>
-                <article className=' p-6 w-[518px] bg-testimonial_card cursor-pointer rounded-2xl shadow-testimonial_card_5 relative z-10 bottom-[800px]  hover:bg-white hover:z-[60] duration-200 ease-in-out right-20 hover:shadow-form_shadow group group-hover:opacity-0'>
+                <article className=' p-6 w-[518px] bg-testimonial_card cursor-pointer rounded-2xl shadow-testimonial_card_5 absolute z-10 top-[160px] left-0  hover:bg-white hover:z-[60] duration-200 ease-in-out right-20 hover:shadow-form_shadow group group-hover:opacity-0'>
                     <div className='flex gap-4'>
                         <img src={abhinavImg} alt="" className='self-start' />
                         <div>
