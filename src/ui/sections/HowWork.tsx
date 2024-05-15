@@ -44,9 +44,9 @@ const HowWork = () => {
                         <img src={solutions} alt="" className='w-20 h-20' />
                     </div>
                     <h1 className='text-primary-foreground font-semibold text-xl sm:text-2xl xl:text-3xl py-4'>
-                        Get the solution
+                        View the solution
                     </h1>
-                    <p className='text-secondary-300 md:text-l  xl:text-xl  font-[400] px-2 '>
+                    <p className='text-secondary-300 md:text-lg xl:text-xl  font-[400] px-2'>
                         Assignment writer notifies upon completion. View resolution in user account.
                     </p>
                 </article>

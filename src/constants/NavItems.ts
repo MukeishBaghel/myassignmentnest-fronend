@@ -16,10 +16,6 @@ const NavItems: { name: string; path: string }[] = [
     path: "/reviews",
   },
   {
-    name: "Resources",
-    path: "/resources",
-  },
-  {
     name: "Free Tools",
     path: "/freetools",
   },
