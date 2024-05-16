@@ -6,6 +6,7 @@ import CommonLayout from './components/layouts/CommonLayout'
 import NotFound from './pages/NotFound'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
+import Admin from './pages/Admin'
 
 const Routers = () => {
   return (
@@ -15,6 +16,7 @@ const Routers = () => {
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<SignUp />} />
       <Route path='*' element={<NotFound />} />
+      <Route path='/admin' element={<Admin />}/>
     </Routes>
   )
 }

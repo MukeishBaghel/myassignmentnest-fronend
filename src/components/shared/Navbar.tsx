@@ -2,15 +2,21 @@ import React from 'react'
 import logo from '/assets/icons/logo.svg'
 import { NavLink } from 'react-router-dom'
 import { NavItems } from '../../constants/NavItems'
-import { Menu, X } from 'lucide-react'
+import { LogOut, Menu, X } from 'lucide-react'
 import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
+import { logOut, selectCurrentUser } from '../../redux/slices/user.slice'
+import { useDispatch, useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
+import Button from '../inputs/Button'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false)
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState)
   }
+  const { userDetails } = useSelector(selectCurrentUser);
+  const dispatch = useDispatch()
   return (
     <div>
       <header className='bg-primary_100 text-primary py-1 text-sm flex items-center justify-between md:justify-center gap-4 sm:gap-8 px-2'>
@@ -30,6 +36,12 @@ const Navbar = () => {
               {item.name}
             </NavLink>
           ))}
+          {
+            userDetails && <button onClick={() => {
+              dispatch(logOut())
+              toast.success("Logout Successfully")
+            }}><LogOut className='w-7 h-7' /></button>
+          }
         </ul>
         <button className='lg:hidden cursor-pointer' onClick={toggleDrawer}>
           <Menu className='w-7 h-7' />
@@ -41,11 +53,18 @@ const Navbar = () => {
         direction='right'
         className='relative lg:hidden'
       >
-        <div className='bg-primary_100 h-full flex flex-col items-center justify-center gap-10 text-white'> {NavItems.map((item) => (
-          <NavLink to={item.path} key={item.name} className={({ isActive }) => `${isActive && "text-primary-100 font-medium"} ${!isActive && "hover:opacity-80 duration-200 ease-in-out"}`}>
-            {item.name}
-          </NavLink>
-        ))}
+        <div className='bg-primary_100 h-full flex flex-col items-center justify-center gap-10 text-white'>
+          {NavItems.map((item, i) => (
+            <NavLink to={item.path} key={i} className={({ isActive }) => `${isActive && "text-primary-100 font-medium"} ${!isActive && "hover:opacity-80 duration-200 ease-in-out"}`}>
+              {item.name}
+            </NavLink>
+          ))}
+          {
+            userDetails && <Button className='bg-primary rounded-lg px-10 font-semibold py-2' onClick={() => {
+              dispatch(logOut())
+              toast.success("Logout Successfully")
+            }}><span className='text-transparent bg-clip-text bg-primary_100'>Logout</span></Button>
+          }
           <button className='font-medium text-lg text-white absolute top-2 left-2 hover:opacity-65 duration-200 ease-in' onClick={toggleDrawer}><X /></button>
         </div>
       </Drawer>

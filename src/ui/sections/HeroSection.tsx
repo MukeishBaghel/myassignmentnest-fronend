@@ -2,6 +2,7 @@ import React from 'react'
 import heroLady from '/assets/images/herogirl.gif'
 import sitejabbar from '/assets/images/sitejabber.svg'
 import trustpilot from '/assets/images/trustpilot.svg'
+import { Link } from 'react-router-dom'
 const HeroSection = () => {
     return (
         <section className='container lg:px-20 mt-10'>
@@ -11,8 +12,8 @@ const HeroSection = () => {
                         <span className='text-primary-100'> Hey there</span>
                         <span className='bg-primary_100 bg-clip-text text-transparent'>,<br />ready to unlock your academic potential?</span>
                         <div className='flex items-center gap-4 sm:-ml-4 w-full max-md:justify-center mt-4'>
-                            <img src={sitejabbar} alt="" className='w-1/2 sm:w-1/3 sm:min-w-[230px]' />
-                            <img src={trustpilot} alt="" className='w-1/2 sm:w-1/3 sm:min-w-[230px]' />
+                            <Link to={'/'}> <img src={sitejabbar} alt="" className='w-1/2 sm:w-1/3 sm:min-w-[230px]' /></Link>
+                            <Link to={'/'}><img src={trustpilot} alt="" className='w-1/2 sm:w-1/3 sm:min-w-[230px]' /></Link>
                         </div>
                     </h1>
                 </div >
