@@ -17,9 +17,9 @@ const userSlice = createSlice({
       const { token } = action.payload;
       state.token = token;
       if (token) state.userDetails = jwtDecode(token);
-      console.log(token)
-      console.log(state.userDetails)
     },
+
+
     logOut: (state) => {
       state.token = null;
       state.userDetails = null;

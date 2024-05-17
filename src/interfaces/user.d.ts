@@ -10,6 +10,7 @@ declare interface Iuser {
 declare interface UserState {
   userDetails: Iuser | null;
   token: string | null;
+  accessToken?: string | null;
 }
 
 declare interface UsersToken {

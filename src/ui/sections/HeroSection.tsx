@@ -12,8 +12,8 @@ const HeroSection = () => {
                         <span className='text-primary-100'> Hey there</span>
                         <span className='bg-primary_100 bg-clip-text text-transparent'>,<br />ready to unlock your academic potential?</span>
                         <div className='flex items-center gap-4 sm:-ml-4 w-full max-md:justify-center mt-4'>
-                            <Link to={'/'}> <img src={sitejabbar} alt="" className='w-1/2 sm:w-1/3 sm:min-w-[230px]' /></Link>
-                            <Link to={'/'}><img src={trustpilot} alt="" className='w-1/2 sm:w-1/3 sm:min-w-[230px]' /></Link>
+                            <Link to={'/'}> <img src={sitejabbar} alt="" className='w-1/2 min-w-[140px] sm:w-1/3 sm:min-w-[230px] inline-block' /></Link>
+                            <Link to={'/'}><img src={trustpilot} alt="" className='w-1/2 min-w-[140px] sm:w-1/3 sm:min-w-[230px] inline-block' /></Link>
                         </div>
                     </h1>
                 </div >

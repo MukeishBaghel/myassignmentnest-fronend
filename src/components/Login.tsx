@@ -55,7 +55,7 @@ const Login = () => {
         console.log(JSON.stringify(data))
         setIsLoading(true)
         try {
-            const resdata = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/login",
+            const resdata = await fetch(`https://2nhv2211-8080.inc1.devtunnels.ms/auth/login`,
                 {
                     method: "POST",
 
@@ -71,7 +71,12 @@ const Login = () => {
             console.log(res)
             if (res.data && res.data.token) {
                 dispatch(setCredentials(res.data))
+                localStorage.setItem("token", res.data.token)
+                localStorage.setItem("loginType", "app_user")
+                // localStorage.setItem("customerId", res.data.customer_id)
                 toast.success("Login Successfully")
+                navigate(prevState || '/')
+
             }
             // console.log(res.status)
         }
@@ -97,9 +102,13 @@ const Login = () => {
                 )
                 const res = await data.json()
                 console.log(res)
+                localStorage.setItem("token", tokenResponse.access_token)
+                localStorage.setItem("customerId", res.data.customer_id)
+                localStorage.setItem("loginType", "google_user")
                 console.log(tokenResponse)
                 toast.success("Login successfully")
                 navigate(prevState || '/')
+
             }
             catch (err) {
                 console.log(err)

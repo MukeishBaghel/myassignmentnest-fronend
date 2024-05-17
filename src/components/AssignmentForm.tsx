@@ -10,6 +10,7 @@ const PhoneInputWithCountry = React.lazy(() => import("react-phone-number-input/
 import { ACCEPTED_FILE_TYPES, References } from '../constants/FormData';
 import 'react-phone-number-input/style.css'
 import { cn } from './utils/cn';
+import { toast } from 'react-toastify';
 
 
 const today = new Date();
@@ -24,13 +25,13 @@ const FormSchema = z.object({
   }).min(1, {
     message: "Subject name / course code is required"
   }),
-  phoneInputWithCountrySelect: z.string({
+  phone: z.string({
     required_error: "Phone number is required",
   }).min(1, { // Ensure at least 1 character is provided (can be adjusted based on your requirements)
     message: "Phone number is required",
   }),
   deadline: z.string().min(1, { message: "Date is required" }).transform((str) => new Date(str)),
-  totalPages: z.coerce.number().gte(0).safe().positive(),
+  pages: z.coerce.number().gte(0).safe().positive(),
   reference: z.optional(z.nullable(z.array(z.string()).or(z.string()))),
   description: z.string().min(1, {
     message: "Try to briefly explain your Assignment"
@@ -53,26 +54,70 @@ type FormFields = z.infer<typeof FormSchema>
 
 const AssignmentForm = () => {
   const [agreeToTerms, setAgreeToTerms] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
     control,
     formState: { errors },
+    reset
   } = useForm<FormFields>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      totalPages: 1,
-      phoneInputWithCountrySelect: "",
+      pages: 1,
+      phone: "",
     }
   });
 
-
+  const prepareHeader = () => {
+    const userType = localStorage.getItem("loginType");
+    const token = localStorage.getItem("token");
+    if (userType === "google_user") {
+      return 'Bearer ' + token
+    }
+    else {
+      return 'JWT ' + token
+    }
+  }
 
   const onSubmit = async (data: FormFields) => {
     console.log(data)
+    const url = 'https://2nhv2211-8080.inc1.devtunnels.ms/customer/query';
+    const { files: file, ...values } = data;
+    const query = JSON.stringify({
+      ...values, customer_id: "UID202405103"
+    });
+    const formData = new FormData();
+    formData.append('query', query);
 
-    // const { data } = await axiosInstance.post('/',)
+    formData.append('file', file[0]);
+    setIsLoading(true)
+
+    fetch(url, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        "Authorization": prepareHeader(),
+      }
+    })
+      .then(response => {
+        if (response.status === 201) {
+          toast.success("Form Submitted Successfully")
+          reset();
+        }
+        else {
+          toast.error("Invalid data format")
+        }
+        return response.text()
+      })
+      .then(data => console.log(data))
+      .catch((error) => {
+        console.error('Error:', error)
+        toast.error("Something went wrong")
+      }).finally(() => setIsLoading(false))
   }
+
+
   const filesErrorMessage = errors.files && errors.files.message
   // @ts-ignore
   const filesError: React.ReactNode = filesErrorMessage ? <p>{filesErrorMessage}</p> : null;
@@ -87,7 +132,7 @@ const AssignmentForm = () => {
               <FormTextField title='Enter Email address'{...register("email")} error={errors.email?.message} />
               <FormTextField title='Enter Subject / course code' {...register("subject")} error={errors.subject?.message} />
               <FormTextField title='Deadline' type='date' min={today.toISOString().split('T')[0]} {...register("deadline")} error={errors.deadline?.message} />
-              <FormTextField title='Enter the total Pages' {...register("totalPages")} error={errors.totalPages?.message} type='number' min={1} />
+              <FormTextField title='Enter the total Pages' {...register("pages")} error={errors.pages?.message} type='number' min={1} />
             </div>
             <div className='flex flex-col gap-12'>
 
@@ -95,7 +140,7 @@ const AssignmentForm = () => {
                 <div className='border border-[#ADADAD] relative z-0  rounded-[4px] font-[Nunito] h-12 flex items-center px-4'>
                   <Suspense fallback={<div>Loading...</div>}>
                     <PhoneInputWithCountry
-                      name="phoneInputWithCountrySelect"
+                      name="phone"
                       // @ts-ignore
                       control={control}
                       rules={{
@@ -111,7 +156,7 @@ const AssignmentForm = () => {
 
                   <label className='absolute left-1 text-primary-200 -top-2 font-medium bg-white text-sm z-10 pr-0.5 leading-none'>Phone Number</label>
                 </div>
-                <p className='text-red-500 text-sm mt-1 font-[Nunito] leading-none'> {errors.phoneInputWithCountrySelect && errors.phoneInputWithCountrySelect?.message}</p>
+                <p className='text-red-500 text-sm mt-1 font-[Nunito] leading-none'> {errors.phone && errors.phone?.message}</p>
               </div>
               {/* <p className='text-red-500 text-sm mt-1 font-[Nunito] leading-none'> {errors.reference && errors.reference?.message}</p> */}
 
@@ -127,7 +172,7 @@ const AssignmentForm = () => {
                   </select>
                   <label className='absolute left-1 text-primary-200 -top-2 font-medium bg-white text-sm z-10 pr-0.5 leading-none'>Reference of the assignment</label>
                 </div>
-                <p className='text-red-500 text-sm mt-1 font-[Nunito] leading-none'> {errors.reference && errors.reference?.message}</p>
+                <p className='text-red-500 text-sm mt-1  font-[Nunito] leading-none'> {errors.reference && errors.reference?.message}</p>
               </div>
 
               <div>
@@ -146,10 +191,11 @@ const AssignmentForm = () => {
           </div>
           <div className='flex items-center gap-4 mt-10'>
             <button type='button' className='border border-[#242424] h-6 w-6 rounded-md' onClick={() => setAgreeToTerms((prev) => (!prev))}>{agreeToTerms && <img src={check} className='mx-auto w-4 h-4' />}</button>
-            <p className='text-[#363636] text-sm '>accept the T&C, agree to receive offer and update</p>
+            <p className='text-[#363636] text-sm'>accept the T&C, agree to receive offer and update</p>
           </div>
           <div className='flex items-center justify-center mt-8'>
-            <GradientButton className='mx-auto w-fit sm:px-12 text-xl sm:text-2xl' type='submit'>Get Assistance</GradientButton>
+            <GradientButton className='mx-auto w-fit sm:px-12 text-xl sm:text-2xl' bgClassName='disabled:pointer-events-none disabled:opacity-70' disabled={isLoading}
+              type='submit'>Get Assistance</GradientButton>
           </div>
         </form>
       </div >

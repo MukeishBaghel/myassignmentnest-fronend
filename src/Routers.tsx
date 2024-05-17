@@ -7,6 +7,8 @@ import NotFound from './pages/NotFound'
 import Login from './pages/Login'
 import SignUp from './pages/SignUp'
 import Admin from './pages/Admin'
+import Reviews from './pages/Reviews'
+import Samples from './pages/Samples'
 
 const Routers = () => {
   return (
@@ -16,7 +18,9 @@ const Routers = () => {
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<SignUp />} />
       <Route path='*' element={<NotFound />} />
-      <Route path='/admin' element={<Admin />}/>
+      <Route path='/admin' element={<Admin />} />
+      <Route path='/reviews' element={<Reviews />} />
+      <Route path='/samples' element={< Samples />} />
     </Routes>
   )
 }
