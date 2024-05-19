@@ -102,6 +102,7 @@ const Login = () => {
                 )
                 const res = await data.json()
                 console.log(res)
+                dispatch(setCredentials({ ...res, token: tokenResponse.access_token, userType:"google_user" }))
                 localStorage.setItem("token", tokenResponse.access_token)
                 localStorage.setItem("customerId", res.data.customer_id)
                 localStorage.setItem("loginType", "google_user")
@@ -141,10 +142,15 @@ const Login = () => {
                 <form className='flex flex-col gap-8' onSubmit={handleSubmit(onSubmit)}>
                     <TextField placeholder='Email' {...register('email')} type='email' error={errors.email?.message} />
                     <TextField placeholder='Password' {...register('password')} type="password" error={errors.password?.message} />
-                    <GradientButton className='w-full' bgClassName='h-11 text-lg md:text-xl' type="submit">Log in</GradientButton>
+                    <GradientButton className='w-full' bgClassName='text-lg md:text-xl' type="submit">Log in</GradientButton>
                 </form>
-                <Button className='flex items-center gap-2 justify-center border-2 p-2 rounded-2xl border-black' onClick={() => handleGoogleLogin()}><img src={google} alt="" /><p className=' text-base sm:text-[15px] lg:text-lg text-nowrap  text-black font-medium'>Sign in with Google</p></Button>
-                <p className='text-center text-[#0000007D]'><span className='text-nowrap'>Don’t have an account ?</span> <Link to={'/signup'} className='text-black hover:underline text-nowrap'>Sign up</Link></p>
+
+                <Button className='flex items-center gap-2 justify-center border-2 p-2 h-12 rounded-2xl border-black' onClick={() => handleGoogleLogin()}><img src={google} alt="" /><p className=' text-base sm:text-[15px] text-lg md:text-xl text-nowrap  text-black font-medium'>Sign in with Google</p>
+                </Button>
+
+                <p className='text-center text-[#0000007D]'>
+                    <span className='text-nowrap'>Don’t have an account ?</span>
+                    <Link to={'/signup'} className='text-black hover:underline text-nowrap'>Sign up</Link></p>
 
             </div>
             <div className=' md:col-span-2 lg:col-span-5 xl:col-span-9  m-3 rounded-br-[4rem] rounded-tl-[4rem] overflow-hidden relative bg-primary_100 p-[1px] hidden md:block'>

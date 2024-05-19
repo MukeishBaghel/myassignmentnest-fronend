@@ -1,7 +1,3 @@
-declare interface OauthIUser {
-  email: string;
-  picture: string | undefined;
-  name: string;
-  exp: Date;
-  expires_in: Date;
-}
+
+
+export type userType = null | "google_user" | "app_user";

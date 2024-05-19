@@ -7,12 +7,16 @@ declare interface Iuser {
   scope: "user" | "admin";
 }
 
-declare interface UserState {
-  userDetails: Iuser | null;
-  token: string | null;
-  accessToken?: string | null;
+declare interface OauthIuser {
+  email: string;
+  picture: string | undefined;
+  name: string;
+  exp: Date;
+  expires_in: Date;
 }
 
-declare interface UsersToken {
-  token: string;
+declare interface UserState {
+  userDetails: Iuser | null | OauthIuser;
+  token: string | null;
+  userType: null | "google_user" | "app_user";
 }

@@ -69,9 +69,9 @@ const SignUp = () => {
                         <TextField placeholder='Password' className='' {...register('password')} type="password" />
                         {errors.password && <p className="text-red-500 mt-2 text-sm">Password must be at least 6 characters long.</p>}
                     </div>
-                    <GradientButton className='w-full' bgClassName='h-11 text-lg md:text-xl mt-2' type="submit">Create account</GradientButton>
+                    <GradientButton className='w-full' bgClassName='text-lg md:text-xl mt-2' type="submit">Create account</GradientButton>
                 </form>
-                <Button className='flex items-center gap-2 justify-center border-2 p-2 rounded-2xl border-black w-full' onClick={() => handleGoogleLogin()}><img src={google} alt="" className='w-8 h-8' /><p className='text-base sm:text-[15px] lg:text-lg text-nowrap text-black font-medium'>Sign in with Google</p></Button>
+                <Button className='flex items-center gap-2 justify-center h-12 border-2 p-2 rounded-2xl border-black w-full' onClick={() => handleGoogleLogin()}><img src={google} alt="" className='w-8 h-8' /><p className='text-base sm:text-[15px] lg:text-lg text-nowrap text-black font-medium'>Sign in with Google</p></Button>
                 <div>
                     <p className='text-center text-[#0000007D] py-1'><span className='text-nowrap'>Already have an account ?</span> <Link to={'/login'} className='text-black hover:underline text-nowrap'>Log in</Link></p>
                 </div>
