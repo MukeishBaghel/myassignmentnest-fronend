@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from '/assets/icons/logo.svg'
-import { NavLink } from 'react-router-dom'
+import newLogo from '/assets/images/logo.jpg'
+import { Link, NavLink } from 'react-router-dom'
 import { NavItems } from '../../constants/NavItems'
 import { LogOut, Menu, X } from 'lucide-react'
 import Drawer from 'react-modern-drawer'
@@ -25,28 +26,28 @@ const Navbar = () => {
         <h2 className='font-semibold max-md:hidden'>USE CODE - <span className='font-bold text-base'> FIRSTIMER007</span></h2>
         <div className='bg-primary rounded-2xl border-2 border-secondary py-1 w-fit text-sm font-semibold px-4 text-secondary'>Claim now</div>
       </header>
-      <nav className='px-2 sm:px-10 py-2 bg-primary shadow-Nav_box_Shadow flex items-center justify-between'>
-        <div className='flex items-center gap-2 '>
-          <img src={logo} alt="assignmentHelper" className='w-10 h-10' />
-          <h1 className='text-xl lg:text-2xl text-[#1F1F1F]'>AssignmentHelper</h1>
+      <nav className=' bg-primary shadow-Nav_box_Shadow py-2'>
+        <div className='px-4 container lg:px-20  flex items-center justify-between'>
+          <Link to={'/'}><img src={newLogo} alt="assignmentHelper" className='w-36 h-12' /></Link>
+          {/* <h1 className='text-xl lg:text-2xl text-[#1F1F1F]'>AssignmentHelper</h1> */}
+          <ul className=' hidden lg:flex items-center justify-between gap-8 text-[#454545] text-lg xl:text-xl  '>
+            {NavItems.map((item) => (
+              <NavLink to={item.path} key={item.name} className={({ isActive }) => `${isActive ? "gradient-text" : "hover:text-[#7633FF99]"} duration-150 ease-in `}>
+                {item.name}
+              </NavLink>
+            ))}
+            {
+              userDetails && <button onClick={() => {
+                dispatch(logOut())
+                toast.success("Logout Successfully")
+              }}><LogOut className='w-7 h-7' /></button>
+            }
+          </ul>
+          <button className='lg:hidden cursor-pointer' onClick={toggleDrawer}>
+            <Menu className='w-7 h-7' />
+          </button>
         </div>
-        <ul className=' hidden lg:flex items-center justify-between gap-8 text-[#454545] text-lg xl:text-xl  '>
-          {NavItems.map((item) => (
-            <NavLink to={item.path} key={item.name} className={({ isActive }) => `${isActive ? "gradient-text" : "hover:text-[#7633FF99]"} duration-150 ease-in `}>
-              {item.name}
-            </NavLink>
-          ))}
-          {
-            userDetails && <button onClick={() => {
-              dispatch(logOut())
-              toast.success("Logout Successfully")
-            }}><LogOut className='w-7 h-7' /></button>
-          }
-        </ul>
-        <button className='lg:hidden cursor-pointer' onClick={toggleDrawer}>
-          <Menu className='w-7 h-7' />
-        </button>
-      </nav>
+     </nav>
       <Drawer
         open={isOpen}
         onClose={toggleDrawer}

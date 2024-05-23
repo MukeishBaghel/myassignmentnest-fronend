@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import loginImg from "/assets/images/login.svg";
-import logo from '/assets/icons/logo.svg';
+import logo from '/assets/images/logo.jpg';
 import chevronLeft from '/assets/icons/chevron-left.svg';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import TextField from './inputs/TextField';
@@ -133,8 +133,8 @@ const Login = () => {
             <div className='col-span-1 lg:col-span-3 xl:col-span-3 flex justify-center flex-col  max-sm:px-10 max-md:px-20 md:pl-10 gap-8 mx-auto w-full mt-10 '>
                 <Link to={'/'} className='absolute top-5 left-5'><img src={chevronLeft} alt="" className='w-10 cursor-pointer' /></Link>
                 <div className='flex gap-2 max-md:justify-center'>
-                    <img src={logo} alt="" />
-                    <h1 className='text-xl lg:text-2xl text-[#1F1F1F] font-medium'>AssignmentHelper</h1>
+                    <img src={logo} alt="" className='w-44'/>
+                    {/* <h1 className='text-xl lg:text-2xl text-[#1F1F1F] font-medium'>AssignmentHelper</h1> */}
                 </div>
                 <h1 className='text-2xl font-medium lg:text-3xl max-md:text-center text-nowrap'>
                     Welcome back,<br /> <span className='gradient-text'>Login in</span>
