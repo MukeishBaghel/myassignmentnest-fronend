@@ -16,7 +16,6 @@ declare interface OauthIuser {
 }
 
 declare interface UserState {
-  userDetails: Iuser | null | OauthIuser;
   token: string | null;
   userType: null | "google_user" | "app_user";
 }

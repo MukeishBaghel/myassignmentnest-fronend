@@ -16,7 +16,7 @@ const Navbar = () => {
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState)
   }
-  const { userDetails } = useSelector(selectCurrentUser);
+  const { token } = useSelector(selectCurrentUser);
   const dispatch = useDispatch()
   return (
     <div>
@@ -37,7 +37,7 @@ const Navbar = () => {
               </NavLink>
             ))}
             {
-              userDetails && <button onClick={() => {
+              token && <button onClick={() => {
                 dispatch(logOut())
                 toast.success("Logout Successfully")
               }}><LogOut className='w-7 h-7' /></button>
@@ -61,7 +61,7 @@ const Navbar = () => {
             </NavLink>
           ))}
           {
-            userDetails && <Button className='bg-primary rounded-lg px-10 font-semibold py-2' onClick={() => {
+            token && <Button className='bg-primary rounded-lg px-10 font-semibold py-2' onClick={() => {
               dispatch(logOut())
               toast.success("Logout Successfully")
             }}><span className='text-transparent bg-clip-text bg-primary_100'>Logout</span></Button>

@@ -29,11 +29,12 @@ const Login = () => {
     const navigate = useNavigate();
     const { state: prevState } = useLocation();
     const dispatch = useDispatch();
-    const { userDetails } = useSelector(selectCurrentUser)
+    const { token } = useSelector(selectCurrentUser)
     const [isLoading, setIsLoading] = useState<boolean>(false);
-
+    const { state } = useLocation();
+    // const 
     useEffect(() => {
-        if (userDetails) {
+        if (token) {
             navigate('/')
         }
     }, [])
@@ -102,7 +103,7 @@ const Login = () => {
                 )
                 const res = await data.json()
                 console.log(res)
-                dispatch(setCredentials({ ...res, token: tokenResponse.access_token, userType:"google_user" }))
+                dispatch(setCredentials({ token: tokenResponse.access_token, userType: "google_user" }))
                 localStorage.setItem("token", tokenResponse.access_token)
                 localStorage.setItem("customerId", res.data.customer_id)
                 localStorage.setItem("loginType", "google_user")
@@ -130,29 +131,30 @@ const Login = () => {
     return (
         <section className='grid grid-cols-1 md:grid-cols-3  lg:grid-cols-8 xl:grid-cols-12 gap-10 min-h-screen relative '>
 
-            <div className='col-span-1 lg:col-span-3 xl:col-span-3 flex justify-center flex-col  max-sm:px-10 max-md:px-20 md:pl-10 gap-8 mx-auto w-full mt-10 '>
-                <Link to={'/'} className='absolute top-5 left-5'><img src={chevronLeft} alt="" className='w-10 cursor-pointer' /></Link>
-                <div className='flex gap-2 max-md:justify-center'>
-                    <img src={logo} alt="" className='w-44'/>
-                    {/* <h1 className='text-xl lg:text-2xl text-[#1F1F1F] font-medium'>AssignmentHelper</h1> */}
+            <div className='col-span-1 lg:col-span-3 xl:col-span-3 '>
+                <Link to={state || '/'} className='my-6 inline-block max-sm:px-10 max-md:px-20 md:pl-10'><img src={chevronLeft} alt="" className='w-10 cursor-pointer' /></Link>
+                <div className=' flex justify-center flex-col  max-sm:px-10 max-md:px-20 md:pl-10 gap-8 mx-auto w-full '>
+                    <div className='flex gap-2 max-md:justify-center'>
+                        <img src={logo} alt="" className='w-44' />
+                        {/* <h1 className='text-xl lg:text-2xl text-[#1F1F1F] font-medium'>AssignmentHelper</h1> */}
+                    </div>
+                    <h1 className='text-2xl font-medium lg:text-3xl max-md:text-center text-nowrap'>
+                        Welcome back,<br /> <span className='gradient-text'>Login in</span>
+                    </h1>
+                    <form className='flex flex-col gap-8' onSubmit={handleSubmit(onSubmit)}>
+                        <TextField placeholder='Email' {...register('email')} type='email' error={errors.email?.message} />
+                        <TextField placeholder='Password' {...register('password')} type="password" error={errors.password?.message} />
+                        <GradientButton className='w-full' bgClassName='text-lg md:text-xl' type="submit">Log in</GradientButton>
+                    </form>
+
+                    <Button className='flex items-center gap-2 justify-center border-2 p-2 h-12 rounded-2xl border-black' onClick={() => handleGoogleLogin()}><img src={google} alt="" /><p className=' text-base sm:text-[15px] text-lg md:text-xl text-nowrap  text-black font-medium'>Sign in with Google</p>
+                    </Button>
+
+                    <p className='text-center text-[#0000007D]'>
+                        <span className='text-nowrap'>Don’t have an account ?</span> <Link to={'/signup'} className='text-black hover:underline text-nowrap'>Sign up</Link></p>
+
                 </div>
-                <h1 className='text-2xl font-medium lg:text-3xl max-md:text-center text-nowrap'>
-                    Welcome back,<br /> <span className='gradient-text'>Login in</span>
-                </h1>
-                <form className='flex flex-col gap-8' onSubmit={handleSubmit(onSubmit)}>
-                    <TextField placeholder='Email' {...register('email')} type='email' error={errors.email?.message} />
-                    <TextField placeholder='Password' {...register('password')} type="password" error={errors.password?.message} />
-                    <GradientButton className='w-full' bgClassName='text-lg md:text-xl' type="submit">Log in</GradientButton>
-                </form>
-
-                <Button className='flex items-center gap-2 justify-center border-2 p-2 h-12 rounded-2xl border-black' onClick={() => handleGoogleLogin()}><img src={google} alt="" /><p className=' text-base sm:text-[15px] text-lg md:text-xl text-nowrap  text-black font-medium'>Sign in with Google</p>
-                </Button>
-
-                <p className='text-center text-[#0000007D]'>
-                    <span className='text-nowrap'>Don’t have an account ?</span>
-                    <Link to={'/signup'} className='text-black hover:underline text-nowrap'>Sign up</Link></p>
-
-            </div>
+         </div>
             <div className=' md:col-span-2 lg:col-span-5 xl:col-span-9  m-3 rounded-br-[4rem] rounded-tl-[4rem] overflow-hidden relative bg-primary_100 p-[1px] hidden md:block'>
                 <div className='h-full w-full bg-white rounded-br-[3.91rem] rounded-tl-[3.91rem] flex flex-col justify-around items-center '>
                     <img src={loginImg} alt="" className='mx-auto w-[40vw]' />
