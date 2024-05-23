@@ -52,7 +52,7 @@ const SignUp = () => {
         <section className='grid grid-cols-1 md:grid-cols-3  lg:grid-cols-8 xl:grid-cols-12 gap-8  relative '>
 
             <div className='col-span-1 lg:col-span-3 xl:col-span-3'>
-                <Link to={state || '/'} className='my-6 inline-block max-sm:px-10 max-md:px-20 md:pl-10'><img src={chevronLeft} alt="" className='w-10 cursor-pointer' /></Link>
+                <Link to={state || '/'} className='mt-6 mb-6 inline-block max-sm:px-10 max-md:px-20 md:pl-10'><img src={chevronLeft} alt="" className='w-10 cursor-pointer' /></Link>
                 <div className=' flex justify-center flex-col  max-sm:px-10 max-md:px-20 md:pl-10 gap-8 mx-auto w-full'>
                     <div className='flex gap-2 max-md:justify-center'>
                         <img src={logo} alt="" className='w-44' />
@@ -74,7 +74,7 @@ const SignUp = () => {
                         <GradientButton className='w-full' bgClassName='text-lg md:text-xl mt-2' type="submit">Create account</GradientButton>
                     </form>
                     <Button className='flex items-center gap-2 justify-center h-12 border-2 p-2 rounded-2xl border-black w-full' onClick={() => handleGoogleLogin()}><img src={google} alt="" className='w-8 h-8' /><p className='text-base sm:text-[15px] lg:text-lg text-nowrap text-black font-medium'>Sign in with Google</p></Button>
-                    <p className='text-center text-[#0000007D]'><span className='text-nowrap'>Already have an account ? </span><Link to={'/login'} className='text-black hover:underline text-nowrap'>Log in</Link></p>
+                    <p className='text-center text-[#0000007D] pb-2'><span className='text-nowrap'>Already have an account ? </span><Link to={'/login'} className='text-black hover:underline text-nowrap'>Log in</Link></p>
 
                 </div>
             </div>
