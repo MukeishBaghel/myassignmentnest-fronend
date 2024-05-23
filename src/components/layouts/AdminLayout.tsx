@@ -9,7 +9,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     const navigate = useNavigate();
     const { token } = useSelector(selectCurrentUser);
 
-    const decodedToken = useMemo(() => {
+    const decodedToken: any = useMemo(() => {
         if (token) {
             try {
                 return jwtDecode(token);
