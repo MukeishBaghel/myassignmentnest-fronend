@@ -28,6 +28,7 @@ const ContactUs = () => {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors, isSubmitting },
     } = useForm<FormFields>({
         resolver: zodResolver(Schema), // Use Zod resolver for form validation
@@ -35,20 +36,25 @@ const ContactUs = () => {
 
     const sendMessage = (data: FormFields) => {
         console.log(data)
-        const url = 'https://2nhv2211-8080.inc1.devtunnels.ms/customer/query'
+        const url = 'https://2nhv2211-8080.inc1.devtunnels.ms/customer/contact'
         fetch(url, {
             method: 'POST',
-            body: "",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data),
 
         })
             .then(response => {
-                if (response.status === 201) {
+                console.log(response)
+                if (response.status === 202) {
                     toast.success("Form Submitted Successfully")
                     // reset();
                 }
                 else {
                     toast.error("Invalid data format")
                 }
+                reset()
                 return response.text()
             })
             .then(data => console.log(data))
