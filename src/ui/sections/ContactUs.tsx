@@ -7,11 +7,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
 const Schema = z.object({
-    firstName: z.string().max(25).min(1,{
-        message:"Invalid name"
+    first_name: z.string().max(25).min(1, {
+        message: "Invalid name"
     }),
     email: z.string().email().min(1),
-    lastName: z.optional(z.nullable(z.string().max(20))),
+    last_name: z.optional(z.nullable(z.string().max(20))),
     phone: z.number({
         message: "Invalid number"
     }).min(10, {
@@ -65,17 +65,17 @@ const ContactUs = () => {
             <form onSubmit={handleSubmit(sendMessage)}>
                 <main className='grid grid-cols-2 gap-20 lg:gap-40 mt-10'>
                     <div className='flex flex-col gap-12'>
-                        <TextField placeholder='First Name' {...register("firstName",
+                        <TextField placeholder='First Name' {...register("first_name",
                             {
                                 required: {
                                     message: "Name required",
                                     value: true
                                 }
-                            })} error={errors.firstName?.message} />
+                            })} error={errors.first_name?.message} />
                         <TextField placeholder='Email' {...register("email")} type='email' error={errors.email?.message} />
                     </div>
                     <div className='flex flex-col gap-12'>
-                        <TextField placeholder='Last Name' {...register("lastName")} error={errors.lastName?.message} />
+                        <TextField placeholder='Last Name' {...register("last_name")} error={errors.last_name?.message} />
                         <TextField placeholder='Phone Number' {...register("phone", {
                             valueAsNumber: true
                         }
