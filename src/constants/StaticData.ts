@@ -45,35 +45,35 @@ const AssignmentHelpingData: {
     heading: "Grammar Checker",
     textContent:
       "Leave your worries about grammatical errors behind by making the most of our grammar checker.",
-    path: "/",
+    path: "/coming-soon",
   },
   {
     img: ratemypaper,
     heading: "Word Counter",
     textContent:
       "Keep track of your task's length with accurate word count, paragraph count, page count, and more.",
-    path: "/",
+    path: "/coming-soon",
   },
   {
     img: spellchecker,
     heading: "Resume Builder",
     textContent:
       "Impress all working professionals with a custom- built resume generated from our resume builder.",
-    path: "/",
+    path: "/coming-soon",
   },
   {
     img: wordcounter,
     heading: "Equation Solver",
     textContent:
       "Solve all complex mathematical equations in the blink of an eye thanks to our equation solver.",
-    path: "/",
+    path: "/coming-soon",
   },
   {
     img: resumebuilder,
     heading: "Other Tools",
     textContent:
       "Try out our other tools like citation generators, essay typer, PDF summarizer, and more.",
-    path: "/",
+    path: "/coming-soon",
   },
 ];
 

@@ -1,5 +1,5 @@
-import React, { lazy, Suspense } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import React, { lazy, Suspense, useEffect } from 'react'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import CommonLayout from './components/layouts/CommonLayout'
 import AdminLayout from './components/layouts/AdminLayout'
 import Loader from './components/shared/Loader'
@@ -15,10 +15,16 @@ const Reviews = lazy(() => import('./pages/Reviews'))
 const Samples = lazy(() => import('./pages/Samples'))
 
 const Routers = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [location]);
+  
   return (
     <Suspense fallback={<><Loader /></>}>
       <Routes>
-        <Route path='/' element={<CommonLayout><Home /></CommonLayout>} />
+        <Route path='/' index element={<CommonLayout><Home /></CommonLayout>} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
