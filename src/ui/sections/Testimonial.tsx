@@ -22,26 +22,26 @@ const Testimonial = () => {
                         <img src={abhinavImg} alt="" className='self-start' />
                         <div>
                             <div className='flex items-center justify-between'>
-                                <h1 className='text-2xl font-semibold'>Abhinav</h1>
+                                <h1 className='text-2xl font-semibold'>Kelly Country</h1>
                                 <img src={rating} alt="" />
                             </div>
-                            <p className='py-4'>
-                                &quot; I struggled with my assignments until I found this platform. The resources and support here are fantastic, and I've seen a significant improvement in my grades! &quot;
+                            <p className='py-4 line-clamp-4'>
+                                &quot; I am beyond impressed with the assignment service I received! The quality of work exceeded my expectations, and the writers went above and beyond to meet all the requirements... &quot;
                             </p>
                         </div>
                     </div>
                     <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
                 </article>
-                <article className=' p-6 w-[518px] h-[280px] cursor-pointer bg-white rounded-2xl shadow-testimonial_card_2 relative bottom-10 left-[40%] -top-2 z-40 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow group group-hover:opacity-0'>
+                <article className=' p-6 w-[518px]  cursor-pointer bg-white rounded-2xl shadow-testimonial_card_2 relative bottom-10 left-[40%] -top-2 z-40 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow group group-hover:opacity-0'>
                     <div className='flex gap-4'>
                         <img src={abhinavImg} alt="" className='self-start' />
                         <div>
                             <div className='flex items-center justify-between'>
-                                <h1 className='text-2xl font-semibold'>Khushi</h1>
+                                <h1 className='text-2xl font-semibold'>Astrid</h1>
                                 <img src={rating} alt="" />
                             </div>
                             <p className='py-4 '>
-                                &quot; I struggled with my assignments until I found this platform. The resources and support here are fantastic, and I've seen a significant improvement in my grades! &quot;
+                                &quot; Outstanding assignment service! Excellent quality, timely delivery, and exceptional customer support. Highly recommended! &quot;
                             </p>
                         </div>
                     </div>
@@ -52,7 +52,7 @@ const Testimonial = () => {
                         <img src={abhinavImg} alt="" className='self-start' />
                         <div>
                             <div className='flex items-center justify-between'>
-                                <h1 className='text-2xl font-semibold'>Vipul</h1>
+                                <h1 className='text-2xl font-semibold'>Clarke</h1>
                                 <img src={rating} alt="" />
                             </div>
                             <p className='py-4 text-sm'>
@@ -62,31 +62,31 @@ const Testimonial = () => {
                     </div>
                     <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
                 </article>
-                <article className=' p-6 w-[518px] bg-[#E3E3E3] cursor-pointer rounded-2xl shadow-testimonial_card_4 absolute z-20 bottom-[120px] left-10 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow  backdrop-filter group group-hover:opacity-0'>
+                <article className=' p-6 w-[518px] bg-[#E3E3E3] cursor-pointer rounded-2xl shadow-testimonial_card_4 absolute z-20 bottom-[105px] left-10 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow  backdrop-filter group group-hover:opacity-0'>
                     <div className='flex gap-4'>
                         <img src={abhinavImg} alt="" className='self-start' />
                         <div>
                             <div className='flex items-center justify-between'>
-                                <h1 className='text-2xl font-semibold'>Aman</h1>
+                                <h1 className='text-2xl font-semibold'>Yasmin</h1>
                                 <img src={rating} alt="" />
                             </div>
                             <p className='py-4'>
-                                &quot; I struggled with my assignments until I found this platform. The resources and support here are fantastic, and I've seen a significant improvement in my grades! &quot;
+                                &quot; Exceptional assignment service! Impeccable work, met all requirements, and delivered well before the deadline. Customer support was fantastic too. Highly satisfied! &quot;
                             </p>
                         </div>
                     </div>
                     <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
                 </article>
-                <article className=' p-6 w-[518px] bg-testimonial_card cursor-pointer rounded-2xl shadow-testimonial_card_5 absolute z-10 top-[160px] left-0  hover:bg-white hover:z-[60] duration-200 ease-in-out right-20 hover:shadow-form_shadow group group-hover:opacity-0'>
+                <article className=' p-6 w-[518px] bg-testimonial_card cursor-pointer rounded-2xl shadow-testimonial_card_5 absolute z-10 top-[160px] -left-10  hover:bg-white hover:z-[60] duration-200 ease-in-out right-20 hover:shadow-form_shadow group group-hover:opacity-0'>
                     <div className='flex gap-4'>
                         <img src={abhinavImg} alt="" className='self-start' />
                         <div>
                             <div className='flex items-center justify-between'>
-                                <h1 className='text-2xl font-semibold'>Aditya</h1>
+                                <h1 className='text-2xl font-semibold'>Sakshi</h1>
                                 <img src={rating} alt="" />
                             </div>
                             <p className='py-4'>
-                                &quot; I struggled with my assignments until I found this platform. The resources and support here are fantastic, and I've seen a significant improvement in my grades! &quot;
+                                &quot;Exceptional nursing assignment service! The content was meticulously researched, professionally written, and tailored perfectly to my needs. Delivery was prompt, and the support team was responsive and helpful. Highly recommended for nursing students! &quot;
                             </p>
                         </div>
                     </div>
@@ -116,11 +116,11 @@ const Testimonial = () => {
                                 <img src={abhinavImg} alt="" className='self-start' />
                                 <div>
                                     <div className='flex items-center justify-between'>
-                                        <h1 className='text-2xl font-semibold'>Abhinav</h1>
+                                        <h1 className='text-2xl font-semibold'>Kelly Country</h1>
                                         <img src={rating} alt="" />
                                     </div>
                                     <p className='py-4 max-sm:text-sm'>
-                                        &quot; I struggled with my assignments until I found this platform. The resources and support here are fantastic, and I've seen a significant improvement in my grades! &quot;
+                                        &quot; I am beyond impressed with the assignment service I received! The quality of work exceeded my expectations, and the writers went above and beyond to meet all the requirements... &quot;
                                     </p>
                                 </div>
                             </div>
@@ -133,11 +133,11 @@ const Testimonial = () => {
                                 <img src={abhinavImg} alt="" className='self-start' />
                                 <div>
                                     <div className='flex items-center justify-between'>
-                                        <h1 className='text-2xl font-semibold'>Khushi</h1>
+                                        <h1 className='text-2xl font-semibold'>Astrid</h1>
                                         <img src={rating} alt="" />
                                     </div>
                                     <p className='py-4 max-sm:text-sm'>
-                                        &quot; I struggled with my assignments until I found this platform. The resources and support here are fantastic, and I've seen a significant improvement in my grades! &quot;
+                                        &quot; Outstanding assignment service! Excellent quality, timely delivery, and exceptional customer support. Highly recommended! &quot;
                                     </p>
                                 </div>
                             </div>
@@ -149,7 +149,7 @@ const Testimonial = () => {
                                 <img src={abhinavImg} alt="" className='self-start' />
                                 <div>
                                     <div className='flex items-center justify-between'>
-                                        <h1 className='text-2xl font-semibold'>Vipul</h1>
+                                        <h1 className='text-2xl font-semibold'>Clarke</h1>
                                         <img src={rating} alt="" />
                                     </div>
                                     <p className='py-4 max-sm:text-sm'>
@@ -164,11 +164,11 @@ const Testimonial = () => {
                             <img src={abhinavImg} alt="" className='self-start' />
                             <div>
                                 <div className='flex items-center justify-between'>
-                                    <h1 className='text-2xl font-semibold'>Aman</h1>
+                                    <h1 className='text-2xl font-semibold'>Yasmin</h1>
                                     <img src={rating} alt="" />
                                 </div>
                                 <p className='py-4 max-sm:text-sm'>
-                                    &quot; I struggled with my assignments until I found this platform. The resources and support here are fantastic, and I've seen a significant improvement in my grades! &quot;
+                                    &quot; Exceptional assignment service! Impeccable work, met all requirements, and delivered well before the deadline. Customer support was fantastic too. Highly satisfied! &quot;
                                 </p>
                             </div>
                         </div>
@@ -179,11 +179,11 @@ const Testimonial = () => {
                             <img src={abhinavImg} alt="" className='self-start' />
                             <div>
                                 <div className='flex items-center justify-between'>
-                                    <h1 className='text-2xl font-semibold'>Aditya</h1>
+                                    <h1 className='text-2xl font-semibold'>Sakshi</h1>
                                     <img src={rating} alt="" />
                                 </div>
                                 <p className='py-4 max-sm:text-sm'>
-                                    &quot; I struggled with my assignments until I found this platform. The resources and support here are fantastic, and I've seen a significant improvement in my grades! &quot;
+                                    &quot;Exceptional nursing assignment service! The content was meticulously researched, professionally written, and tailored perfectly to my needs. Delivery was prompt, and the support team was responsive and helpful. Highly recommended for nursing students! &quot;
                                 </p>
                             </div>
                         </div>

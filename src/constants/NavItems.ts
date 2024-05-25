@@ -15,9 +15,6 @@ const NavItems: { name: string; path: string }[] = [
     name: "Reviews",
     path: "/reviews",
   },
-  {
-    name: "Free Tools",
-    path: "/freetools",
-  },
+ 
 ];
 export { NavItems };

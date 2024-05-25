@@ -16,6 +16,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser, setCredentials } from '../redux/slices/user.slice';
 import Loader from './shared/Loader';
 import { toast } from 'react-toastify';
+import { jwtDecode } from 'jwt-decode';
+import { getNewAccessToken, getRefreshToken } from './utils/TokenConfig';
 
 
 // Define Zod schema for form data
@@ -29,7 +31,7 @@ const Login = () => {
     const navigate = useNavigate();
     const { state: prevState } = useLocation();
     const dispatch = useDispatch();
-    const { token } = useSelector(selectCurrentUser)
+    const { token, refresh_token } = useSelector(selectCurrentUser)
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const { state } = useLocation();
     // const 
@@ -51,6 +53,7 @@ const Login = () => {
         }
     });
 
+
     const onSubmit = async (data: FormFields) => {
         console.log('Form Data:', data);
         console.log(JSON.stringify(data))
@@ -69,12 +72,9 @@ const Login = () => {
             )
             console.log(resdata)
             const res = await resdata.json()
-            console.log(res)
+            console.log(jwtDecode(res.data.token))
             if (res.data && res.data.token) {
-                dispatch(setCredentials(res.data))
-                localStorage.setItem("token", res.data.token)
-                localStorage.setItem("loginType", "app_user")
-                // localStorage.setItem("customerId", res.data.customer_id)
+                dispatch(setCredentials({ token: res.data.token, userType: "app_user" }))
                 toast.success("Login Successfully")
                 navigate(prevState || '/')
 
@@ -90,24 +90,56 @@ const Login = () => {
         }
 
     };
+    const SaveAuthDetails = (response: any) => {
+        dispatch(setCredentials({ token: response.access_token, refresh_token: response.refresh_token, userType: "google_user" }))
+    }
+    const SaveCredentials = (token: string) => {
+        dispatch(setCredentials({ token, userType: "google_user" }))
+    }
+    const SCOPE = 'https://mail.google.com/';
     const handleGoogleLogin = useGoogleLogin({
-        onSuccess: async (tokenResponse) => {
+        scope: SCOPE,
+        flow: 'auth-code',
+        onSuccess: async (codeResponse) => {
             try {
-                const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Authorization": 'Bearer ' + tokenResponse.access_token
+                // const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification",
+                //     {
+                //         method: "POST",
+                //         headers: {
+                //             "Authorization": 'Bearer ' + tokenResponse.access_token
+                //         }
+                //     }
+
+                // )
+                // const res = await data.json()
+                console.log(codeResponse)
+                // const refresh_token = localStorage.getItem("refresh_token")
+                if (codeResponse.scope.includes('https://mail.google.com/')) {
+
+                    new Promise<void>((resolve, _) => {
+                        getRefreshToken(codeResponse, SaveAuthDetails);
+                        console.log(!!refresh_token)
+                        if (!!refresh_token) {
+                            // wait for the refresh token to arrive.
+                            resolve();
                         }
-                    }
-                )
-                const res = await data.json()
-                console.log(res)
-                dispatch(setCredentials({ token: tokenResponse.access_token, userType: "google_user" }))
-                localStorage.setItem("token", tokenResponse.access_token)
-                localStorage.setItem("customerId", res.data.customer_id)
-                localStorage.setItem("loginType", "google_user")
-                console.log(tokenResponse)
+                    })
+                        .then(() => {
+                            // gets a new token for you after 10 seconds (test purpose)
+                            getNewAccessToken(refresh_token, SaveCredentials);
+                        }).catch((err) => {
+                            console.log(err)
+                        });
+                } else {
+                    toast.error(
+                        'success - Please give required permission to read emails!'
+                    );
+                }
+
+
+                // console.log(res)
+                // dispatch(setCredentials({ token: tokenResponse.access_token, userType: "google_user" }))
+
                 toast.success("Login successfully")
                 navigate(prevState || '/')
 
@@ -147,14 +179,14 @@ const Login = () => {
                         <GradientButton className='w-full' bgClassName='text-lg md:text-xl' type="submit">Log in</GradientButton>
                     </form>
 
-                    <Button className='flex items-center gap-2 justify-center border-2 p-2 h-12 rounded-2xl border-black' onClick={() => handleGoogleLogin()}><img src={google} alt="" /><p className=' text-base sm:text-[15px] text-lg md:text-xl text-nowrap  text-black font-medium'>Sign in with Google</p>
+                    <Button className='flex items-center gap-2 justify-center border-2 p-2 h-12 rounded-2xl border-black' onClick={() => handleGoogleLogin()}><img src={google} alt="" /><p className=' text-base sm:text-[15px] text-lg lg:text-xl text-nowrap  text-black font-medium'>Sign in with Google</p>
                     </Button>
 
                     <p className='text-center text-[#0000007D]'>
                         <span className='text-nowrap'>Don’t have an account ?</span> <Link to={'/signup'} className='text-black hover:underline text-nowrap'>Sign up</Link></p>
 
                 </div>
-         </div>
+            </div>
             <div className=' md:col-span-2 lg:col-span-5 xl:col-span-9  m-3 rounded-br-[4rem] rounded-tl-[4rem] overflow-hidden relative bg-primary_100 p-[1px] hidden md:block'>
                 <div className='h-full w-full bg-white rounded-br-[3.91rem] rounded-tl-[3.91rem] flex flex-col justify-around items-center '>
                     <img src={loginImg} alt="" className='mx-auto w-[40vw]' />

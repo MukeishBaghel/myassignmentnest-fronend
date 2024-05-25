@@ -47,7 +47,7 @@ const HowWork = () => {
                         View the solution
                     </h1>
                     <p className='text-secondary-300 md:text-lg xl:text-xl  font-[400] px-2'>
-                        Assignment writer notifies upon completion. View resolution in user account.
+                        Assignment writer notifies upon completion. View solution in user account.
                     </p>
                 </article>
             </div>

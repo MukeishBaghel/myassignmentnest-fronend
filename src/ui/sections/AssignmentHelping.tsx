@@ -23,7 +23,7 @@ const AssignmentHelpingCard = ({ img, heading, textContent, path }: { img: strin
 const AssignmentHelping = () => {
 
     return (
-        <section className='container my-10 max-w-7xl mx-auto'>
+        <section className='container my-10 max-w-7xl mx-auto' id='freetools'>
             <h1 className='text-4xl leading-[3rem] max-md:text-center md:text-5xl md:leading-[3.75rem] lg:text-6xl lg:!leading-[4.5rem] font-[500] text-center bg-primary_100 bg-clip-text text-transparent lg:px-20'>
                 Assignment helping tools
             </h1>

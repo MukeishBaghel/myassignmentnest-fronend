@@ -1,14 +1,15 @@
 import React, { useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from 'jwt-decode';
-import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../redux/slices/user.slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut, selectCurrentUser } from '../../redux/slices/user.slice';
 import isTokenExpired from '../../constants/Token.expire';
+import { toast } from 'react-toastify';
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     const navigate = useNavigate();
     const { token } = useSelector(selectCurrentUser);
-
+    const dispatch = useDispatch();
     const decodedToken: any = useMemo(() => {
         if (token) {
             try {
@@ -20,9 +21,15 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         }
         return null;
     }, [token]);
+    console.log(decodedToken)
 
     useEffect(() => {
-        if (!decodedToken || decodedToken.scope !== "ADMIN" || isTokenExpired()) {
+        if (isTokenExpired()) {
+            dispatch(logOut())
+            toast.info("Session Expired")
+            navigate('/');
+        }
+        if (!decodedToken || decodedToken.scope !== "ADMIN") {
             navigate('/');
         }
     }, [decodedToken, navigate]);

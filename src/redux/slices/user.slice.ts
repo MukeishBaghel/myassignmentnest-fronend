@@ -7,6 +7,7 @@ import { userType } from "../../interfaces/user.type";
 const initialState: UserState = {
   token: null,
   userType: null,
+  refresh_token: null,
 };
 console.log(initialState);
 
@@ -22,6 +23,7 @@ const userSlice = createSlice({
     logOut: (state) => {
       state.token = null;
       state.userType = null;
+      state.refresh_token = null;
       if (state.userType && state.userType === "google_user") googleLogout();
     },
   },

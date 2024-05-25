@@ -9,15 +9,15 @@ import Testimonial from '../ui/sections/Testimonial'
 
 const Home = () => {
     return (
-        <div>
+        <>
             <HeroSection />
             <AssignmentForm />
             <HowWork />
             <TopFeature />
             <AssignmentHelping />
-            <Testimonial/>
-            <ContactUs/>
-        </div>
+            <Testimonial />
+            <ContactUs />
+        </>
     )
 }
 

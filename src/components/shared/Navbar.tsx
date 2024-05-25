@@ -36,6 +36,9 @@ const Navbar = () => {
                 {item.name}
               </NavLink>
             ))}
+            <a href={'/#freetools'} className='hover:text-[#7633FF99] duration-150 ease-in '>
+              Free Tools
+            </a>
             {
               token && <button onClick={() => {
                 dispatch(logOut())
@@ -47,7 +50,7 @@ const Navbar = () => {
             <Menu className='w-7 h-7' />
           </button>
         </div>
-     </nav>
+      </nav>
       <Drawer
         open={isOpen}
         onClose={toggleDrawer}
@@ -60,6 +63,9 @@ const Navbar = () => {
               {item.name}
             </NavLink>
           ))}
+          <a href={'/#freetools'} className={"hover:hover:opacity-80 duration-200 ease-in-out"}>
+            Free Tools
+          </a>
           {
             token && <Button className='bg-primary rounded-lg px-10 font-semibold py-2' onClick={() => {
               dispatch(logOut())

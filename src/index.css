@@ -13,6 +13,7 @@ body {
 @layer base {
   html {
     font-family: "Poppins";
+    scroll-behavior: smooth;
   }
 }
 @layer utilities {
@@ -106,7 +107,7 @@ input[type="file"]::after {
 :root {
   --phoneInputWithCountrySelect-borderColor: rgba(255, 255, 255, 0.5);
   --PhoneInputCountryFlag-borderColor: rgba(255, 255, 255, 1);
-  --PhoneInputCountrySelectArrow-color: #7633FF;
+  --PhoneInputCountrySelectArrow-color: #7633ff;
 }
 
 .PhoneInputInput {

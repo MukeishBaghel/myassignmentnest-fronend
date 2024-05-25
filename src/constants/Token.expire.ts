@@ -1,20 +1,19 @@
 import { jwtDecode } from "jwt-decode";
-import { useDispatch, useSelector } from "react-redux";
-import { logOut, selectCurrentUser } from "../redux/slices/user.slice";
+import { store } from "../redux/Store";
 
 const isTokenExpired = () => {
-  const { token, userType } = useSelector(selectCurrentUser);
-  const dispatch = useDispatch();
-  if (!token) return true;
+  const { token, userType } = store.getState().user;
+  // const dispatch = useDispatch();
+  if (!token || !userType) return true;
   try {
-    if (userType && userType === "app_user") {
+    if (userType === "app_user") {
       const decodedToken = jwtDecode(token);
       const currentTime = Date.now() / 1000;
       if (decodedToken.exp && decodedToken.exp < currentTime) {
-        dispatch(logOut());
+        // dispatch(logOut());
         return true;
       }
-    } else {
+    } else if (userType === "google_user") {
       // TODO: FOr google user Add generate refresh token concept
     }
     return false;
