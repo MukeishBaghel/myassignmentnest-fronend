@@ -32,7 +32,7 @@ const Admin = () => {
           data={data}
           actions={actionsMemo}
           progressPending={pending}
-          progressComponent={<Loader state={pending} />}
+          progressComponent={<Loader />}
         />
       </div>
     </section>
