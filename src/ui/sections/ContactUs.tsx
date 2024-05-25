@@ -5,6 +5,7 @@ import { toast } from 'react-toastify'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+import Loader from '../../components/shared/Loader'
 
 const Schema = z.object({
     first_name: z.string().max(25).min(1, {
@@ -64,7 +65,7 @@ const ContactUs = () => {
             }).finally(() => setIsLoading(false))
     }
     return (
-        <section className='container  pt-10 pb-14 max-w-7xl px-10 '>
+        <section className='container  pt-10 pb-14 max-w-7xl px-10 relative'>
             <h1 className='text-4xl leading-[3rem] max-md:text-center md:text-5xl md:leading-[3.75rem] lg:text-6xl xl:text-7xl lg:!leading-[4.5rem] font-[500] text-center bg-primary_100 bg-clip-text text-transparent lg:px-20'>Contact us
             </h1>
             <p className='text-[#8C8888] text-center py-6 text-lg lg:text-2xl font-normal '>Connect with us share your thoughts</p>
@@ -93,6 +94,7 @@ const ContactUs = () => {
                     <GradientButton className='lg:px-8 text-lg lg:text-xl'>Send Message</GradientButton>
                 </div>
             </form>
+            <Loader />
         </section>
     )
 }
