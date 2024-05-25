@@ -11,6 +11,8 @@ import { ACCEPTED_FILE_TYPES, References } from '../constants/FormData';
 import 'react-phone-number-input/style.css'
 import { cn } from './utils/cn';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCurrentUser } from '../redux/slices/user.slice';
 
 
 const today = new Date();
@@ -56,6 +58,7 @@ type FormFields = z.infer<typeof FormSchema>
 const AssignmentForm = () => {
   const [agreeToTerms, setAgreeToTerms] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { userType, token } = useSelector(selectCurrentUser)
   const {
     register,
     handleSubmit,
@@ -71,8 +74,7 @@ const AssignmentForm = () => {
   });
 
   const prepareHeader = () => {
-    const userType = localStorage.getItem("loginType");
-    const token = localStorage.getItem("token");
+
     if (userType === "google_user") {
       return 'Bearer ' + token
     }
