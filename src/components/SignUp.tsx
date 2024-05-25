@@ -87,7 +87,7 @@ const SignUp = () => {
         onError: () => navigate('/')
     })
     return (
-        <section className='grid grid-cols-1 md:grid-cols-3 relative  lg:grid-cols-8 xl:grid-cols-12 gap-8  relative '>
+        <section className='grid grid-cols-1 md:grid-cols-3  lg:grid-cols-8 xl:grid-cols-12 gap-8  relative '>
 
             <div className='col-span-1 lg:col-span-3 xl:col-span-3'>
                 <Link to={state || '/'} className='mt-6 mb-6 inline-block max-sm:px-10 max-md:px-20 md:pl-10'><img src={chevronLeft} alt="" className='w-10 cursor-pointer' /></Link>
