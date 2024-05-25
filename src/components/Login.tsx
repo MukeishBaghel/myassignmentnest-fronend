@@ -154,11 +154,7 @@ const Login = () => {
             toast.error("Something went wrong")
         }
     })
-    if (isLoading) {
-        return <div className='flex items-center justify-center h-screen'>
-            <Loader state={isLoading} />
-        </div>
-    }
+
 
     return (
         <section className='grid grid-cols-1 md:grid-cols-3  lg:grid-cols-8 xl:grid-cols-12 gap-10 min-h-screen relative '>
@@ -193,6 +189,7 @@ const Login = () => {
                     <h1 className='gradient-text text-2xl lg:text-3xl font-medium text-center'>&quot;Empowering academic success,<br /> one assignment at a time.&quot;</h1>
                 </div>
             </div>
+            {isLoading && <Loader />}
         </section>
     );
 };

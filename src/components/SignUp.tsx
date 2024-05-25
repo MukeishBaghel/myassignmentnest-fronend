@@ -13,6 +13,7 @@ import google from '/assets/icons/Google.svg'
 import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import Loader from './shared/Loader';
 
 const RegisterSchema = z.object({
     name: z.string().min(3),
@@ -51,7 +52,7 @@ const SignUp = () => {
             )
             console.log(resdata)
             const res = await resdata.json()
-            if(resdata.status===400){
+            if (resdata.status === 400) {
                 return toast.error("User already exist")
             }
             // console.log(jwtDecode(res.data.token))
@@ -86,7 +87,7 @@ const SignUp = () => {
         onError: () => navigate('/')
     })
     return (
-        <section className='grid grid-cols-1 md:grid-cols-3  lg:grid-cols-8 xl:grid-cols-12 gap-8  relative '>
+        <section className='grid grid-cols-1 md:grid-cols-3 relative  lg:grid-cols-8 xl:grid-cols-12 gap-8  relative '>
 
             <div className='col-span-1 lg:col-span-3 xl:col-span-3'>
                 <Link to={state || '/'} className='mt-6 mb-6 inline-block max-sm:px-10 max-md:px-20 md:pl-10'><img src={chevronLeft} alt="" className='w-10 cursor-pointer' /></Link>
@@ -121,6 +122,7 @@ const SignUp = () => {
                     <h1 className='gradient-text text-2xl lg:text-3xl font-medium text-center'>&quot;Empowering academic success,<br /> one assignment at a time.&quot;</h1>
                 </div>
             </div>
+            {isLoading && <Loader />}
         </section>
     )
 }

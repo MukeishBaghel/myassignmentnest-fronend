@@ -216,9 +216,7 @@ const AssignmentForm = () => {
               type='submit'>Get Assistance</GradientButton>
           </div>
         </form>
-        {isLoading && <div className='absolute flex justify-center items-center h-full -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 bg-white/80 pointer-events-none z-40 w-full'>
-          <Loader state={isLoading} className='z-50' />
-        </div>}
+        {isLoading && <Loader />}
       </div >
 
     </div >
