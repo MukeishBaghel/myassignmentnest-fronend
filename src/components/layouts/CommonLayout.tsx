@@ -1,6 +1,8 @@
 import React from 'react'
 import Navbar from '../shared/Navbar'
 import Footer from '../shared/Footer'
+import whatsapp from '/assets/images/whatsapp.png'
+import { Link } from 'react-router-dom'
 
 const CommonLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -10,6 +12,8 @@ const CommonLayout = ({ children }: { children: React.ReactNode }) => {
       </div>
       <main className='min-h-screen mt-28 sm:mt-24'>{children}</main>
       <Footer />
+      <Link to={'https://wa.me/message/TWMAGNZXPVLQG1'} className='fixed bottom-8 right-6 z-[999] inline-block'>
+        <img src={whatsapp} className='h-14 w-14' alt="" /></Link>
     </>
   )
 }

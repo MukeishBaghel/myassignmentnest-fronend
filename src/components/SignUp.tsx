@@ -38,7 +38,7 @@ const SignUp = () => {
         console.log('Form Data:', data);
         setIsLoading(true)
         try {
-            const resdata = await fetch(`https://2nhv2211-8080.inc1.devtunnels.ms/auth/register`,
+            const resdata = await fetch(`https://2nhv2211-8080.inc1.devtunnels.ms/auth/customer/register`,
                 {
                     method: "POST",
 

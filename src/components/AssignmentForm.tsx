@@ -13,6 +13,7 @@ import { cn } from './utils/cn';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser } from '../redux/slices/user.slice';
+import Loader from './shared/Loader';
 
 
 const today = new Date();
@@ -26,8 +27,8 @@ const FormSchema = z.object({
   subject: z.string().min(1, "subject is required"),
   phone: z.string({
     required_error: "Phone number is required",
-  }).min(1, { // Ensure at least 1 character is provided (can be adjusted based on your requirements)
-    message: "Phone number is required",
+  }).min(10, { // Ensure at least 1 character is provided (can be adjusted based on your requirements)
+    message: "Invalid Phone number",
   }),
   deadline: z.date({
     required_error: "date is required"
@@ -121,15 +122,16 @@ const AssignmentForm = () => {
   }
 
 
+
   const filesErrorMessage = errors.files && errors.files.message
   // @ts-ignore
   const filesError: React.ReactNode = filesErrorMessage ? <p>{filesErrorMessage}</p> : null;
 
   return (
-    <div className='bg-rainbow bg-center bg-cover bg-no-repeat mt-10 px-2 xs:px-4 sm:px-10'>
-      <div className='bg-white  shadow-form_shadow h-full w-full py-10 px-2 xs:px-6 sm:px-10 md:px-16 xl:px-28 max-w-7xl mx-auto'>
+    <div className='bg-rainbow bg-center bg-cover bg-no-repeat mt-10 px-2 xs:px-4 sm:px-10  z-30'>
+      <div className='bg-white  relative shadow-form_shadow h-full w-full py-10 px-2 xs:px-6 sm:px-10 md:px-16 xl:px-28 max-w-7xl mx-auto'>
         <h1 className='text-xl lg:text-2xl text-center font-semibold text-secondary-200'>Receive immediate assistance from genuine experts, no AI involved.</h1>
-        <form className='mt-16' onSubmit={handleSubmit(onSubmit)}>
+        <form className='mt-16 ' onSubmit={handleSubmit(onSubmit)}>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 lg:gap-40'>
             <div className='flex flex-col gap-12'>
               <FormTextField title='Enter Email address'{...register("email")} error={errors.email?.message} />
@@ -214,7 +216,11 @@ const AssignmentForm = () => {
               type='submit'>Get Assistance</GradientButton>
           </div>
         </form>
+        {isLoading && <div className='absolute flex justify-center items-center h-full -translate-x-1/2 -translate-y-1/2 left-1/2 top-1/2 bg-white/80 pointer-events-none z-40 w-full'>
+          <Loader state={isLoading} className='z-50' />
+        </div>}
       </div >
+
     </div >
   )
 }
