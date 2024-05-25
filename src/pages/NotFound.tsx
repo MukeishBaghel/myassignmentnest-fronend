@@ -1,8 +1,8 @@
 import React from 'react'
-
+import NotFoundCompo from '../components/NotFound'
 const NotFound = () => {
   return (
-    <div>NotFound</div>
+    <><NotFoundCompo /></>
   )
 }
 

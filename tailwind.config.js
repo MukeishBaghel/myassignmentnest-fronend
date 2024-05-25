@@ -22,6 +22,7 @@ export default {
         rainbow: "url(/assets/images/heroformbg.png)",
         testimonial_card:
           "linear-gradient(91.77deg, #F7F6FB 1.11%, #F7F6FB 42.04%, #F7F6FB 70.51%, rgba(247, 246, 251, 0.6) 98.49%)",
+        ribbon:"url(/assets/images/ribbon.svg)"
       },
 
       colors: {

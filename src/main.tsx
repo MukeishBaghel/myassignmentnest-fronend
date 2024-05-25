@@ -10,7 +10,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    {/* <ErrorBoundary fallback={<h1>Oops!! something went wrong</h1>}> */}
+    <ErrorBoundary fallback={<h1>Oops!! something went wrong</h1>}>
       <BrowserRouter>
         <Provider store={store}>
           <PersistGate persistor={persistor}>
@@ -18,6 +18,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
           </PersistGate>
         </Provider>
       </BrowserRouter>
-    {/* </ErrorBoundary> */}
+    </ErrorBoundary>
   </React.StrictMode>
 )

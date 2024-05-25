@@ -94,7 +94,7 @@ const ContactUs = () => {
                     <GradientButton className='lg:px-8 text-lg lg:text-xl'>Send Message</GradientButton>
                 </div>
             </form>
-            <Loader />
+            {isLoading && <Loader />}
         </section>
     )
 }
