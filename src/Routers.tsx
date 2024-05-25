@@ -1,28 +1,34 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home'
-import Profile from './pages/Profile'
 import CommonLayout from './components/layouts/CommonLayout'
-import NotFound from './pages/NotFound'
-import Login from './pages/Login'
-import SignUp from './pages/SignUp'
-import Admin from './pages/Admin'
-import Reviews from './pages/Reviews'
-import Samples from './pages/Samples'
 import AdminLayout from './components/layouts/AdminLayout'
+import Loader from './components/shared/Loader'
+
+const ComingSoon = lazy(() => import('./pages/ComingSoon'))
+const Home = lazy(() => import('./pages/Home'))
+const Profile = lazy(() => import('./pages/Profile'))
+const NotFound = lazy(() => import('./pages/NotFound'))
+const Login = lazy(() => import('./pages/Login'))
+const SignUp = lazy(() => import('./pages/SignUp'))
+const Admin = lazy(() => import('./pages/Admin'))
+const Reviews = lazy(() => import('./pages/Reviews'))
+const Samples = lazy(() => import('./pages/Samples'))
 
 const Routers = () => {
   return (
-    <Routes>
-      <Route path='/' element={<CommonLayout><Home /></CommonLayout>} />
-      <Route path='/profile' element={<Profile />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/signup' element={<SignUp />} />
-      <Route path='*' element={<NotFound />} />
-      <Route path='/admin' element={<AdminLayout><Admin /></AdminLayout>} />
-      <Route path='/reviews' element={<><Reviews /></>} />
-      <Route path='/samples' element={<>< Samples /></>} />
-    </Routes>
+    <Suspense fallback={<><Loader /></>}>
+      <Routes>
+        <Route path='/' element={<CommonLayout><Home /></CommonLayout>} />
+        <Route path='/profile' element={<Profile />} />
+        <Route path='/login' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
+        <Route path='*' element={<CommonLayout><NotFound /></CommonLayout>} />
+        <Route path='/admin' element={<AdminLayout><Admin /></AdminLayout>} />
+        <Route path='/reviews' element={<Reviews />} />
+        <Route path='/samples' element={<Samples />} />
+        <Route path='/coming-soon' element={<CommonLayout><ComingSoon /></CommonLayout>} />
+      </Routes>
+    </Suspense>
   )
 }
 

@@ -84,8 +84,9 @@ const ContactUs = () => {
                     </div>
                     <div className='flex flex-col gap-12'>
                         <TextField placeholder='Last Name' {...register("last_name")} error={errors.last_name?.message} />
-                        <TextField placeholder='Phone Number' {...register("phone", {
-                            valueAsNumber: true
+                        <TextField placeholder='Phone Number' type='number' {...register("phone", {
+                            valueAsNumber: true,
+
                         }
                         )} error={errors.phone?.message} />
                     </div>

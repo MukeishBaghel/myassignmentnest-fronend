@@ -3,6 +3,7 @@ import heroLady from '/assets/images/herogirl.gif'
 import sitejabbar from '/assets/images/sitejabber.svg'
 import trustpilot from '/assets/images/trustpilot.svg'
 import { Link } from 'react-router-dom'
+
 const HeroSection = () => {
     return (
         <section className='container lg:px-20 mt-10'>

@@ -104,6 +104,18 @@ input[type="file"]::after {
   /* margin-right: 30px; */
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 :root {
   --phoneInputWithCountrySelect-borderColor: rgba(255, 255, 255, 0.5);
   --PhoneInputCountryFlag-borderColor: rgba(255, 255, 255, 1);
