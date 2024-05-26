@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import CommonLayout from './components/layouts/CommonLayout'
 import AdminLayout from './components/layouts/AdminLayout'
 import Loader from './components/shared/Loader'
+import OrderForm from './components/OrderForm'
 
 const ComingSoon = lazy(() => import('./pages/ComingSoon'))
 const Home = lazy(() => import('./pages/Home'))
@@ -20,7 +21,7 @@ const Routers = () => {
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [location]);
-  
+
   return (
     <Suspense fallback={<><Loader /></>}>
       <Routes>
@@ -32,6 +33,7 @@ const Routers = () => {
         <Route path='/admin' element={<AdminLayout><Admin /></AdminLayout>} />
         <Route path='/reviews' element={<Reviews />} />
         <Route path='/samples' element={<Samples />} />
+        <Route path='/order' element={<OrderForm />} />
         <Route path='/coming-soon' element={<CommonLayout><ComingSoon /></CommonLayout>} />
       </Routes>
     </Suspense>
