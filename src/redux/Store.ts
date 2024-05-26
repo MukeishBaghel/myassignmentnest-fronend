@@ -1,5 +1,4 @@
 import { persistReducer, persistStore } from "redux-persist";
-// import storage from "redux-persist/lib/storage";
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from "./slices/user.slice";
 import createWebStorage from "redux-persist/lib/storage/createWebStorage";

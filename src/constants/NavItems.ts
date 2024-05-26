@@ -7,14 +7,7 @@ const NavItems: { name: string; path: string }[] = [
     name: "Services",
     path: "/services",
   },
-  {
-    name: "Samples",
-    path: "/samples",
-  },
-  {
-    name: "Reviews",
-    path: "/reviews",
-  },
+  
  
 ];
 export { NavItems };

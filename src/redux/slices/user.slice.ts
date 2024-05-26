@@ -1,4 +1,3 @@
-// import { scope } from "@/utils/types/user";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootState } from "../Store";
 import { googleLogout } from "@react-oauth/google";
@@ -16,9 +15,12 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     setCredentials: (state, action) => {
-      const { token, userType } = action.payload;
+      const { token, refresh_token, userType } = action.payload;
       state.token = token;
       state.userType = userType as userType;
+      if (refresh_token) {
+        state.refresh_token = refresh_token;
+      }
     },
     logOut: (state) => {
       state.token = null;

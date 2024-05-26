@@ -1,5 +1,4 @@
 import React from 'react'
-import logo from '/assets/icons/logo.svg'
 import newLogo from '/assets/images/logo.jpg'
 import { Link, NavLink } from 'react-router-dom'
 import { NavItems } from '../../constants/NavItems'
@@ -10,9 +9,12 @@ import { logOut, selectCurrentUser } from '../../redux/slices/user.slice'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import Button from '../inputs/Button'
+import { HoveredLink, MenuItem, Menu as NavMenu } from './navbar/NavbarMenu'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false)
+  const [active, setActive] = React.useState<string | null>(null);
+
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState)
   }
@@ -20,7 +22,7 @@ const Navbar = () => {
   const dispatch = useDispatch()
   return (
     <div>
-      <header className='bg-primary_100 text-primary py-1 text-sm flex items-center justify-between md:justify-center gap-4 sm:gap-8 px-2'>
+      <header className='bg-primary_100 relative text-primary py-1 text-sm flex items-center justify-between md:justify-center gap-4 sm:gap-8 px-2'>
         <div className='bg- rounded-2xl bg-secondary border border-primary py-1.5 w-fit text-sm font-semibold px-2'>Limited time Discount</div>
         <h1 className='text-sm max-md:hidden'><span className='font-bold'>20% OFF</span> - For first time user</h1>
         <h2 className='font-semibold max-md:hidden'>USE CODE - <span className='font-bold text-base'> FIRSTIMER007</span></h2>
@@ -31,14 +33,29 @@ const Navbar = () => {
           <Link to={'/'}><img src={newLogo} alt="assignmentHelper" className='w-36 h-12' /></Link>
           {/* <h1 className='text-xl lg:text-2xl text-[#1F1F1F]'>AssignmentHelper</h1> */}
           <ul className=' hidden lg:flex items-center justify-between gap-8 text-[#454545] text-lg xl:text-xl  '>
-            {NavItems.map((item) => (
-              <NavLink to={item.path} key={item.name} className={({ isActive }) => `${isActive ? "gradient-text" : "hover:text-[#7633FF99]"} duration-150 ease-in `}>
-                {item.name}
-              </NavLink>
-            ))}
+            {/* <button className="hover:text-[#7633FF99] duration-150 ease-in " >Services</button> */}
+
+            <NavLink to={'/'} className={({ isActive }) => `${isActive ? "gradient-text" : "hover:text-[#7633FF99]"} duration-150 ease-in `}>Home</NavLink>
+            <div className=' mx-auto z-50'>
+              <NavMenu setActive={setActive}>
+                <MenuItem setActive={setActive} active={active} item="Services">
+                  <div className="flex flex-col space-y-4 text-sm">
+                    <HoveredLink to="/web-dev">Web Development</HoveredLink>
+                    <HoveredLink to="/interface-design">Interface Design</HoveredLink>
+                    <HoveredLink to="/seo">Search Engine Optimization</HoveredLink>
+                    <HoveredLink to="/branding">Branding</HoveredLink>
+                  </div>
+                </MenuItem>
+              </NavMenu>
+            </div>
+
+            <a href={'/#reviews'} className='hover:text-[#7633FF99] duration-150 ease-in '>
+              Reviews
+            </a>
             <a href={'/#freetools'} className='hover:text-[#7633FF99] duration-150 ease-in '>
               Free Tools
             </a>
+
             {
               token && <button onClick={() => {
                 dispatch(logOut())
@@ -58,12 +75,12 @@ const Navbar = () => {
         className='relative lg:hidden'
       >
         <div className='bg-primary_100 h-full flex flex-col items-center justify-center gap-10 text-white'>
-          {NavItems.map((item, i) => (
-            <NavLink to={item.path} key={i} className={({ isActive }) => `${isActive && "text-primary-100 font-medium"} ${!isActive && "hover:opacity-80 duration-200 ease-in-out"}`}>
-              {item.name}
-            </NavLink>
-          ))}
-          <a href={'/#freetools'} className={"hover:hover:opacity-80 duration-200 ease-in-out"}>
+          <NavLink to={'/'} className={({ isActive }) => `${isActive ? "gradient-text" : "hover:text-[#7633FF99]"} duration-150 ease-in `}>Home</NavLink>
+          <button className="hover:text-[#7633FF99] duration-150 ease-in ">Services</button>
+          <a href={'/#reviews'} className='hover:text-[#7633FF99] duration-150 ease-in '>
+            Reviews
+          </a>
+          <a href={'/#freetools'} className='hover:text-[#7633FF99] duration-150 ease-in '>
             Free Tools
           </a>
           {

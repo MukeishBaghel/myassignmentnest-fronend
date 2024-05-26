@@ -2,7 +2,7 @@ import React from 'react'
 import rating from '/assets/images/rating.svg'
 import abhinavImg from '/assets/images/abhinav.svg'
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
-import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -10,9 +10,8 @@ import 'swiper/css/scrollbar';
 
 
 const Testimonial = () => {
-    const swiper = useSwiper();
     return (
-        <section className='container py-10 max-w-5xl px-10 relative mx-auto'>
+        <section className='container py-10 max-w-5xl px-10 relative mx-auto' id="reviews">
             <h1 className='text-4xl leading-[3rem] max-md:text-center md:text-5xl md:leading-[3.75rem] lg:text-6xl xl:text-7xl lg:!leading-[4.5rem] font-[500] text-center bg-primary_100 bg-clip-text text-transparent lg:px-20'>Testimonials
             </h1>
             <p className='text-[#8C8888] text-center py-6 text-lg lg:text-2xl font-normal '>Get Our subscription to minimize your work load and get success.</p>
@@ -102,7 +101,7 @@ const Testimonial = () => {
                     }}
                     speed={2000}
                     // install Swiper modules
-                    modules={[Autoplay,Navigation, Pagination, Scrollbar, A11y]}
+                    modules={[Autoplay, Navigation, Pagination, Scrollbar, A11y]}
                     slidesPerView={1}
                     // navigation
                     style={{ borderRadius: "20px" }}

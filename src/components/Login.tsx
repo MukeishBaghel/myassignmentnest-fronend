@@ -11,7 +11,6 @@ import GradientButton from './inputs/GradientButton';
 import Button from './inputs/Button';
 import google from '/assets/icons/Google.svg'
 import { useGoogleLogin } from '@react-oauth/google';
-import { axiosInstance } from './utils/axios.instance';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUser, setCredentials } from '../redux/slices/user.slice';
 import Loader from './shared/Loader';
@@ -90,10 +89,10 @@ const Login = () => {
         }
 
     };
-    const SaveAuthDetails = (response: any) => {
+    const saveAuthDetails = (response: any) => {
         dispatch(setCredentials({ token: response.access_token, refresh_token: response.refresh_token, userType: "google_user" }))
     }
-    const SaveCredentials = (token: string) => {
+    const saveAccessToken = (token: string) => {
         dispatch(setCredentials({ token, userType: "google_user" }))
     }
     const SCOPE = 'https://mail.google.com/';
@@ -102,22 +101,12 @@ const Login = () => {
         flow: 'auth-code',
         onSuccess: async (codeResponse) => {
             try {
-                // const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification",
-                //     {
-                //         method: "POST",
-                //         headers: {
-                //             "Authorization": 'Bearer ' + tokenResponse.access_token
-                //         }
-                //     }
-
-                // )
-                // const res = await data.json()
                 console.log(codeResponse)
                 // const refresh_token = localStorage.getItem("refresh_token")
                 if (codeResponse.scope.includes('https://mail.google.com/')) {
 
                     new Promise<void>((resolve, _) => {
-                        getRefreshToken(codeResponse, SaveAuthDetails);
+                        getRefreshToken(codeResponse, saveAuthDetails);
                         console.log(!!refresh_token)
                         if (!!refresh_token) {
                             // wait for the refresh token to arrive.
@@ -125,8 +114,7 @@ const Login = () => {
                         }
                     })
                         .then(() => {
-                            // gets a new token for you after 10 seconds (test purpose)
-                            getNewAccessToken(refresh_token, SaveCredentials);
+                            getNewAccessToken(refresh_token, saveAccessToken);
                         }).catch((err) => {
                             console.log(err)
                         });
@@ -135,13 +123,26 @@ const Login = () => {
                         'success - Please give required permission to read emails!'
                     );
                 }
+                if (token) {
+                    const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification",
+                        {
+                            method: "POST",
+                            headers: {
+                                "Authorization": 'Bearer ' + token
+                            }
+                        }
 
+                    )
+                    const res = await data.json()
+
+                    if (data.ok) {
+                        toast.success("Login successfully")
+                        navigate(prevState || '/')
+                    }
+                }
 
                 // console.log(res)
                 // dispatch(setCredentials({ token: tokenResponse.access_token, userType: "google_user" }))
-
-                toast.success("Login successfully")
-                navigate(prevState || '/')
 
             }
             catch (err) {
