@@ -1,8 +1,15 @@
-import { TableColumn } from "react-data-table-component";
 
-type DataRow = {
-  title: string;
-  year: string;
+
+export type DataRow = {
+  id: string;
+  customer_id: string;
+  email: string;
+  subject: string;
+  deadline: string;
+  pages: string;
+  phone: string;
+  description: string;
+  reference: string;
 };
 const data = [
   {
@@ -17,45 +24,27 @@ const data = [
   },
 ];
 
-export const columns: TableColumn<DataRow>[] = [
-  {
-    name: "Title",
-    selector: (row) => row.title,
-    sortable: true,
-  },
-  {
-    name: "Year",
-    selector: (row) => row.year,
-    sortable: true,
-  },
-  {
-    name: "month",
-    selector: (row) => row.year,
-    sortable: true,
-  },
-  {
-    name: "day",
-    selector: (row) => row.year,
-    sortable: true,
-  },
-];
+// const handleButtonClick = (id) => {
+//   console.log('Row ID:', id);
+// };
+
 
 //@ts-ignore
 export function convertArrayOfObjectsToCSV(array) {
   let result: string;
 
-  const columnDelimiter = ',';
-  const lineDelimiter = '\n';
+  const columnDelimiter = ",";
+  const lineDelimiter = "\n";
   const keys = Object.keys(data[0]);
 
-  result = '';
+  result = "";
   result += keys.join(columnDelimiter);
   result += lineDelimiter;
 
   //@ts-ignore
-  array.forEach(item => {
+  array.forEach((item) => {
     let ctr = 0;
-    keys.forEach(key => {
+    keys.forEach((key) => {
       if (ctr > 0) result += columnDelimiter;
 
       result += item[key];
@@ -69,17 +58,17 @@ export function convertArrayOfObjectsToCSV(array) {
 }
 //@ts-ignore
 export function downloadCSV(array) {
-  const link = document.createElement('a');
+  const link = document.createElement("a");
   let csv = convertArrayOfObjectsToCSV(array);
   if (csv == null) return;
 
-  const filename = 'export.csv';
+  const filename = "export.csv";
 
   if (!csv.match(/^data:text\/csv/i)) {
     csv = `data:text/csv;charset=utf-8,${csv}`;
   }
 
-  link.setAttribute('href', encodeURI(csv));
-  link.setAttribute('download', filename);
+  link.setAttribute("href", encodeURI(csv));
+  link.setAttribute("download", filename);
   link.click();
 }

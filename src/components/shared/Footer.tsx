@@ -40,7 +40,7 @@ const Footer = () => {
               Free Tools
             </a>
           </div>
-          <div className=''><p className=''>100% Secure Payment</p> <img src={gatewayimg} className='w-44' alt="" /></div>
+          <div className=''><p className='italic'>100% Secure Payment</p> <img src={gatewayimg} className='sm:w-44' alt="" /></div>
         </div>
       </div>
     </footer>

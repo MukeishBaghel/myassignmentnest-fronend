@@ -15,6 +15,9 @@ const isTokenExpired = () => {
       }
     } else if (userType === "google_user") {
       // TODO: FOr google user Add generate refresh token concept
+      if (!token) {
+        return true;
+      }
     }
     return false;
   } catch (error) {

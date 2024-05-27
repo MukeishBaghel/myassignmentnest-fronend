@@ -1,19 +1,21 @@
-import React, { Suspense, forwardRef, useId, useState } from 'react'
+import React, { ChangeEvent, HTMLInputTypeAttribute, HtmlHTMLAttributes, Suspense, forwardRef, useId, useRef, useState } from 'react'
 import FormTextField from './inputs/FormTextField'
 import GradientButton from './inputs/GradientButton'
 import { z } from 'zod';
-import { FieldError, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import check from '/assets/icons/tick.svg'
-import { axiosInstance } from './utils/axios.instance';
 const PhoneInputWithCountry = React.lazy(() => import("react-phone-number-input/react-hook-form"));
 import { ACCEPTED_FILE_TYPES, References } from '../constants/FormData';
 import 'react-phone-number-input/style.css'
-import { cn } from './utils/cn';
 import { toast } from 'react-toastify';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../redux/slices/user.slice';
 import Loader from './shared/Loader';
+import isTokenExpired from '../constants/Token.expire';
+import { Link, useNavigate } from 'react-router-dom';
+import Modal from './inputs/Modal';
+import { jwtDecode } from 'jwt-decode';
 
 
 const today = new Date();
@@ -59,7 +61,16 @@ type FormFields = z.infer<typeof FormSchema>
 const AssignmentForm = () => {
   const [agreeToTerms, setAgreeToTerms] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { userType, token } = useSelector(selectCurrentUser)
+  const [formData, setFormData] = useState(new FormData)
+  const [newFormData, setNewFormData] = useState<FormFields | null>(null)
+  const [isModelOpen, setIsModelOpen] = useState(false)
+  const setModelOpen = () => setIsModelOpen(true)
+  const setModelClose = () => setIsModelOpen(false)
+  const { userType, token } = useSelector(selectCurrentUser);
+  const navigate = useNavigate();
+  const [otherField, setOtherField] = useState<boolean>(false)
+
+
   const {
     register,
     handleSubmit,
@@ -85,18 +96,45 @@ const AssignmentForm = () => {
   }
 
   const onSubmit = async (data: FormFields) => {
+    if (isTokenExpired()) {
+      return navigate('/login')
+    }
+    let accountId;
+    if (token) {
+      const decoded_token: any = jwtDecode(token)
+      console.log(decoded_token)
+      accountId = decoded_token.accountId
+    }
+    console.log(accountId)
+
     console.log(data)
-    const url = 'https://2nhv2211-8080.inc1.devtunnels.ms/customer/query';
     const { files: file, ...values } = data;
     const query = JSON.stringify({
-      ...values, customer_id: "UID202405103"
+      ...values, customer_id: accountId
     });
-    const formData = new FormData();
+
+    setNewFormData(data)
+
+    const formData = new FormData()
+
     formData.append('query', query);
 
-    formData.append('file', file[0]);
-    setIsLoading(true)
+    if (file) {
+      formData.append("file", file)
+    }
+    setFormData(formData)
+    console.log(formData.forEach((key, value) => {
+      console.log(key, value)
+    }))
 
+
+    setModelOpen()
+  }
+
+  const sendQuery = (formData: any) => {
+    const url = 'https://2nhv2211-8080.inc1.devtunnels.ms/customer/query';
+    setModelClose()
+    setIsLoading(true)
     fetch(url, {
       method: 'POST',
       body: formData,
@@ -121,12 +159,20 @@ const AssignmentForm = () => {
       }).finally(() => setIsLoading(false))
   }
 
-
-
   const filesErrorMessage = errors.files && errors.files.message
   // @ts-ignore
   const filesError: React.ReactNode = filesErrorMessage ? <p>{filesErrorMessage}</p> : null;
 
+  console.log(newFormData);
+  formData.forEach((value, key) => {
+    console.log(key, value);
+  });
+  console.log(otherField)
+  const handleReferenceChange = (event: any) => {
+    if (event.target.value === 'other') {
+      setOtherField(true);
+    }
+  };
   return (
     <div className='bg-rainbow bg-center bg-cover bg-no-repeat mt-10 px-2 xs:px-4 sm:px-10  z-30'>
       <div className='bg-white  relative shadow-form_shadow h-full w-full py-10 px-2 xs:px-6 sm:px-10 md:px-16 xl:px-28 max-w-7xl mx-auto'>
@@ -179,15 +225,17 @@ const AssignmentForm = () => {
 
               <div>
                 <div className='border border-[#ADADAD] relative z-0  rounded-[4px] font-[Nunito] h-12'>
-                  <select className=' w-full z-10 bg-transparent  px-2 outline-none h-12  placeholder:text-base resize-none' {...register("reference")}>
-                    <option hidden defaultValue={""}></option>
-                    {
-                      References.map((reference, i) => (
-                        <option value={reference} key={i}>{reference}</option>
-                      ))
-                    }
-                    <option value="other">other</option>
-                  </select>
+                  {
+                    otherField ? <input type="text" className='w-full z-10 bg-transparent  px-2 outline-none h-12  placeholder:text-base ' placeholder='Enter assignment name' {...register("reference")} /> : <select className=' w-full z-10 bg-transparent  px-2 outline-none h-12  placeholder:text-base ' {...register("reference")} onChange={handleReferenceChange}>
+                      <option hidden defaultValue={""}></option>
+                      {
+                        References.map((reference, i) => (
+                          <option value={reference} key={i}>{reference}</option>
+                        ))
+                      }
+                      <option value="other">other</option>
+                    </select>
+                  }
                   <label className='absolute left-1 text-primary-200 -top-2 font-medium bg-white text-sm z-10 pr-0.5 leading-none'>Reference of the assignment</label>
                 </div>
                 <p className='text-red-500 text-sm mt-1  font-[Nunito] leading-none'> {errors.reference && errors.reference?.message}</p>
@@ -217,6 +265,30 @@ const AssignmentForm = () => {
           </div>
         </form>
         {isLoading && <Loader />}
+        {
+          newFormData && <Modal isOpen={isModelOpen} onClose={setModelClose}>
+            <div className='p-4'>
+              <div className='text-3xl sm:text-4xl font-medium gradient-text text-center'>Are you sure ?</div>
+              <div className='flex flex-col space-y-4 mt-8'>
+                <div className='grid grid-cols-2 gap-4 pb-6'>
+                  <div className='space-y-4'>
+                    <FormTextField title='Email address' value={newFormData?.email} readOnly />
+                    <FormTextField title='Deadline' type='text' value={newFormData?.deadline as any} readOnly />
+                    <FormTextField title='Total Pages' value={newFormData?.pages} readOnly />
+                  </div>
+
+                  <div className='space-y-4'>
+                    <FormTextField title='Subject' value={newFormData.subject} readOnly />
+                    <FormTextField title='Phone' value={newFormData.phone} readOnly />
+                    <FormTextField title='Reference' value={newFormData.reference as string} readOnly />
+                  </div>
+                </div>
+                <GradientButton onClick={() => formData ? sendQuery(formData) : null}>Submit & Connect with Experts</GradientButton>
+                <GradientButton className=''> <Link to={"https://wa.me/message/TWMAGNZXPVLQG1"} >Get instant Quotation now</Link></GradientButton>
+              </div>
+            </div>
+          </Modal>
+        }
       </div >
 
     </div >

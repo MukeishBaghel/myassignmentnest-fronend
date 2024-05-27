@@ -1,10 +1,10 @@
 import React, { lazy, Suspense, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import CommonLayout from './components/layouts/CommonLayout'
-import AdminLayout from './components/layouts/AdminLayout'
 import Loader from './components/shared/Loader'
-import OrderForm from './components/OrderForm'
 
+const AdminLayout = React.lazy(() => import('./components/layouts/AdminLayout'));
+const OrderForm = React.lazy(() => import('./components/admin/OrderForm'));
 const ComingSoon = lazy(() => import('./pages/ComingSoon'))
 const Home = lazy(() => import('./pages/Home'))
 const Profile = lazy(() => import('./pages/Profile'))
@@ -33,7 +33,8 @@ const Routers = () => {
         <Route path='/admin' element={<AdminLayout><Admin /></AdminLayout>} />
         <Route path='/reviews' element={<Reviews />} />
         <Route path='/samples' element={<Samples />} />
-        <Route path='/order' element={<OrderForm />} />
+        <Route path='/create-order/:id' element={<OrderForm />} />
+        
         <Route path='/coming-soon' element={<CommonLayout><ComingSoon /></CommonLayout>} />
       </Routes>
     </Suspense>

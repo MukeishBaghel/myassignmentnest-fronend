@@ -43,6 +43,7 @@ const Login = () => {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors, isSubmitting },
     } = useForm<FormFields>({
         resolver: zodResolver(LoginSchema), // Use Zod resolver for form validation
@@ -77,6 +78,10 @@ const Login = () => {
                 toast.success("Login Successfully")
                 navigate(prevState || '/')
 
+            }
+            else {
+                toast.error("Invalid Credentials")
+                reset()
             }
             // console.log(res.status)
         }
@@ -123,23 +128,24 @@ const Login = () => {
                         'success - Please give required permission to read emails!'
                     );
                 }
-                if (token) {
-                    const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification",
-                        {
-                            method: "POST",
-                            headers: {
-                                "Authorization": 'Bearer ' + token
-                            }
-                        }
+                // if (token) {
+                //     const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification",
+                //         {
+                //             method: "POST",
+                //             headers: {
+                //                 "Authorization": 'Bearer ' + token
+                //             }
+                //         }
 
-                    )
-                    const res = await data.json()
+                //     )
+                //     const res = await data.json()
 
-                    if (data.ok) {
-                        toast.success("Login successfully")
-                        navigate(prevState || '/')
-                    }
-                }
+                //     if (data.ok) {
+                //         toast.success("Login successfully")
+                //         navigate(prevState || '/')
+                //     }
+                // }
+                navigate(prevState || '/')
 
                 // console.log(res)
                 // dispatch(setCredentials({ token: tokenResponse.access_token, userType: "google_user" }))

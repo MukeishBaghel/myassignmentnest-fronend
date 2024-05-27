@@ -3,7 +3,9 @@ import { store } from "../../redux/Store";
 import { selectCurrentUser } from "../../redux/slices/user.slice";
 
 export const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
+  baseURL:
+    import.meta.env.VITE_BASE_URL ||
+    "https://2nhv2211-8080.inc1.devtunnels.ms/",
   timeout: 10 * 60 * 60 * 1000,
   // headers: {
   //   Accept: "application/json",
@@ -14,16 +16,17 @@ axiosInstance.interceptors.request.use(
   (config) => {
     const state = store.getState();
     const { token, userType } = selectCurrentUser(state);
-
     if (token) {
       config.headers["Authorization"] =
         userType === "google_user" ? `Bearer ${token}` : `JWT ${token}`;
     }
 
-    const { contentType} = config.headers;
+    const { contentType } = config.headers;
 
     if (contentType) {
       config.headers["Content-Type"] = contentType;
+    } else {
+      config.headers["Content-Type"] = "application/json";
     }
 
     return config;

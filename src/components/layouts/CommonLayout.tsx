@@ -13,7 +13,7 @@ const CommonLayout = ({ children }: { children: React.ReactNode }) => {
       <main className='min-h-screen mt-28 sm:mt-24'>{children}</main>
       <Footer />
       <Link to={'https://wa.me/message/TWMAGNZXPVLQG1'} className='fixed bottom-8 right-6 z-[999] inline-block'>
-        <img src={whatsapp} className='h-14 w-14' alt="" /></Link>
+        <img src={whatsapp} className='h-10 w-10 sm:h-14 sm:w-14 active:scale-95 hover:opacity-85' alt="" /></Link>
     </>
   )
 }
