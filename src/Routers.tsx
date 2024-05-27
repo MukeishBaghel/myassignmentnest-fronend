@@ -2,9 +2,10 @@ import React, { lazy, Suspense, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import CommonLayout from './components/layouts/CommonLayout'
 import Loader from './components/shared/Loader'
+import OrderTable from './components/admin/OrderTable';
+import PaymentTable from './components/admin/PaymentTable';
 
 const AdminLayout = React.lazy(() => import('./components/layouts/AdminLayout'));
-const OrderForm = React.lazy(() => import('./components/admin/OrderForm'));
 const ComingSoon = lazy(() => import('./pages/ComingSoon'))
 const Home = lazy(() => import('./pages/Home'))
 const Profile = lazy(() => import('./pages/Profile'))
@@ -33,8 +34,12 @@ const Routers = () => {
         <Route path='/admin' element={<AdminLayout><Admin /></AdminLayout>} />
         <Route path='/reviews' element={<Reviews />} />
         <Route path='/samples' element={<Samples />} />
-        <Route path='/create-order/:id' element={<OrderForm />} />
-        
+        <Route path='/admin/all-orders' element={<AdminLayout><OrderTable /></AdminLayout>} />
+        <Route path='/admin/all-payments' element={<AdminLayout><PaymentTable /></AdminLayout>} />
+        <Route path='/admin/order-payment/:id' element={<AdminLayout><PaymentTable /></AdminLayout>} />
+
+        {/* <Route path='/admin/order/:orderId' element={<AdminLayout><OrderById /></AdminLayout>} /> */}
+
         <Route path='/coming-soon' element={<CommonLayout><ComingSoon /></CommonLayout>} />
       </Routes>
     </Suspense>

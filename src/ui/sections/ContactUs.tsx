@@ -71,7 +71,7 @@ const ContactUs = () => {
             </h1>
             <p className='text-[#8C8888] text-center py-6 text-lg lg:text-2xl font-normal '>Connect with us share your thoughts</p>
             <form onSubmit={handleSubmit(sendMessage)}>
-                <main className='grid grid-cols-2 gap-20 lg:gap-40 mt-10'>
+                <main className='grid grid-cols-2 gap-10 sm:gap-20 lg:gap-40 mt-10'>
                     <div className='flex flex-col gap-12'>
                         <TextField placeholder='First Name' {...register("first_name",
                             {

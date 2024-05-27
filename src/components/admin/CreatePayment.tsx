@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { selectCurrentUser } from '../redux/slices/user.slice'
-import FormTextField from './inputs/FormTextField'
-import GradientButton from './inputs/GradientButton'
-import Loader from './shared/Loader'
+import { selectCurrentUser } from '../../redux/slices/user.slice'
+import FormTextField from '../inputs/FormTextField'
+import GradientButton from '../inputs/GradientButton'
+import Loader from '../shared/Loader'
+import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-toastify'
 
 const CreatePayment = ({ id }: { id: string }) => {
 
     const { token } = useSelector(selectCurrentUser)
     const [amount, setAmount] = useState(0)
     const [isLoading, setIsLoading] = useState(false);
-
+    const navigate = useNavigate()
+    
     const CreateOrderPayment = async () => {
         setIsLoading(true)
         try {
@@ -24,8 +27,16 @@ const CreatePayment = ({ id }: { id: string }) => {
             })
             const resdata = await res.json()
             console.log(resdata)
+            if (res.ok) {
+                toast.success(resdata.message)
+                navigate(`/admin/order-payment/${id}`)
+            }
+            else {
+                toast.error(resdata.message)
+            }
         }
         catch (error) {
+            toast.error("Something went wrong")
             console.log(error)
         }
         finally {

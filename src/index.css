@@ -32,7 +32,7 @@ body {
 }
 
 .loader .circle {
-  --color: #7633ff;
+  --color: #9933EF;
   --dim: 0.8rem;
   width: var(--dim);
   height: var(--dim);
