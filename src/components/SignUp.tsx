@@ -55,14 +55,16 @@ const SignUp = () => {
             if (resdata.status === 400) {
                 toast.error("User already exist")
                 navigate('/login')
+                return
             }
             // console.log(jwtDecode(res.data.token))
             if (res.data && res.data.token) {
                 toast.success("SignUp Successfully")
                 navigate('/login')
+                return
             }
             else {
-                toast.error("Credentials not valid")
+                toast.error("Credentials are not valid")
             }
             // console.log(res.status)
         }

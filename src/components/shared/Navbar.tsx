@@ -2,7 +2,7 @@ import React from 'react'
 import newLogo from '/assets/images/logo.jpg'
 import { Link, NavLink } from 'react-router-dom'
 import { NavItems } from '../../constants/NavItems'
-import { LogOut, Menu, X } from 'lucide-react'
+import { ArrowRight, LogOut, Menu, MoveRight, X } from 'lucide-react'
 import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
 import { logOut, selectCurrentUser } from '../../redux/slices/user.slice'
@@ -10,11 +10,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import Button from '../inputs/Button'
 import { HoveredLink, MenuItem, Menu as NavMenu } from './navbar/NavbarMenu'
+import Collapsible from 'react-collapsible';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false)
   const [active, setActive] = React.useState<string | null>(null);
-
+  const [services, setServices] = React.useState<boolean>(false)
   const toggleDrawer = () => {
     setIsOpen((prevState) => !prevState)
   }
@@ -100,6 +101,10 @@ const Navbar = () => {
           </button>
         </div>
       </nav>
+
+
+      {/* for mobile */}
+
       <Drawer
         open={isOpen}
         onClose={toggleDrawer}
@@ -107,16 +112,53 @@ const Navbar = () => {
         className='relative lg:hidden'
       >
         <div className='bg-primary_100 h-full flex flex-col items-center justify-center gap-10 text-white'>
-          <NavLink to={'/'} className={({ isActive }) => `${isActive ? "text-[#dadada]" : "hover:text-secondary-100"} duration-150 ease-in mt-24 `}>Home</NavLink>
-          <button className="hover:text-secondary-100 duration-150 ease-in ">Services</button>
-          <a href={'/#reviews'} className='hover:text-secondary-100 duration-150 ease-in '>
-            Reviews
-          </a>
-          <a href={'/#freetools'} className='hover:text-secondary-100 duration-150 ease-in '>
-            Free Tools
-          </a>
           {
-            token && <div className='flex justify-end h-full flex-col gap-2 mb-10'>
+            services ? <div className='mt-20 overflow-y-scroll no-scrollbar h-full '>
+              <h1 className='text-2xl text-white font-semibold flex justify-between items-center mb-4 fixed top-8'><span>Services</span> <span onClick={() => setServices(false)}><ArrowRight /></span></h1>
+              <div className='flex items-center flex-col justify-center gap-10 overflow-y-scroll no-scrollbar h-full pt-28'>
+                <div className="flex flex-col text-sm justify-center gap-1 mt-20">
+                  <h1 className='text-xl font-semibold mt-5'>Writing</h1>
+                  <HoveredLink className="text-white" to="/">Assignment writing</HoveredLink>
+                  <HoveredLink className="text-white" to="/">Essay writing</HoveredLink>
+                  <HoveredLink className="text-white" to="/">Dissertation</HoveredLink>
+                  <HoveredLink className="text-white" to="/">Programming</HoveredLink>
+                  <HoveredLink className="text-white" to="/">case Study</HoveredLink>
+                  <HoveredLink className="text-white" to="/">Coursework</HoveredLink>
+                  <HoveredLink className="text-white" to="/">Thesis Writing</HoveredLink>
+                  <HoveredLink className="text-white" to="/">CDR</HoveredLink>
+                  <HoveredLink className="text-white" to="/">Homework</HoveredLink>
+                  <HoveredLink className="text-white" to="/">Research</HoveredLink>
+                  <HoveredLink className="text-white" to="/">Assessments</HoveredLink>
+                  <HoveredLink className="text-white" to="/">Speech Topics</HoveredLink>
+                </div>
+
+                <div className="flex flex-col text-sm">
+                  <h1 className='text-xl font-semibold'>Offers</h1>
+                  <HoveredLink className="text-white" to="/">Take My Online Exam</HoveredLink>
+                  <HoveredLink className="text-white" to="/">Take My Online class</HoveredLink>
+                  <HoveredLink className="text-white" to="/">Homework help</HoveredLink>
+                  <HoveredLink className="text-white truncate max-w-[150px]" to="/">Pay Someone Do my Homework</HoveredLink>
+                  <HoveredLink className="text-white" to="/">Coursework Help</HoveredLink>
+                  <HoveredLink className="text-white" to="/">Thesis Writing help</HoveredLink>
+                </div>
+                <div className="flex flex-col text-sm">
+                  <h1 className='text-xl font-semibold'>Editing</h1>
+                  <HoveredLink className="text-white" to="/">Dissertation Editing</HoveredLink>
+                </div>
+              </div>
+
+            </div> : <>
+              <NavLink to={'/'} className={({ isActive }) => `${isActive ? "text-[#dadada]" : "hover:text-secondary-100"} duration-150 ease-in mt-24 `}>Home</NavLink>
+              <button className="hover:text-secondary-100 duration-150 ease-in " onClick={() => setServices(true)}>Services</button>
+              <a href={'/#reviews'} className='hover:text-secondary-100 duration-150 ease-in '>
+                Reviews
+              </a>
+              <a href={'/#freetools'} className='hover:text-secondary-100 duration-150 ease-in '>
+                Free Tools
+              </a></>
+          }
+          {
+            token && <div className='mb-10'>
               <Button className='bg-primary rounded-lg px-10 font-semibold py-2' onClick={() => {
                 dispatch(logOut())
                 toast.success("Logout Successfully")
@@ -125,7 +167,7 @@ const Navbar = () => {
           }
 
           {
-            !token && <div className='flex justify-end h-full flex-col gap-2 mb-10'>
+            !token && <div className='flex justify-end  flex-col gap-2 mb-10'>
               <Button className='bg-primary rounded-lg px-10 font-semibold py-2' ><Link to={'/login'} className='text-transparent bg-clip-text bg-primary_100'>Login</Link></Button>
               <Button className='bg-primary rounded-lg px-10 font-semibold py-2'><Link to={'/signup'} className='text-transparent bg-clip-text bg-primary_100'>SignUp</Link>
               </Button>

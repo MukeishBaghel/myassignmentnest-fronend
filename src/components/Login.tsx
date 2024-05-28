@@ -39,7 +39,7 @@ const Login = () => {
             navigate('/')
         }
     }, [])
-
+console.log(token)
     const {
         register,
         handleSubmit,
@@ -101,67 +101,41 @@ const Login = () => {
         dispatch(setCredentials({ token, userType: "google_user" }))
     }
     const SCOPE = 'https://mail.google.com/';
+
     const handleGoogleLogin = useGoogleLogin({
         scope: SCOPE,
         flow: 'auth-code',
         onSuccess: async (codeResponse) => {
             try {
-                console.log(codeResponse)
-                // const refresh_token = localStorage.getItem("refresh_token")
                 if (codeResponse.scope.includes('https://mail.google.com/')) {
+                    await getRefreshToken(codeResponse, saveAuthDetails);
+                    await getNewAccessToken(refresh_token, saveAccessToken);
 
-                    new Promise<void>((resolve, _) => {
-                        getRefreshToken(codeResponse, saveAuthDetails);
-                        console.log(!!refresh_token)
-                        if (!!refresh_token) {
-                            // wait for the refresh token to arrive.
-                            resolve();
-                        }
-                    })
-                        .then(() => {
-                            getNewAccessToken(refresh_token, saveAccessToken);
-                        }).catch((err) => {
-                            console.log(err)
+                    if (token) {
+                        const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification", {
+                            method: "POST",
+                            headers: {
+                                "Authorization": 'Bearer ' + token
+                            }
                         });
+
+                        if (data.ok) {
+                            toast.success("Login successfully");
+                            navigate(prevState || '/');
+                        }
+                    }
                 } else {
-                    toast.error(
-                        'success - Please give required permission to read emails!'
-                    );
+                    toast.error('Please give required permission to read emails!');
                 }
-                // if (token) {
-                //     const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification",
-                //         {
-                //             method: "POST",
-                //             headers: {
-                //                 "Authorization": 'Bearer ' + token
-                //             }
-                //         }
-
-                //     )
-                //     const res = await data.json()
-
-                //     if (data.ok) {
-                //         toast.success("Login successfully")
-                //         navigate(prevState || '/')
-                //     }
-                // }
-                navigate(prevState || '/')
-
-                // console.log(res)
-                // dispatch(setCredentials({ token: tokenResponse.access_token, userType: "google_user" }))
-
-            }
-            catch (err) {
-                console.log(err)
-                toast.error("Something went wrong")
+            } catch (err) {
+                console.log(err);
+                toast.error("Something went wrong");
             }
         },
-        // todo: implement toast functionality 
         onError: () => {
-            toast.error("Something went wrong")
+            toast.error("Something went wrong");
         }
-    })
-
+    });
 
     return (
         <section className='grid grid-cols-1 md:grid-cols-3  lg:grid-cols-8 xl:grid-cols-12 gap-10 min-h-screen relative '>

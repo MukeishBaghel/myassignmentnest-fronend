@@ -10,6 +10,7 @@ export type DataRow = {
   phone: string;
   description: string;
   reference: string;
+  file_name:string
 };
 const data = [
   {

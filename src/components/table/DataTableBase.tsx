@@ -9,16 +9,14 @@ const selectProps = { indeterminate: (isIndeterminate: boolean) => isIndetermina
 
 const customStyles = {
     rows: {
-        style: {
-            minHeight: '1000px', // override the row height
-        },
+
     },
     headCells: {
         style: {
             paddingLeft: '8px', // override the cell padding for head cells
             paddingRight: '8px',
             fontSize: "1.2rem",
-
+        
         },
     },
     cells: {
@@ -28,10 +26,10 @@ const customStyles = {
             fontSize: "1rem",
         },
         highlightOnHoverStyle: {
-            backgroundColor: 'rgb(230, 244, 244)',
-            borderBottomColor: '#FFFFFF',
-            borderRadius: '25px',
-            outline: '1px solid #FFFFFF',
+            // backgroundColor: 'rgb(230, 244, 244)',
+            // borderBottomColor: '#FFFFFF',
+            // borderRadius: '25px',
+            // outline: '10px solid #FFFFFF',
         },
     },
 

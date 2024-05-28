@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Link } from 'react-router-dom'
+import { cn } from "../../utils/cn";
 
 const transition = {
     type: "spring",
@@ -104,12 +105,12 @@ export const ProductItem = ({
     );
 };
 // @ts-ignore
-export const HoveredLink = ({ children, ...rest }: any) => {
+export const HoveredLink = ({ children, className, ...rest }: any) => {
     return (
         <a
             // {...rest}
             href="/#assignmentForm"
-            className="text-neutral-700 text-[15px] dark:text-neutral-200 hover:text-[#7633ff] "
+            className={cn(`text-neutral-700 text-[15px] dark:text-neutral-200 hover:text-[#7633ff]`, className)}
         >
             {children}
         </a>

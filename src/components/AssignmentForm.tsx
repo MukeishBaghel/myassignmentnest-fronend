@@ -1,4 +1,4 @@
-import React, { ChangeEvent,  Suspense, useState } from 'react'
+import React, { ChangeEvent, Suspense, useState } from 'react'
 import FormTextField from './inputs/FormTextField'
 import GradientButton from './inputs/GradientButton'
 import { z } from 'zod';
@@ -102,14 +102,17 @@ const AssignmentForm = () => {
       return navigate('/login')
     }
     let accountId;
-    if (token) {
+    if (token && userType === "app_user") {
       const decoded_token: any = jwtDecode(token)
       console.log(decoded_token)
       accountId = decoded_token.accountId
     }
-    console.log(accountId)
-
     console.log(data)
+    if (!accountId) {
+      toast.error("Invalid user")
+      return;
+    }
+
     const { files: file, ...values } = data;
     const query = JSON.stringify({
       ...values, customer_id: accountId
@@ -120,9 +123,9 @@ const AssignmentForm = () => {
     const formData = new FormData()
 
     formData.append('query', query);
-
+console.log(file)
     if (file) {
-      formData.append("file", file)
+      formData.append("file", file[0])
     }
     setFormData(formData)
     console.log(formData.forEach((key, value) => {
@@ -149,6 +152,7 @@ const AssignmentForm = () => {
       headers: {
         "Authorization": prepareHeader(),
       }
+      
     })
       .then(response => {
         if (response.status === 201) {
@@ -171,10 +175,9 @@ const AssignmentForm = () => {
   // @ts-ignore
   const filesError: React.ReactNode = filesErrorMessage ? <p>{filesErrorMessage}</p> : null;
 
-  console.log(newFormData);
-  formData.forEach((value, key) => {
-    console.log(key, value);
-  });
+  // formData.forEach((value, key) => {
+  //   console.log(key, value);
+  // });
   console.log(otherField)
   const handleReferenceChange = (event: any) => {
     if (event.target.value === 'other') {
@@ -251,10 +254,10 @@ const AssignmentForm = () => {
                   <textarea className=' w-full z-10 bg-transparent  px-4 outline-none pt-3 pb-10 placeholder:text-base resize-none' {...register("description")} />
                   <span className='absolute left-1 text-primary-200 -top-2 font-medium bg-white text-sm z-10 pr-0.5 leading-none'>Order Description <span className='text-[#C5C5C5]'>(write or attach)</span></span>
 
-                  <label htmlFor="fileUpload" className='cursor-pointer max-w-[200px] inline-block border-2 rounded border-purple-500 m-1'>
+                  <label htmlFor="fileUpload" {...register("files")} className='cursor-pointer max-w-[200px] inline-block border-2 rounded border-purple-500 m-1'>
                     <div className='px-2 py-1'>
                       {!fileName && <>
-                        <p className="font-semibold text-primary-200 flex gap-2"><span>Upload File </span><span className='text-black'><UploadCloud className='w-6 text-secondary-foreground'/></span></p> <p className="text-xs text-gray-500 dark:text-gray-400 truncate">SVG, PNG, JPG, PDf, XLSX</p>
+                        <p className="font-semibold text-primary-200 flex gap-2"><span>Upload File </span><span className='text-black'><UploadCloud className='w-6 text-secondary-foreground' /></span></p> <p className="text-xs text-gray-500 dark:text-gray-400 truncate">SVG, PNG, JPG, PDf, XLSX</p>
                         <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Max Size: 10 MB</p></>}
                       {fileName && <p className=" text-sm text-gray-700 w-[180px] truncate">{fileName}</p>}
 

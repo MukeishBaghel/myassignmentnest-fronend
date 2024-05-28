@@ -65,12 +65,17 @@ const Admin = () => {
       sortable: true,
     },
     {
+      name: "File Name",
+      selector: (row) => row.file_name,
+
+    },
+    {
       name: 'Actions',
       grow: 1,
       cell: (row) => <GradientButton className='h-10 text-sm px-2 my-2 w-fit text-nowrap' onClick={() => createOrder(row.customer_id)}>Create Order</GradientButton>,
       ignoreRowClick: true,
       button: true,
-      width: "15%"
+      width: "10%",
     },
   ];
   const [queries, setQueries] = useState([])
@@ -92,7 +97,7 @@ const Admin = () => {
     }
   }
 
-
+  console.log(queries)
   useEffect(() => {
 
     const fetchUsersWithQuery = async () => {
