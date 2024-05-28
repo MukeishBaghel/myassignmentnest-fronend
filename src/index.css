@@ -93,16 +93,14 @@ body {
 }
 
 input[type="file"] {
-  width: 114px;
+  /* width: 114px; */
+  width:fit-content;
+  background: #efe7ff;
   border-radius: 20px;
-  /* overflow: hidden; */
+  overflow: hidden;
   cursor: pointer;
 }
-input[type="file"]::after {
-  content: "Attach Files";
-  /* color: black; */
-  /* margin-right: 30px; */
-}
+
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,

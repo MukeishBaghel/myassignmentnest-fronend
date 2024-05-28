@@ -1,6 +1,7 @@
 import React from 'react'
 import rating from '/assets/images/rating.svg'
-import abhinavImg from '/assets/images/abhinav.svg'
+import astridImg from '/assets/images/abhinav.svg'
+import kellyImg from '/assets/images/kelly.svg'
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -18,10 +19,11 @@ const Testimonial = () => {
             <div className='hidden lg:block lg:pt-5 relative'>
                 <article className=' p-6 w-[518px] cursor-pointer bg-[#F7F6FB] rounded-2xl shadow-testimonial_card_1 relative left-72 z-50 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow group group-hover:opacity-0'>
                     <div className='flex gap-4'>
-                        <img src={abhinavImg} alt="" className='self-start' />
+
+                        <img src={kellyImg} alt="" className='self-start h-16 w-16'/>
                         <div>
                             <div className='flex items-center justify-between'>
-                                <h1 className='text-2xl font-semibold'>Kelly Country</h1>
+                                <h1 className='text-2xl font-semibold'>Kelly</h1>
                                 <img src={rating} alt="" />
                             </div>
                             <p className='py-4 line-clamp-4'>
@@ -29,11 +31,11 @@ const Testimonial = () => {
                             </p>
                         </div>
                     </div>
-                    <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
+                    <span className='text-sm text-[#929090] pl-16'>user, 24.03.02</span>
                 </article>
                 <article className=' p-6 w-[518px]  cursor-pointer bg-white rounded-2xl shadow-testimonial_card_2 relative bottom-10 left-[40%] -top-2 z-40 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow group group-hover:opacity-0'>
                     <div className='flex gap-4'>
-                        <img src={abhinavImg} alt="" className='self-start' />
+                        <img src={astridImg} alt="" className='self-start h-16 w-16' />
                         <div>
                             <div className='flex items-center justify-between'>
                                 <h1 className='text-2xl font-semibold'>Astrid</h1>
@@ -44,11 +46,11 @@ const Testimonial = () => {
                             </p>
                         </div>
                     </div>
-                    <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
+                    <span className='text-sm text-[#929090] pl-16'>user, 24.03.02</span>
                 </article>
                 <article className=' p-4 w-[418px] bg-[#EDEDED] cursor-pointer rounded-2xl shadow-testimonial_card_3 relative bottom-8 left-52 z-30 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow  group group-hover:opacity-0'>
                     <div className='flex gap-4'>
-                        <img src={abhinavImg} alt="" className='self-start' />
+                        <img src={astridImg} alt="" className='self-start' />
                         <div>
                             <div className='flex items-center justify-between'>
                                 <h1 className='text-2xl font-semibold'>Clarke</h1>
@@ -59,11 +61,11 @@ const Testimonial = () => {
                             </p>
                         </div>
                     </div>
-                    <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
+                    <span className='text-sm text-[#929090] pl-16'>user, 24.03.02</span>
                 </article>
                 <article className=' p-6 w-[518px] bg-[#E3E3E3] cursor-pointer rounded-2xl shadow-testimonial_card_4 absolute z-20 bottom-[105px] left-10 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow  backdrop-filter group group-hover:opacity-0'>
                     <div className='flex gap-4'>
-                        <img src={abhinavImg} alt="" className='self-start' />
+                        <img src={astridImg} alt="" className='self-start' />
                         <div>
                             <div className='flex items-center justify-between'>
                                 <h1 className='text-2xl font-semibold'>Yasmin</h1>
@@ -74,11 +76,11 @@ const Testimonial = () => {
                             </p>
                         </div>
                     </div>
-                    <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
+                    <span className='text-sm text-[#929090] pl-16'>user, 24.03.02</span>
                 </article>
                 <article className=' p-6 w-[518px] bg-testimonial_card cursor-pointer rounded-2xl shadow-testimonial_card_5 absolute z-10 top-[160px] -left-10  hover:bg-white hover:z-[60] duration-200 ease-in-out right-20 hover:shadow-form_shadow group group-hover:opacity-0'>
                     <div className='flex gap-4'>
-                        <img src={abhinavImg} alt="" className='self-start' />
+                        <img src={astridImg} alt="" className='self-start' />
                         <div>
                             <div className='flex items-center justify-between'>
                                 <h1 className='text-2xl font-semibold'>Sakshi</h1>
@@ -89,7 +91,7 @@ const Testimonial = () => {
                             </p>
                         </div>
                     </div>
-                    <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
+                    <span className='text-sm text-[#929090] pl-16'>user, 24.03.02</span>
                 </article>
             </div>
             <div className='mt-10 lg:hidden'>
@@ -112,10 +114,10 @@ const Testimonial = () => {
                     <SwiperSlide>
                         <article className=' p-6  bg-[#F7F6FB] h-[260px]'>
                             <div className='flex gap-4'>
-                                <img src={abhinavImg} alt="" className='self-start' />
+                                <img src={kellyImg} alt="" className='self-start' />
                                 <div>
                                     <div className='flex items-center justify-between'>
-                                        <h1 className='text-2xl font-semibold'>Kelly Country</h1>
+                                        <h1 className='text-2xl font-semibold'>Kelly</h1>
                                         <img src={rating} alt="" />
                                     </div>
                                     <p className='py-4 max-sm:text-sm'>
@@ -123,13 +125,13 @@ const Testimonial = () => {
                                     </p>
                                 </div>
                             </div>
-                            <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
+                            <span className='text-sm text-[#929090] pl-16'>user, 24.03.02</span>
                         </article>
                     </SwiperSlide>
                     <SwiperSlide>
                         <article className=' p-6 bg-white  h-[260px]'>
                             <div className='flex gap-4'>
-                                <img src={abhinavImg} alt="" className='self-start' />
+                                <img src={astridImg} alt="" className='self-start' />
                                 <div>
                                     <div className='flex items-center justify-between'>
                                         <h1 className='text-2xl font-semibold'>Astrid</h1>
@@ -140,12 +142,12 @@ const Testimonial = () => {
                                     </p>
                                 </div>
                             </div>
-                            <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
+                            <span className='text-sm text-[#929090] pl-16'>user, 24.03.02</span>
                         </article></SwiperSlide>
                     <SwiperSlide>
                         <article className='p-6 h-[260px] bg-[#EDEDED] '>
                             <div className='flex gap-4'>
-                                <img src={abhinavImg} alt="" className='self-start' />
+                                <img src={""} alt="" className='self-start' />
                                 <div>
                                     <div className='flex items-center justify-between'>
                                         <h1 className='text-2xl font-semibold'>Clarke</h1>
@@ -156,11 +158,11 @@ const Testimonial = () => {
                                     </p>
                                 </div>
                             </div>
-                            <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
+                            <span className='text-sm text-[#929090] pl-16'>user, 24.03.02</span>
                         </article></SwiperSlide>
                     <SwiperSlide><article className=' p-6 bg-[#E3E3E3] h-[260px]'>
                         <div className='flex gap-4'>
-                            <img src={abhinavImg} alt="" className='self-start' />
+                            <img src={""} alt="" className='self-start' />
                             <div>
                                 <div className='flex items-center justify-between'>
                                     <h1 className='text-2xl font-semibold'>Yasmin</h1>
@@ -171,11 +173,11 @@ const Testimonial = () => {
                                 </p>
                             </div>
                         </div>
-                        <span className='text-[#929090] pl-16'>user, 2021.03.02</span>
+                        <span className='text-[#929090] pl-16'>user, 24.03.02</span>
                     </article></SwiperSlide>
                     <SwiperSlide> <article className=' p-6  bg-[#F7F6FB] h-[260px]'>
                         <div className='flex gap-4'>
-                            <img src={abhinavImg} alt="" className='self-start' />
+                            <img src={""} alt="" className='self-start' />
                             <div>
                                 <div className='flex items-center justify-between'>
                                     <h1 className='text-2xl font-semibold'>Sakshi</h1>
@@ -186,7 +188,7 @@ const Testimonial = () => {
                                 </p>
                             </div>
                         </div>
-                        <span className='text-sm text-[#929090] pl-16'>user, 2021.03.02</span>
+                        <span className='text-sm text-[#929090] pl-16'>user, 24.03.2</span>
                     </article></SwiperSlide>
                 </Swiper>
             </div>

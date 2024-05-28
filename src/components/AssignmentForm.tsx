@@ -16,6 +16,7 @@ import isTokenExpired from '../constants/Token.expire';
 import { Link, useNavigate } from 'react-router-dom';
 import Modal from './inputs/Modal';
 import { jwtDecode } from 'jwt-decode';
+import Button from './inputs/Button';
 
 
 const today = new Date();
@@ -37,7 +38,7 @@ const FormSchema = z.object({
   }),
   pages: z.number({
     message: "Value must be greater than 0"
-  }).int().gte(0).safe().positive(),
+  }).gte(0),
   reference: z.optional(z.nullable(z.array(z.string()).or(z.string()))),
   description: z.string().min(1, {
     message: "Try to briefly explain your Assignment"
@@ -69,6 +70,7 @@ const AssignmentForm = () => {
   const { userType, token } = useSelector(selectCurrentUser);
   const navigate = useNavigate();
   const [otherField, setOtherField] = useState<boolean>(false)
+  const [fileName, setFileName] = useState<string | null>(null)
 
 
   const {
@@ -130,7 +132,13 @@ const AssignmentForm = () => {
 
     setModelOpen()
   }
-
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      setFileName(event.target.files[0].name);
+    } else {
+      setFileName(null);
+    }
+  };
   const sendQuery = (formData: any) => {
     const url = 'https://2nhv2211-8080.inc1.devtunnels.ms/customer/query';
     setModelClose()
@@ -191,11 +199,8 @@ const AssignmentForm = () => {
               })} error={errors.deadline?.message} />
               <FormTextField title='Enter the total Pages' {...register("pages", {
                 valueAsNumber: true,
-                required: {
-                  value: true,
-                  message: "total pages is required"
-                }
               })} error={errors.pages?.message} type='number' min={1} />
+
             </div>
             <div className='flex flex-col gap-12'>
 
@@ -244,10 +249,18 @@ const AssignmentForm = () => {
               <div>
                 <div className='border border-[#ADADAD] relative z-0  rounded-[4px] font-[Nunito]'>
                   <textarea className=' w-full z-10 bg-transparent  px-4 outline-none pt-3 pb-10 placeholder:text-base resize-none' {...register("description")} />
-                  <label className='absolute left-1 text-primary-200 -top-2 font-medium bg-white text-sm z-10 pr-0.5 leading-none'>Order Description <span className='text-[#C5C5C5]'>(write or attach)</span></label>
+                  <span className='absolute left-1 text-primary-200 -top-2 font-medium bg-white text-sm z-10 pr-0.5 leading-none'>Order Description <span className='text-[#C5C5C5]'>(write or attach)</span></span>
 
-                  <input type='file' id="fileUpload" {...register("files")} accept={ACCEPTED_FILE_TYPES.join(' ')} className='file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 left-2 
-                      file:text-sm file:font-semibold z-20 file:bg-violet-50 file:text-violet-700 hover:file:bg-violet-100 absolute bottom-1'/>
+                  <label htmlFor="fileUpload" className='cursor-pointer w-[200px] inline-block border-2 rounded border-black/20 m-1'>
+                    <div className='px-2 py-1'>
+                      {!fileName && <>
+                        <p className="mb-1 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Upload</span> or drag and drop</p><p className="text-xs text-gray-500 dark:text-gray-400 truncate">SVG, PNG, JPG, PDf, XLSX</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Max Size 10 Mb</p></>}
+                      {fileName && <p className=" text-sm text-gray-700 w-[180px] truncate">{fileName}</p>}
+
+                    </div>
+                    <input type='file' id="fileUpload" {...register("files")} accept={ACCEPTED_FILE_TYPES.join(' ')} className='file:mr-4 hidden file:py-2 file:px-4 file:rounded-full file:border-0 left-2 ' onChange={handleFileChange} />
+                  </label>
                 </div>
                 <p className='text-red-500 text-sm mt-1 font-[Nunito] leading-none'> {errors.description && errors.description?.message}</p>
                 <p className='text-red-500 text-sm mt-1 font-[Nunito] leading-none'> {filesError}</p>

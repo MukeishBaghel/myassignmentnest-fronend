@@ -30,20 +30,45 @@ const Navbar = () => {
       </header>
       <nav className=' bg-primary shadow-Nav_box_Shadow py-2'>
         <div className='px-4 container lg:px-20  flex items-center justify-between'>
-          <Link to={'/'}><img src={newLogo} alt="assignmentHelper" className='w-36 h-12' /></Link>
+          <Link to={'/'}><img src={newLogo} alt="assignmentHelper" className='w-36 ' /></Link>
           {/* <h1 className='text-xl lg:text-2xl text-[#1F1F1F]'>AssignmentHelper</h1> */}
-          <ul className=' hidden lg:flex items-center justify-between gap-8 text-[#454545] text-lg xl:text-xl  '>
+          <ul className=' hidden lg:flex items-center justify-between gap-8 text-[#454545] text-lg xl:text-xl'>
             {/* <button className="hover:text-[#7633FF99] duration-150 ease-in " >Services</button> */}
 
             <NavLink to={'/'} className={({ isActive }) => `${isActive ? "gradient-text" : "hover:text-[#7633FF99]"} duration-150 ease-in `}>Home</NavLink>
-            <div className=' mx-auto z-50'>
+
+            <div className=''>
               <NavMenu setActive={setActive}>
                 <MenuItem setActive={setActive} active={active} item="Services">
-                  <div className="flex flex-col space-y-4 text-sm">
-                    <HoveredLink to="/web-dev">Web Development</HoveredLink>
-                    <HoveredLink to="/interface-design">Interface Design</HoveredLink>
-                    <HoveredLink to="/seo">Search Engine Optimization</HoveredLink>
-                    <HoveredLink to="/branding">Branding</HoveredLink>
+                  <div className='grid grid-cols-3 gap-4'>
+                    <div className="flex flex-col text-sm">
+                      <h1 className='text-xl font-semibold'>Writing</h1>
+                      <HoveredLink to="/">Assignment writing</HoveredLink>
+                      <HoveredLink to="/-design">Essay writing</HoveredLink>
+                      <HoveredLink to="/">Dissertation</HoveredLink>
+                      <HoveredLink to="/">Programming</HoveredLink>
+                      <HoveredLink to="/">case Study</HoveredLink>
+                      <HoveredLink to="/">Coursework</HoveredLink>
+                      <HoveredLink to="/">Thesis Writing</HoveredLink>
+                      <HoveredLink to="/">CDR</HoveredLink>
+                      <HoveredLink to="/">Homework</HoveredLink>
+                      <HoveredLink to="/">Research</HoveredLink>
+                      <HoveredLink to="/">Assessments</HoveredLink>
+                      <HoveredLink to="/">Speech Topics</HoveredLink>
+                    </div>
+                    <div className="flex flex-col text-sm">
+                      <h1 className='text-xl font-semibold'>Editing</h1>
+                      <HoveredLink to="/web-dev">Dissertation Editing</HoveredLink>
+                    </div>
+                    <div className="flex flex-col text-sm">
+                      <h1 className='text-xl font-semibold'>Offers</h1>
+                      <HoveredLink to="/">Take My Online Exam</HoveredLink>
+                      <HoveredLink to="/">Take My Online class</HoveredLink>
+                      <HoveredLink to="/seo">Homework help</HoveredLink>
+                      <HoveredLink to="/">Pay Someone Do my Homework</HoveredLink>
+                      <HoveredLink to="/">Coursework Help</HoveredLink>
+                      <HoveredLink to="/">Thesis Writing help</HoveredLink>
+                    </div>
                   </div>
                 </MenuItem>
               </NavMenu>
@@ -55,6 +80,13 @@ const Navbar = () => {
             <a href={'/#freetools'} className='hover:text-[#7633FF99] duration-150 ease-in '>
               Free Tools
             </a>
+            {
+              !token && <div className='space-x-1 text-[#454545] text-lg xl:text-xl'>
+                <Link to={'/login'} className='active:scale-95 hover:text-purple-700 duration-150 ease-in '>Login</Link>
+                <span>/</span>
+                <Link to={'/signup'} className='hover:text-purple-700 duration-150 ease-in '>SignUp</Link>
+              </div>
+            }
 
             {
               token && <button onClick={() => {
@@ -75,24 +107,36 @@ const Navbar = () => {
         className='relative lg:hidden'
       >
         <div className='bg-primary_100 h-full flex flex-col items-center justify-center gap-10 text-white'>
-          <NavLink to={'/'} className={({ isActive }) => `${isActive ? "gradient-text" : "hover:text-[#7633FF99]"} duration-150 ease-in `}>Home</NavLink>
-          <button className="hover:text-[#7633FF99] duration-150 ease-in ">Services</button>
-          <a href={'/#reviews'} className='hover:text-[#7633FF99] duration-150 ease-in '>
+          <NavLink to={'/'} className={({ isActive }) => `${isActive ? "text-[#dadada]" : "hover:text-secondary-100"} duration-150 ease-in mt-24 `}>Home</NavLink>
+          <button className="hover:text-secondary-100 duration-150 ease-in ">Services</button>
+          <a href={'/#reviews'} className='hover:text-secondary-100 duration-150 ease-in '>
             Reviews
           </a>
-          <a href={'/#freetools'} className='hover:text-[#7633FF99] duration-150 ease-in '>
+          <a href={'/#freetools'} className='hover:text-secondary-100 duration-150 ease-in '>
             Free Tools
           </a>
           {
-            token && <Button className='bg-primary rounded-lg px-10 font-semibold py-2' onClick={() => {
-              dispatch(logOut())
-              toast.success("Logout Successfully")
-            }}><span className='text-transparent bg-clip-text bg-primary_100'>Logout</span></Button>
+            token && <div className='flex justify-end h-full flex-col gap-2 mb-10'>
+              <Button className='bg-primary rounded-lg px-10 font-semibold py-2' onClick={() => {
+                dispatch(logOut())
+                toast.success("Logout Successfully")
+              }}><span className='text-transparent bg-clip-text bg-primary_100'>Logout</span></Button>
+            </div>
           }
+
+          {
+            !token && <div className='flex justify-end h-full flex-col gap-2 mb-10'>
+              <Button className='bg-primary rounded-lg px-10 font-semibold py-2' ><Link to={'/login'} className='text-transparent bg-clip-text bg-primary_100'>Login</Link></Button>
+              <Button className='bg-primary rounded-lg px-10 font-semibold py-2'><Link to={'/signup'} className='text-transparent bg-clip-text bg-primary_100'>SignUp</Link>
+              </Button>
+            </div>
+          }
+
+
           <button className='font-medium text-lg text-white absolute top-2 left-2 hover:opacity-65 duration-200 ease-in' onClick={toggleDrawer}><X /></button>
         </div>
-      </Drawer>
-    </div>
+      </Drawer >
+    </div >
   )
 }
 

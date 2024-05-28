@@ -53,7 +53,8 @@ const SignUp = () => {
             console.log(resdata)
             const res = await resdata.json()
             if (resdata.status === 400) {
-                return toast.error("User already exist")
+                toast.error("User already exist")
+                navigate('/login')
             }
             // console.log(jwtDecode(res.data.token))
             if (res.data && res.data.token) {

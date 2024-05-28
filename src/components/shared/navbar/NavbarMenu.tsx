@@ -25,8 +25,8 @@ export const MenuItem = ({
     return (
         <div onMouseEnter={() => setActive(item)} className="relative ">
             <motion.p
-                transition={{ duration: 0.3 }}
-                className="cursor-pointer text-[#454545] hover:text-[#7633FF99] dark:text-white"
+                transition={{ duration: 0.4 }}
+                className={`cursor-pointer text-[#454545] hover:text-[#7633FF99] ${active && "text-[#7633FF99]"} dark:text-white duration-150 ease-in-out`}
             >
                 {item}
             </motion.p>
@@ -37,7 +37,7 @@ export const MenuItem = ({
                     transition={transition}
                 >
                     {active === item && (
-                        <div className="absolute top-[calc(100%)] left-1/2 transform -translate-x-1/2 pt-4">
+                        <div className="absolute top-[calc(100%_-_1rem)] left-1/2 transform -translate-x-1/2 pt-4">
                             <motion.div
                                 transition={transition}
                                 layoutId="active" // layoutId ensures smooth animation
@@ -108,7 +108,7 @@ export const HoveredLink = ({ children, ...rest }: any) => {
     return (
         <Link
             {...rest}
-            className="text-neutral-700 dark:text-neutral-200 hover:text-[#7633FF99] "
+            className="text-neutral-700 text-[15px] dark:text-neutral-200 hover:text-[#7633ff] "
         >
             {children}
         </Link>
