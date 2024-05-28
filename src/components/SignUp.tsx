@@ -14,6 +14,9 @@ import { GoogleLogin, useGoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Loader from './shared/Loader';
+import { getNewAccessToken, getRefreshToken } from './utils/TokenConfig';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '../redux/slices/user.slice';
 
 const RegisterSchema = z.object({
     name: z.string().min(3),
@@ -34,6 +37,14 @@ const SignUp = () => {
     });
     const navigate = useNavigate();
     const { state: prevState } = useLocation();
+    const dispatch = useDispatch();
+
+    const saveAuthDetails = (response: any) => {
+        dispatch(setCredentials({ token: response.access_token, refresh_token: response.refresh_token, userType: "google_user" }))
+    }
+    const saveAccessToken = (token: string) => {
+        dispatch(setCredentials({ token, userType: "google_user" }))
+    }
 
     const onSubmit = async (data: FormFields) => {
         console.log('Form Data:', data);
@@ -77,14 +88,48 @@ const SignUp = () => {
         }
 
     };
+    
     const handleGoogleLogin = useGoogleLogin({
         flow: 'auth-code',
-        onSuccess: (tokenResponse) => {
-            navigate(prevState || '/')
+        onSuccess: async (codeResponse) => {
+            try {
+                console.log(codeResponse);
 
+                if (codeResponse.scope.includes('https://mail.google.com/')) {
 
+                    const refreshToken = await getRefreshToken(codeResponse, saveAuthDetails);
 
-            console.log(tokenResponse)
+                    const newAccessToken = await getNewAccessToken(refreshToken, saveAccessToken);
+
+                    if (newAccessToken) {
+                        console.log("calling google")
+                        setIsLoading(true)
+                        const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification", {
+                            method: "POST",
+                            headers: {
+                                "Authorization": 'Bearer ' + newAccessToken
+                            }
+                        });
+                        console.log(data)
+                        if (data.ok) {
+                            toast.success("Login successfully");
+                            navigate(prevState || '/');
+                        } else {
+                            toast.error('Verification failed');
+                        }
+                    } else {
+                        toast.error('Failed to retrieve new access token');
+                    }
+                } else {
+                    toast.error('Please give required permission to read emails!');
+                }
+            } catch (err) {
+                console.log(err);
+                toast.error("Something went wrong");
+            }
+            finally {
+                setIsLoading(false)
+            }
         },
         // todo: implement toast functionality 
         onError: () => navigate('/')
@@ -114,7 +159,7 @@ const SignUp = () => {
                         </div>
                         <GradientButton className='w-full' bgClassName='text-lg md:text-xl mt-2' type="submit">Create account</GradientButton>
                     </form>
-                    <Button className='flex items-center gap-2 justify-center h-12 border-2 p-2 rounded-2xl border-black w-full' onClick={() => handleGoogleLogin()}><img src={google} alt="" className='w-8 h-8' /><p className='text-base sm:text-[15px] lg:text-lg text-nowrap text-black font-medium'>Sign in with Google</p></Button>
+                    <Button className='flex items-center gap-2 justify-center h-12 border-2 p-2 rounded-2xl border-black w-full active:scale-95' onClick={() => handleGoogleLogin()}><img src={google} alt="" className='w-8 h-8' /><p className='text-base sm:text-[15px] lg:text-lg text-nowrap text-black font-medium'>Sign in with Google</p></Button>
                     <p className='text-center text-[#0000007D] pb-2'><span className=''>Already have an account ? </span><Link to={'/login'} className='text-black hover:underline text-nowrap'>Log in</Link></p>
 
                 </div>

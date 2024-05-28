@@ -39,7 +39,7 @@ const Login = () => {
             navigate('/')
         }
     }, [])
-console.log(token)
+    console.log(token)
     const {
         register,
         handleSubmit,
@@ -107,22 +107,32 @@ console.log(token)
         flow: 'auth-code',
         onSuccess: async (codeResponse) => {
             try {
-                if (codeResponse.scope.includes('https://mail.google.com/')) {
-                    await getRefreshToken(codeResponse, saveAuthDetails);
-                    await getNewAccessToken(refresh_token, saveAccessToken);
+                console.log(codeResponse);
 
-                    if (token) {
+                if (codeResponse.scope.includes('https://mail.google.com/')) {
+
+                    const refreshToken = await getRefreshToken(codeResponse, saveAuthDetails);
+
+                    const newAccessToken = await getNewAccessToken(refreshToken, saveAccessToken);
+
+                    if (newAccessToken) {
+                        console.log("calling google")
+                        setIsLoading(true)
                         const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification", {
                             method: "POST",
                             headers: {
-                                "Authorization": 'Bearer ' + token
+                                "Authorization": 'Bearer ' + newAccessToken
                             }
                         });
-
+                        console.log(data)
                         if (data.ok) {
                             toast.success("Login successfully");
                             navigate(prevState || '/');
+                        } else {
+                            toast.error('Verification failed');
                         }
+                    } else {
+                        toast.error('Failed to retrieve new access token');
                     }
                 } else {
                     toast.error('Please give required permission to read emails!');
@@ -131,12 +141,18 @@ console.log(token)
                 console.log(err);
                 toast.error("Something went wrong");
             }
+            finally {
+                setIsLoading(false)
+            }
         },
         onError: () => {
             toast.error("Something went wrong");
         }
     });
 
+    if (isLoading) {
+        return <Loader />
+    }
     return (
         <section className='grid grid-cols-1 md:grid-cols-3  lg:grid-cols-8 xl:grid-cols-12 gap-10 min-h-screen relative '>
 

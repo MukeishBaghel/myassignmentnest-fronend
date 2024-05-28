@@ -7,7 +7,7 @@ import gatewayimg from '/assets/images/gatewayimg.jpeg'
 const Footer = () => {
   return (
     <footer className='bg-primary_100 p-4 sm:p-12 '>
-      <section className=' grid grid-cols-2  gap-y-6 sm:gap-10 lg:grid-cols-4 justify-items-center  text-primary'>
+      <section className=' grid grid-cols-2  gap-y-6 sm:gap-14 lg:grid-cols-4 justify-items-center place-content-between align-middle  text-primary'>
         <div className='flex flex-col gap-6 '>
           <h1 className='text-xl sm:text-2xl md:text-3xl font-semibold'>
             Ready to get started?
@@ -25,7 +25,7 @@ const Footer = () => {
           <p className='text-sm pr-4 max-sm:hidden'>Disclaimer: The reference papers provided by MyAssignmentnest.com serve as model papers for students and are not to be submitted as it is. These papers are intended to be used for research and reference purposes only.</p>
 
         </div>
-        <div className='flex flex-col gap-2 max-sm:text-sm'>
+        <div className='flex flex-col gap-2 max-sm:text-sm max-lg:justify-self-end'>
           <h1 className='font-semibold text-lg '>Our Policy</h1>
           <Link to={"/privacy-policy"} className='hover:opacity-50 duration-150 ease-in  '>
             Privacy Policy
@@ -34,8 +34,8 @@ const Footer = () => {
             Terms And Conditions
           </Link>
         </div>
-        <div className='flex flex-col gap-2 max-sm:text-sm'>
-          <h1 className='font-semibold text-lg text-start'>Contact us</h1>
+        <div className='flex flex-col gap-2 max-sm:text-sm '>
+          <h1 className='font-semibold text-lg text-start text-nowrap'>Contact us</h1>
           <Link to={"mailto:support@myassignmentnest.com"} >
             Email: <span className='hover:opacity-50 duration-150 ease-in '>
               support@myassignmentnest.com
@@ -46,7 +46,7 @@ const Footer = () => {
             Phone: <span className='hover:opacity-50 duration-150 ease-in '>+918439223922</span>
           </Link>
         </div>
-        <div className='flex flex-col gap-4 justify-between max-sm:text-sm'>
+        <div className='flex flex-col gap-4 justify-between max-sm:text-sm justify-self-end'>
           <div className='flex flex-col gap-2 '>
             <h1 className='font-semibold text-lg text-start'>Navigation</h1>
             <Link to={'/'} className='hover:opacity-50 duration-150 ease-in  '>

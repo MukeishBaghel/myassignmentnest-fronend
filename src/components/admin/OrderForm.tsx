@@ -35,7 +35,7 @@ const OrderForm = ({ id }: { id: string }) => {
             toast.error("All fields are must")
             return;
         }
-      
+
 
         setIsLoading(true)
         try {
@@ -102,14 +102,13 @@ const OrderForm = ({ id }: { id: string }) => {
 
                 <FormTextField title='Description' className='border' type="text" value={data.description} id='description' name='description' onChange={(e) => handleOnChange(e)} />
 
-                <FormTextField readOnly title='CustomerID' className='border cursor-not-allowed' type="text" value={data.customer_id || id} id='customer_id' name="customer_id" onChange={(e) => handleOnChange(e)} />
+                <FormTextField readOnly title='CustomerID' className='border cursor-not-allowed' type="text" value={data.customer_id || id} id='customer_id' name="customer_id" />
 
                 <div className='border border-[#ADADAD] relative z-0  rounded-[4px] font-[Nunito] h-12'>
-                    <select className=' w-full z-10 bg-transparent  px-2 outline-none h-12  placeholder:text-base resize-none' value={data.order_type} id='order_type' name="order_type" onChange={(e) => handleOnChange(e)}>
-                        <option value={"Full"}>Single</option>
+                    <input className=' w-full z-10 bg-transparent  px-2 outline-none h-12  placeholder:text-base resize-none' readOnly value={"MULTIPART"} id='order_type' name="order_type" >
+                        {/* <option value={"Full"}>Single</option> */}
 
-                        <option value="MULTIPART">Multipart</option>
-                    </select>
+                    </input>
                     <label className='absolute left-1 text-primary-200 -top-2 font-medium bg-white text-sm z-10 pr-0.5 leading-none'>Order type</label>
                 </div>
 

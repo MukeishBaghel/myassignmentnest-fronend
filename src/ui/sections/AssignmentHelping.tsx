@@ -6,7 +6,7 @@ import { AssignmentHelpingData } from '../../constants/StaticData'
 
 const AssignmentHelpingCard = ({ img, heading, textContent, path }: { img: string, heading: string, textContent: string, path: string }) => {
     return (
-        <article className='shadow-card_shadow bg-primary text-center w-[275px] h-[250px] p-4 rounded-xl  gap-2 flex flex-col items-center justify-between'>
+        <article className='shadow-card_shadow bg-primary text-center hover:shadow-lg hover:scale-105 ease-in-out duration-150 w-[275px] h-[250px] p-4 rounded-xl  gap-2 flex flex-col items-center justify-between'>
             <div className='rounded-full bg-primary_100 relative -mt-12 p-3'>
                 <img src={img} alt="" className='w-8 h-8 mx-auto ' />
             </div>

@@ -24,11 +24,11 @@ const CommonLayout = ({ children }: { children: React.ReactNode }) => {
       <Modal isOpen={isModelOpen} onClose={setModelClose}>
         <div className='p-4 max-w-[290px] sm:max-w-[350px]'>
           <h1 className='text-center font-medium text-2xl gradient-text sm:text-3xl'>Ask to Experts</h1>
-            <p className='mt-5 text-secondary-200'>"Meet our Expert Minds: Where brilliance meets dedication, and knowledge ignites innovation. Our seasoned experts are the architects of success, ready to empower you with tailored solutions. Click now to unlock a world of expertise!"</p>
+          <p className='mt-5 text-secondary-200'>"Meet our Expert Minds: Where brilliance meets dedication, and knowledge ignites innovation. Our seasoned experts are the architects of success, ready to empower you with tailored solutions. Click now to unlock a world of expertise!"</p>
           <div className='flex items-center justify-center mt-5'>
-            <GradientButton><Link to={'https://wa.me/message/TWMAGNZXPVLQG1'} className=''>
-              Connect Now
-            </Link></GradientButton>
+            <Link to={'https://wa.me/message/TWMAGNZXPVLQG1'} className=''>
+              <GradientButton>Connect Now</GradientButton>
+            </Link>
           </div>
         </div>
 
