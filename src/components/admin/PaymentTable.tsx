@@ -9,6 +9,7 @@ import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Copy } from 'lucide-react'
+import { AxiosError, isAxiosError } from 'axios'
 
 type DataRow = {
     id: string,
@@ -43,9 +44,10 @@ const PaymentTable = () => {
         },
         {
             name: "payment_date",
-            width: "10%",
-            selector: (row) => row.payment_date,
+            width: "15%",
+            selector: (row) => (new Date(+row.payment_date * 1000).toString()),
             sortable: true,
+            style: { fontSize: "14px" }
         },
         {
             name: "approve_link",
@@ -168,11 +170,13 @@ const PaymentTable = () => {
                 const { data } = await axiosInstance.get(`/payment/get-by-order?order_id=${id}`)
                 if (data) {
                     console.log(data);
+                    toast.success(data.message)
                     setPayments(data.data)
                 }
                 console.log(data);
             }
             catch (err) {
+                toast.error((AxiosError && isAxiosError(err) && err.message) || "Something went wrong")
                 console.log(err);
             }
             finally {

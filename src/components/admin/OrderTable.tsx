@@ -54,8 +54,9 @@ const OrderTable = () => {
 
         {
             name: "order_datetime",
-            selector: (row) => row.order_datetime,
+            selector: (row) => (new Date(+row.order_datetime * 1000).toString()),
             sortable: true,
+            style:{fontSize:"12px"}
         }, {
             name: "order_status",
             selector: (row) => row.order_status,
