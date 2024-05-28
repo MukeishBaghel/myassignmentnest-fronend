@@ -44,7 +44,7 @@ const Navbar = () => {
                     <div className="flex flex-col text-sm">
                       <h1 className='text-xl font-semibold'>Writing</h1>
                       <HoveredLink to="/">Assignment writing</HoveredLink>
-                      <HoveredLink to="/-design">Essay writing</HoveredLink>
+                      <HoveredLink to="/">Essay writing</HoveredLink>
                       <HoveredLink to="/">Dissertation</HoveredLink>
                       <HoveredLink to="/">Programming</HoveredLink>
                       <HoveredLink to="/">case Study</HoveredLink>
@@ -58,13 +58,13 @@ const Navbar = () => {
                     </div>
                     <div className="flex flex-col text-sm">
                       <h1 className='text-xl font-semibold'>Editing</h1>
-                      <HoveredLink to="/web-dev">Dissertation Editing</HoveredLink>
+                      <HoveredLink to="/">Dissertation Editing</HoveredLink>
                     </div>
                     <div className="flex flex-col text-sm">
                       <h1 className='text-xl font-semibold'>Offers</h1>
                       <HoveredLink to="/">Take My Online Exam</HoveredLink>
                       <HoveredLink to="/">Take My Online class</HoveredLink>
-                      <HoveredLink to="/seo">Homework help</HoveredLink>
+                      <HoveredLink to="/">Homework help</HoveredLink>
                       <HoveredLink to="/">Pay Someone Do my Homework</HoveredLink>
                       <HoveredLink to="/">Coursework Help</HoveredLink>
                       <HoveredLink to="/">Thesis Writing help</HoveredLink>

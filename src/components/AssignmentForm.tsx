@@ -1,4 +1,4 @@
-import React, { ChangeEvent, HTMLInputTypeAttribute, HtmlHTMLAttributes, Suspense, forwardRef, useId, useRef, useState } from 'react'
+import React, { ChangeEvent,  Suspense, useState } from 'react'
 import FormTextField from './inputs/FormTextField'
 import GradientButton from './inputs/GradientButton'
 import { z } from 'zod';
@@ -16,7 +16,7 @@ import isTokenExpired from '../constants/Token.expire';
 import { Link, useNavigate } from 'react-router-dom';
 import Modal from './inputs/Modal';
 import { jwtDecode } from 'jwt-decode';
-import Button from './inputs/Button';
+import { UploadCloud } from 'lucide-react';
 
 
 const today = new Date();
@@ -182,8 +182,8 @@ const AssignmentForm = () => {
     }
   };
   return (
-    <div className='bg-rainbow bg-center bg-cover bg-no-repeat mt-10 px-2 xs:px-4 sm:px-10  z-30'>
-      <div className='bg-white  relative shadow-form_shadow h-full w-full py-10 px-2 xs:px-6 sm:px-10 md:px-16 xl:px-28 max-w-7xl mx-auto'>
+    <div className='bg-rainbow bg-center bg-cover bg-no-repeat mt-10 px-2 xs:px-4 sm:px-10  z-30' id='assignmentForm'>
+      <div className='bg-white  relative shadow-form_shadow h-full w-full py-10 px-2 xs:px-6 sm:px-10 md:px-16 xl:px-28 max-w-7xl mx-auto' >
         <h1 className='text-xl lg:text-2xl text-center font-semibold text-secondary-200'>Receive immediate assistance from genuine experts, no AI involved.</h1>
         <form className='mt-16 ' onSubmit={handleSubmit(onSubmit)}>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 lg:gap-32'>
@@ -251,11 +251,11 @@ const AssignmentForm = () => {
                   <textarea className=' w-full z-10 bg-transparent  px-4 outline-none pt-3 pb-10 placeholder:text-base resize-none' {...register("description")} />
                   <span className='absolute left-1 text-primary-200 -top-2 font-medium bg-white text-sm z-10 pr-0.5 leading-none'>Order Description <span className='text-[#C5C5C5]'>(write or attach)</span></span>
 
-                  <label htmlFor="fileUpload" className='cursor-pointer w-[200px] inline-block border-2 rounded border-black/20 m-1'>
+                  <label htmlFor="fileUpload" className='cursor-pointer max-w-[200px] inline-block border-2 rounded border-purple-500 m-1'>
                     <div className='px-2 py-1'>
                       {!fileName && <>
-                        <p className="mb-1 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Upload</span> or drag and drop</p><p className="text-xs text-gray-500 dark:text-gray-400 truncate">SVG, PNG, JPG, PDf, XLSX</p>
-                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Max Size 10 Mb</p></>}
+                        <p className="font-semibold text-primary-200 flex gap-2"><span>Upload File </span><span className='text-black'><UploadCloud className='w-6 text-secondary-foreground'/></span></p> <p className="text-xs text-gray-500 dark:text-gray-400 truncate">SVG, PNG, JPG, PDf, XLSX</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Max Size: 10 MB</p></>}
                       {fileName && <p className=" text-sm text-gray-700 w-[180px] truncate">{fileName}</p>}
 
                     </div>

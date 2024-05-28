@@ -103,14 +103,15 @@ export const ProductItem = ({
         </Link>
     );
 };
-
+// @ts-ignore
 export const HoveredLink = ({ children, ...rest }: any) => {
     return (
-        <Link
-            {...rest}
+        <a
+            // {...rest}
+            href="/#assignmentForm"
             className="text-neutral-700 text-[15px] dark:text-neutral-200 hover:text-[#7633ff] "
         >
             {children}
-        </Link>
+        </a>
     );
 };
