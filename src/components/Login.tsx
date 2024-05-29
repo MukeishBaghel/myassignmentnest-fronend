@@ -100,55 +100,49 @@ const Login = () => {
     const saveAccessToken = (token: string) => {
         dispatch(setCredentials({ token, userType: "google_user" }))
     }
-    const SCOPE = 'https://mail.google.com/';
+    // const SCOPE = 'https://mail.google.com/';
 
     const handleGoogleLogin = useGoogleLogin({
-        scope: SCOPE,
+        scope: 'profile',
         flow: 'auth-code',
         onSuccess: async (codeResponse) => {
+            console.log(codeResponse)
             try {
                 console.log(codeResponse);
 
-                if (codeResponse.scope.includes('https://mail.google.com/')) {
+                const refreshToken = await getRefreshToken(codeResponse, saveAuthDetails);
+                const newAccessToken = await getNewAccessToken(refreshToken, saveAccessToken);
 
-                    const refreshToken = await getRefreshToken(codeResponse, saveAuthDetails);
-
-                    const newAccessToken = await getNewAccessToken(refreshToken, saveAccessToken);
-
-                    if (newAccessToken) {
-                        console.log("calling google")
-                        setIsLoading(true)
-                        const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification", {
-                            method: "POST",
-                            headers: {
-                                "Authorization": 'Bearer ' + newAccessToken
-                            }
-                        });
-                        console.log(data)
-                        if (data.ok) {
-                            toast.success("Login successfully");
-                            navigate(prevState || '/');
-                        } else {
-                            toast.error('Verification failed');
+                if (newAccessToken) {
+                    setIsLoading(true);
+                    const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification", {
+                        method: "POST",
+                        headers: {
+                            "Authorization": 'Bearer ' + newAccessToken
                         }
+                    });
+                    console.log(data);
+                    if (data.ok) {
+                        toast.success("Login successfully");
+                        navigate(prevState || '/');
                     } else {
-                        toast.error('Failed to retrieve new access token');
+                        toast.error('Verification failed');
                     }
                 } else {
-                    toast.error('Please give required permission to read emails!');
+                    toast.error('Failed to retrieve new access token');
                 }
             } catch (err) {
                 console.log(err);
                 toast.error("Something went wrong");
-            }
-            finally {
-                setIsLoading(false)
+            } finally {
+                setIsLoading(false);
             }
         },
         onError: () => {
             toast.error("Something went wrong");
         }
     });
+
 
     if (isLoading) {
         return <Loader />
