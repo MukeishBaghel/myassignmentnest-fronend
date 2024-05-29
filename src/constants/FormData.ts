@@ -1,4 +1,5 @@
 export const ACCEPTED_FILE_TYPES = [
+  "text/plain",
   "image/png",
   "image/jpeg",
   "image/jpg",

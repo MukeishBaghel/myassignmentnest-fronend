@@ -113,7 +113,7 @@ const Login = () => {
 
                 if (newAccessToken) {
                     setIsLoading(true);
-                    const data = await fetch(`${import.meta.env.VITE_BASE_URL}/auth/google-verification`, {
+                    const data: any = await fetch(`${import.meta.env.VITE_BASE_URL}/auth/google-verification`, {
                         method: "POST",
                         headers: {
                             "Authorization": 'Bearer ' + newAccessToken
@@ -121,8 +121,10 @@ const Login = () => {
                     });
                     console.log(data);
                     if (data.ok) {
+                        localStorage.setItem("customer_id", data.accountId);
                         toast.success("Login successfully");
                         navigate(prevState || '/');
+
                     } else {
                         toast.error('Verification failed');
                     }
@@ -164,7 +166,7 @@ const Login = () => {
                         <GradientButton className='w-full' bgClassName='text-lg md:text-xl' type="submit">Log in</GradientButton>
                     </form>
 
-                    <Button className='flex items-center gap-2 justify-center border-2 p-2 h-12 rounded-2xl border-black' onClick={() => handleGoogleLogin()}><img src={google} alt="" /><p className=' text-base sm:text-[15px] text-lg lg:text-xl text-nowrap  text-black font-medium'>Sign in with Google</p>
+                    <Button className='flex items-center gap-2 justify-center border-2 p-2 h-12 rounded-2xl border-black active:scale-95 ease-in-out duration-150' onClick={() => handleGoogleLogin()}><img src={google} alt="" /><p className=' text-base sm:text-[15px] text-lg lg:text-xl text-nowrap  text-black font-medium'>Sign in with Google</p>
                     </Button>
 
                     <p className='text-center text-[#0000007D]'>

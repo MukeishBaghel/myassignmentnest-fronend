@@ -70,6 +70,7 @@ const SignUp = () => {
             }
             // console.log(jwtDecode(res.data.token))
             if (res.data && res.data.token) {
+                localStorage.setItem("customer_id", res.data.accountId);
                 toast.success("SignUp Successfully")
                 navigate('/login')
                 return
@@ -159,7 +160,7 @@ const SignUp = () => {
                         </div>
                         <GradientButton className='w-full' bgClassName='text-lg md:text-xl mt-2' type="submit">Create account</GradientButton>
                     </form>
-                    <Button className='flex items-center gap-2 justify-center h-12 border-2 p-2 rounded-2xl border-black w-full active:scale-95' onClick={() => handleGoogleLogin()}><img src={google} alt="" className='w-8 h-8' /><p className='text-base sm:text-[15px] lg:text-lg text-nowrap text-black font-medium'>Sign in with Google</p></Button>
+                    <Button className='flex items-center gap-2 justify-center h-12 border-2 p-2 rounded-2xl border-black w-full active:scale-95 ease-in-out duration-150' onClick={() => handleGoogleLogin()}><img src={google} alt="" className='w-8 h-8' /><p className='text-base sm:text-[15px] lg:text-lg text-nowrap text-black font-medium'>SignUp with Google</p></Button>
                     <p className='text-center text-[#0000007D] pb-2'><span className=''>Already have an account ? </span><Link to={'/login'} className='text-black hover:underline text-nowrap'>Log in</Link></p>
 
                 </div>

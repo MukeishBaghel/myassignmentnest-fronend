@@ -1,4 +1,4 @@
-import React, { ChangeEvent, Suspense, useState } from 'react'
+import React, { ChangeEvent, Suspense, useEffect, useState } from 'react'
 import FormTextField from './inputs/FormTextField'
 import GradientButton from './inputs/GradientButton'
 import { z } from 'zod';
@@ -71,7 +71,8 @@ const AssignmentForm = () => {
   const navigate = useNavigate();
   const [otherField, setOtherField] = useState<boolean>(false)
   const [fileName, setFileName] = useState<string | null>(null)
-
+  const [email, setEmail] = useState(null)
+  const [decoded_token, setDecoded_token] = useState<any | undefined>(undefined)
 
   const {
     register,
@@ -97,16 +98,52 @@ const AssignmentForm = () => {
     }
   }
 
+  useEffect(() => {
+    try {
+      let decodeToken = null;
+      if (token) {
+
+        decodeToken = jwtDecode(token);
+        if (decodeToken) {
+          setDecoded_token(decodeToken);
+          // @ts-ignore
+          setEmail(decodeToken?.sub)
+        }
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  }, [token]);
+
+  useEffect(() => {
+    const savedFormData = localStorage.getItem('formQuery');
+    console.log(savedFormData)
+    if (savedFormData) {
+      const parsedData = JSON.parse(savedFormData);
+      reset(parsedData);
+    }
+    else {
+      reset()
+    }
+  }, [reset]);
+
+
   const onSubmit = async (data: FormFields) => {
+
+    localStorage.setItem("formQuery", JSON.stringify(data))
     if (isTokenExpired()) {
       return navigate('/login')
     }
-    let accountId;
+    let accountId = null;
     if (token && userType === "app_user") {
-      const decoded_token: any = jwtDecode(token)
-      console.log(decoded_token)
       accountId = decoded_token.accountId
     }
+    const userId = localStorage.getItem("customer_id");
+
+    if (userId && userType === "google_user") {
+      accountId = userId
+    }
+
     console.log(data)
     if (!accountId) {
       toast.error("Invalid user")
@@ -132,7 +169,6 @@ const AssignmentForm = () => {
       console.log(key, value)
     }))
 
-
     setModelOpen()
   }
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -157,6 +193,7 @@ const AssignmentForm = () => {
       .then(response => {
         if (response.status === 201) {
           toast.success("Form Submitted Successfully")
+          localStorage.removeItem("formQuery")
           reset();
         }
         else {
@@ -178,7 +215,6 @@ const AssignmentForm = () => {
   // formData.forEach((value, key) => {
   //   console.log(key, value);
   // });
-  console.log(otherField)
   const handleReferenceChange = (event: any) => {
     if (event.target.value === 'other') {
       setOtherField(true);
@@ -191,7 +227,11 @@ const AssignmentForm = () => {
         <form className='mt-16 ' onSubmit={handleSubmit(onSubmit)}>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 lg:gap-32'>
             <div className='flex flex-col gap-12'>
-              <FormTextField title='Enter Email address'{...register("email")} error={errors.email?.message} />
+              {
+                email ? <FormTextField title='Your Email address'{...register("email")} className='cursor-not-allowed' value={email || ""} readOnly={email ?? false} />
+                  : <FormTextField title='Enter Email address'{...register("email")} error={errors.email?.message} />
+              }
+
               <FormTextField title='Enter Subject / course code' {...register("subject")} error={errors.subject?.message} />
               <FormTextField title='Deadline' type='date' min={today.toISOString().split('T')[0]} {...register("deadline", {
                 valueAsDate: true,
@@ -282,11 +322,11 @@ const AssignmentForm = () => {
         </form>
         {isLoading && <Loader />}
         {
-          newFormData && <Modal isOpen={isModelOpen} onClose={setModelClose}>
+          newFormData && <Modal isOpen={isModelOpen} onClose={setModelClose} >
             <div className='p-4'>
               <div className='text-3xl sm:text-4xl font-medium gradient-text text-center'>Are you sure ?</div>
               <div className='flex flex-col space-y-4 mt-8'>
-                <div className='grid grid-cols-2 gap-4 pb-6'>
+                <div className='grid grid-cols-2 gap-4 '>
                   <div className='space-y-4'>
                     <FormTextField title='Email address' value={newFormData?.email} readOnly />
                     <FormTextField title='Deadline' type='text' value={newFormData?.deadline as any} readOnly />
@@ -299,6 +339,8 @@ const AssignmentForm = () => {
                     <FormTextField title='Reference' value={newFormData.reference as string} readOnly />
                   </div>
                 </div>
+                <FormTextField title='File Name' value={fileName as string} readOnly />
+                <br />
                 <GradientButton onClick={() => formData ? sendQuery(formData) : null}>Submit & Connect with Experts</GradientButton>
                 <GradientButton className=''> <Link to={"https://wa.me/message/TWMAGNZXPVLQG1"} >Get instant Quotation now</Link></GradientButton>
               </div>

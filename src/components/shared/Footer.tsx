@@ -18,7 +18,7 @@ const Footer = () => {
               <Button className='bg-primary rounded-lg px-10 font-semibold h-12 w-fit active:scale-95 ease-in-out duration-100'><span className='text-transparent bg-clip-text bg-primary_100'>Contact us</span></Button></a>
             <div className='flex gap-2 items-center'>
               <Link to={'/'} className='border-2 rounded-full p-1.5'><Facebook className='w-5 h-5' /></Link>
-              <Link to={'/'} className='border-2 rounded-full p-1.5'><Instagram className='w-5 h-5' /></Link>
+              <Link to={'https://www.instagram.com/myassignmentnest/'} className='border-2 rounded-full p-1.5'><Instagram className='w-5 h-5' /></Link>
               <Link to={'/'} className='border-2 rounded-full p-1.5'><Linkedin className='w-5 h-5' /></Link>
             </div>
           </div>
@@ -63,7 +63,7 @@ const Footer = () => {
         </div>
 
       </section>
-        <p className='text-sm pr-4 pt-5 text-white sm:hidden'>Disclaimer: The reference papers provided by MyAssignmentnest.com serve as model papers for students and are not to be submitted as it is. These papers are intended to be used for research and reference purposes only.</p>
+      <p className='text-sm pr-4 pt-5 text-white sm:hidden'>Disclaimer: The reference papers provided by MyAssignmentnest.com serve as model papers for students and are not to be submitted as it is. These papers are intended to be used for research and reference purposes only.</p>
     </footer>
   )
 }
