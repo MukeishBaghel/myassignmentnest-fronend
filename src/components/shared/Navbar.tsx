@@ -109,9 +109,18 @@ const Navbar = () => {
         direction='right'
         className='relative lg:hidden'
       >
-        <div className='bg-primary_100 h-full gap-10 text-white'>
-          <h1 className='text-2xl text-white font-semibold flex justify-between items-center mb-4 fixed top-8'><span>Services</span> <span onClick={() => setServices(false)} className='cursor-pointer'><ArrowRight /></span></h1>
-          {
+        <div className='bg-primary_100 h-full gap-10 text-white flex flex-col justify-between'>
+          <div className='flex items-center flex-col gap-6 justify-center h-[calc(100vh-300px)]'>
+            <NavLink to={'/'} className={({ isActive }) => `${isActive ? "text-[#dadada]" : "hover:text-secondary-100"} duration-150 ease-in  `}>Home</NavLink>
+            <button className="hover:text-secondary-100 duration-150 ease-in " onClick={() => setServices(true)}>Services</button>
+            <a href={'/#reviews'} className='hover:text-secondary-100 duration-150 ease-in '>
+              Reviews
+            </a>
+            <a href={'/#freetools'} className='hover:text-secondary-100 duration-150 ease-in '>
+              Free Tools
+            </a></div>
+          {/* <h1 className='text-2xl text-white font-semibold flex justify-between items-center mb-4 '><span>Services</span> <span onClick={() => setServices(false)} className='cursor-pointer'><ArrowRight /></span></h1> */}
+          {/* {
             services ? <div className=' overflow-y-scroll no-scrollbar h-full '>
               <div className='flex items-center flex-col justify-center gap-10 overflow-y-scroll no-scrollbar h-full pt-28'>
                 <div className="flex flex-col text-sm justify-center gap-1 mt-20">
@@ -154,21 +163,22 @@ const Navbar = () => {
               <a href={'/#freetools'} className='hover:text-secondary-100 duration-150 ease-in '>
                 Free Tools
               </a></>
-          }
+          } */}
+
           {
-            token && <div className='mb-10'>
-              <Button className='bg-primary rounded-lg px-10 font-semibold py-2' onClick={() => {
-                dispatch(logOut())
-                toast.success("Logout Successfully")
-              }}><span className='text-transparent bg-clip-text bg-primary_100'>Logout</span></Button>
+            !token && <div className='flex justify-end  flex-col gap-2 mb-10 mx-6'>
+              <Link to={'/login'} className='bg-primary text-center rounded-lg'> <Button className='gradient-text rounded-lg px-10 font-semibold py-2' >Login</Button></Link>
+              <Link to={'/signup'} className='bg-primary text-center rounded-lg'><Button className='gradient-text rounded-lg px-10 font-semibold py-2'>SignUp  </Button></Link>
+
             </div>
           }
 
           {
-            !token && <div className='flex justify-end  flex-col gap-2 mb-10'>
-              <Button className='bg-primary rounded-lg px-10 font-semibold py-2' ><Link to={'/login'} className='text-transparent bg-clip-text bg-primary_100'>Login</Link></Button>
-              <Button className='bg-primary rounded-lg px-10 font-semibold py-2'><Link to={'/signup'} className='text-transparent bg-clip-text bg-primary_100'>SignUp</Link>
-              </Button>
+            token && <div className='mb-10 self-center'>
+              <Button className='bg-primary rounded-lg px-10 font-semibold py-2' onClick={() => {
+                dispatch(logOut())
+                toast.success("Logout Successfully")
+              }}><span className='text-transparent bg-clip-text bg-primary_100'>Logout</span></Button>
             </div>
           }
 
