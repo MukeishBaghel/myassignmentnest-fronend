@@ -2,6 +2,8 @@ import React from 'react'
 import rating from '/assets/images/rating.svg'
 import astridImg from '/assets/images/abhinav.svg'
 import kellyImg from '/assets/images/kelly.svg'
+import yasminImg from '/assets/images/yasmin.svg'
+import clasrkeImg from "/assets/images/clarke.svg"
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -20,7 +22,7 @@ const Testimonial = () => {
                 <article className=' p-6 w-[518px] cursor-pointer bg-[#F7F6FB] rounded-2xl shadow-testimonial_card_1 relative left-72 z-50 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow group group-hover:opacity-0'>
                     <div className='flex gap-4'>
 
-                        <img src={kellyImg} alt="" className='self-start h-16 w-16'/>
+                        <img src={kellyImg} alt="" className='self-start h-16 w-16' />
                         <div>
                             <div className='flex items-center justify-between'>
                                 <h1 className='text-2xl font-semibold'>Kelly</h1>
@@ -50,7 +52,7 @@ const Testimonial = () => {
                 </article>
                 <article className=' p-4 w-[418px] bg-[#EDEDED] cursor-pointer rounded-2xl shadow-testimonial_card_3 relative bottom-8 left-52 z-30 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow  group group-hover:opacity-0'>
                     <div className='flex gap-4'>
-                        <img src={astridImg} alt="" className='self-start' />
+                        <img src={clasrkeImg} alt="" className='self-start' />
                         <div>
                             <div className='flex items-center justify-between'>
                                 <h1 className='text-2xl font-semibold'>Clarke</h1>
@@ -65,7 +67,7 @@ const Testimonial = () => {
                 </article>
                 <article className=' p-6 w-[518px] bg-[#E3E3E3] cursor-pointer rounded-2xl shadow-testimonial_card_4 absolute z-20 bottom-[105px] left-10 hover:z-[60] duration-200 ease-in-out hover:shadow-form_shadow  backdrop-filter group group-hover:opacity-0'>
                     <div className='flex gap-4'>
-                        <img src={astridImg} alt="" className='self-start' />
+                        <img src={yasminImg} alt="" className='self-start' />
                         <div>
                             <div className='flex items-center justify-between'>
                                 <h1 className='text-2xl font-semibold'>Yasmin</h1>
@@ -147,7 +149,7 @@ const Testimonial = () => {
                     <SwiperSlide>
                         <article className='p-6 h-[260px] bg-[#EDEDED] '>
                             <div className='flex gap-4'>
-                                <img src={""} alt="" className='self-start' />
+                                <img src={clasrkeImg} alt="" className='self-start' />
                                 <div>
                                     <div className='flex items-center justify-between'>
                                         <h1 className='text-2xl font-semibold'>Clarke</h1>
@@ -162,7 +164,7 @@ const Testimonial = () => {
                         </article></SwiperSlide>
                     <SwiperSlide><article className=' p-6 bg-[#E3E3E3] h-[260px]'>
                         <div className='flex gap-4'>
-                            <img src={""} alt="" className='self-start' />
+                            <img src={yasminImg} alt="" className='self-start' />
                             <div>
                                 <div className='flex items-center justify-between'>
                                     <h1 className='text-2xl font-semibold'>Yasmin</h1>
