@@ -7,17 +7,18 @@ import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, store } from './redux/Store.ts'
 import { ErrorBoundary } from 'react-error-boundary'
+import NotFound from './pages/NotFound.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  // {/* <ErrorBoundary fallback={<h1>Oops!! something went wrong</h1>}> */}
-  <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-        <PersistGate persistor={persistor}>
-          <App />
-        </PersistGate>
-      </Provider>
-    </BrowserRouter>
-  </React.StrictMode>
-  // {/* </ErrorBoundary> */}
+  <ErrorBoundary fallback={<><NotFound /></>}>
+    <React.StrictMode>
+      <BrowserRouter>
+        <Provider store={store}>
+          <PersistGate persistor={persistor}>
+            <App />
+          </PersistGate>
+        </Provider>
+      </BrowserRouter>
+    </React.StrictMode>
+  </ErrorBoundary>
 )

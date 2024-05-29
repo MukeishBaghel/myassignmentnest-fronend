@@ -1,7 +1,6 @@
 import React from 'react'
 import newLogo from '/assets/images/logo.jpg'
 import { Link, NavLink } from 'react-router-dom'
-import { NavItems } from '../../constants/NavItems'
 import { ArrowRight, LogOut, Menu, MoveRight, X } from 'lucide-react'
 import Drawer from 'react-modern-drawer'
 import 'react-modern-drawer/dist/index.css'
@@ -10,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import Button from '../inputs/Button'
 import { HoveredLink, MenuItem, Menu as NavMenu } from './navbar/NavbarMenu'
-import Collapsible from 'react-collapsible';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -111,10 +109,10 @@ const Navbar = () => {
         direction='right'
         className='relative lg:hidden'
       >
-        <div className='bg-primary_100 h-full flex flex-col items-center justify-center gap-10 text-white'>
+        <div className='bg-primary_100 h-full gap-10 text-white'>
+          <h1 className='text-2xl text-white font-semibold flex justify-between items-center mb-4 fixed top-8'><span>Services</span> <span onClick={() => setServices(false)} className='cursor-pointer'><ArrowRight /></span></h1>
           {
-            services ? <div className='mt-20 overflow-y-scroll no-scrollbar h-full '>
-              <h1 className='text-2xl text-white font-semibold flex justify-between items-center mb-4 fixed top-8'><span>Services</span> <span onClick={() => setServices(false)}><ArrowRight /></span></h1>
+            services ? <div className=' overflow-y-scroll no-scrollbar h-full '>
               <div className='flex items-center flex-col justify-center gap-10 overflow-y-scroll no-scrollbar h-full pt-28'>
                 <div className="flex flex-col text-sm justify-center gap-1 mt-20">
                   <h1 className='text-xl font-semibold mt-5'>Writing</h1>
@@ -148,7 +146,7 @@ const Navbar = () => {
               </div>
 
             </div> : <>
-              <NavLink to={'/'} className={({ isActive }) => `${isActive ? "text-[#dadada]" : "hover:text-secondary-100"} duration-150 ease-in mt-24 `}>Home</NavLink>
+              <NavLink to={'/'} className={({ isActive }) => `${isActive ? "text-[#dadada]" : "hover:text-secondary-100"} duration-150 ease-in  `}>Home</NavLink>
               <button className="hover:text-secondary-100 duration-150 ease-in " onClick={() => setServices(true)}>Services</button>
               <a href={'/#reviews'} className='hover:text-secondary-100 duration-150 ease-in '>
                 Reviews
