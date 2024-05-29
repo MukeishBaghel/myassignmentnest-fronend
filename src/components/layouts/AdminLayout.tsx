@@ -23,17 +23,16 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         }
         return null;
     }, [token]);
-    
 
+    console.log("first")
     useEffect(() => {
-        if (!decodedToken || decodedToken.scope !== "ADMIN") {
-            navigate('/');
-        }
-        else if (isTokenExpired()) {
+
+        if (isTokenExpired()) {
             dispatch(logOut())
             toast.info("Session Expired")
             navigate('/');
         }
+
     }, [decodedToken, navigate]);
 
     if (decodedToken && decodedToken.scope === "ADMIN") {

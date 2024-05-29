@@ -27,30 +27,35 @@ const PaymentTable = () => {
 
     const columns: TableColumn<DataRow>[] = [
         {
-            name: "paymentId",
+            name: "Payment Id",
             selector: (row) => row.id,
             sortable: true,
         },
         {
-            name: "paypalId",
+            name: "Paypal Id",
             // width: "10%",
             selector: (row) => row.paypalId,
             sortable: true,
         },
         {
-            name: "payment_status",
+            name: "Payment Status",
             selector: (row) => row.payment_status,
             sortable: true,
         },
         {
-            name: "payment_date",
+            name: "Payment Date",
             width: "15%",
-            selector: (row) => (new Date(+row.payment_date * 1000).toString()),
+            selector: (row) => {
+                if (row.payment_date === null || row.payment_date === undefined) {
+                    return "Not Paid"
+                }
+                return new Date(+row.payment_date * 1000).toString()
+            },
             sortable: true,
             style: { fontSize: "14px" }
         },
         {
-            name: "approve_link",
+            name: "Approve Link",
             selector: (row) => row.approve_link,
             sortable: true,
             cell: (row) => (
@@ -64,7 +69,7 @@ const PaymentTable = () => {
         },
 
         {
-            name: "payer_id",
+            name: "Payer Id",
             selector: (row) => row.payer_id,
             sortable: true,
         },
@@ -103,9 +108,13 @@ const PaymentTable = () => {
                 toast.success(data.message)
                 // console.log()
                 // @ts-ignore
-                setPayments((prev) => (
-                    [...prev, data.data]
-                ))
+                setPayments((prev) => {
+                    const updatedPayments = prev.map((item) =>
+                        // @ts-ignore
+                        item?.id === data.data.id ? data.data : item
+                    );
+                    return updatedPayments;
+                });
             }
             else {
                 toast.error(data.message)
@@ -125,10 +134,16 @@ const PaymentTable = () => {
             const { data } = await axiosInstance.get('/payment/refresh-payment?payment_id=' + id)
             console.log(data)
             if (data) {
-                console.log(data);
+                // @ts-ignore
+                setPayments((prev) => {
+                    const updatedPayments = prev.map((item) =>
+                        // @ts-ignore
+                        item?.id === data.data.id ? data.data : item
+                    );
+                    return updatedPayments;
+                });
                 // console.log()
                 toast.success(data.message)
-                // setPayments(data.data)
             }
             else {
                 toast.error(data.message)
@@ -142,11 +157,9 @@ const PaymentTable = () => {
             setPending(false)
         }
     }
-    console.log(id)
 
 
     useEffect(() => {
-        console.log(payments);
         const fetchAllPayments = async () => {
             setPending(true)
             try {
@@ -172,8 +185,6 @@ const PaymentTable = () => {
             try {
                 const { data } = await axiosInstance.get(`/payment/get-by-order?order_id=${id}`)
                 if (data) {
-                    console.log(data);
-                    toast.success(data.message)
                     setPayments(data.data)
                 }
                 console.log(data);
@@ -193,15 +204,17 @@ const PaymentTable = () => {
             fetchAllPayments()
         }
     }, [id])
+
     if (pending) {
         return <Loader />
     }
+
     if (payments.length === 0) {
-        return <div className='flex items-center justify-center text-3xl font-semibold h-screen'>No orders to display</div>
+        return <div className='flex items-center justify-center text-3xl font-semibold h-screen'>No payments to display</div>
     }
     return (
         <div className='px-4'>
-            <h1 className='gradient-text text-3xl sm:text-4xl font-semibold py-10 text-center tracking-wider'>All Orders</h1>
+            <h1 className='gradient-text text-3xl sm:text-4xl font-semibold py-10 text-center tracking-wider'>Payments</h1>
             <DataTableBase
                 columns={columns}
                 data={payments}

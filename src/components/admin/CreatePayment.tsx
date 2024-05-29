@@ -13,7 +13,7 @@ const CreatePayment = ({ id }: { id: string }) => {
     const [amount, setAmount] = useState(0)
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate()
-    
+
     const CreateOrderPayment = async () => {
         setIsLoading(true)
         try {
@@ -43,16 +43,14 @@ const CreatePayment = ({ id }: { id: string }) => {
             setIsLoading(false)
         }
     }
-    if (isLoading) {
-        <Loader />
-    }
+
     return (
         <div className='w-full max-w-5xl px-4 sm:px-10 space-y-8'>
             <h1 className='text-3xl sm:text-4xl gradient-text text-center'>Create Payment</h1>
             <FormTextField title='Enter Amount' className='border' type="text" placeholder='amount' value={amount} onChange={(e) => setAmount(+e.target.value)} />
             <FormTextField title='Order Id' className='border' type="text" placeholder='id' value={id} readOnly />
             <GradientButton className='text-lg sm:text-xl w-fit mx-auto px-8' onClick={() => CreateOrderPayment()}>Create Payment</GradientButton>
-
+            {isLoading && <Loader />}
         </div>
     )
 }

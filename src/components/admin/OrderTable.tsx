@@ -135,7 +135,7 @@ const OrderTable = () => {
                 fixedHeaderScrollHeight='100px'
             />
             <Modal isOpen={isOrderModal} onClose={setOrderModalClose}>
-                <CreatePayment id={paymentId} />
+                <CreatePayment id={paymentId}  />
             </Modal>
         </div>
     )

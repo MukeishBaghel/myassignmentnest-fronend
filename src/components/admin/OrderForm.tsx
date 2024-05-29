@@ -8,7 +8,7 @@ import GradientButton from '../inputs/GradientButton'
 import Loader from '../shared/Loader'
 import { toast } from 'react-toastify'
 
-const OrderForm = ({ id }: { id: string }) => {
+const OrderForm = ({ id, close }: { id: string, close: any }) => {
 
     const [data, setData] = useState({
         order_name: "",
@@ -35,8 +35,7 @@ const OrderForm = ({ id }: { id: string }) => {
             toast.error("All fields are must")
             return;
         }
-
-
+        close()
         setIsLoading(true)
         try {
             const res = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/order/create", {
@@ -66,33 +65,12 @@ const OrderForm = ({ id }: { id: string }) => {
             setIsLoading(false)
         }
     }
-    // const initPayment = async () => {
-    //     try {
-    //         const res = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/payment/initiate?payment_id=" + paymentId, {
-    //             method: "GET",
-    //             headers: {
-    //                 "Authorization": "JWT " + token,
-    //                 "Content-Type": "application/json"
-    //             },
-    //             // body: JSON.stringify(data)
-    //         })
-    //         const resdata = await res.json()
-    //         console.log(resdata)
-    //     }
-    //     catch (error) {
-    //         console.log(error)
-    //     }
+    // if (!isLoading) {
+    //     return <Loader />
     // }
-    if (isLoading) {
-        return <Loader />
-    }
-    if (response && response.orderId) {
-        return <div className='pt-20'>
-            <CreatePayment id={response.orderId} />
-        </div>
-    }
+   
     return (
-        <>
+        <div>
             <form onSubmit={(e) => {
                 createOrder()
                 e.preventDefault()
@@ -123,8 +101,9 @@ const OrderForm = ({ id }: { id: string }) => {
                 <input type="text" value={paymentId} onChange={(e) => setPaymentId(e.target.value)} placeholder='paymentid' />
                 <button onClick={() => initPayment()} className='pl-10 border border-red-500'>init Payment </button>
             </div> */}
+            {isLoading && <Loader />}
 
-        </>
+        </div>
 
     )
 }
