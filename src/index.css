@@ -32,7 +32,7 @@ body {
 }
 
 .loader .circle {
-  --color: #9933EF;
+  --color: #9933ef;
   --dim: 0.8rem;
   width: var(--dim);
   height: var(--dim);
@@ -94,13 +94,12 @@ body {
 
 input[type="file"] {
   /* width: 114px; */
-  width:fit-content;
+  width: fit-content;
   background: #efe7ff;
   border-radius: 20px;
   overflow: hidden;
   cursor: pointer;
 }
-
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -110,7 +109,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
@@ -131,7 +130,14 @@ input[type=number] {
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-.Collapsible__trigger{
+.Collapsible__trigger {
   font-size: 20px;
- font-weight: 600;
+  font-weight: 600;
+}
+
+.policy-List ul {
+  @apply list-disc px-6 pt-4 flex flex-col gap-2;
+}
+.policy-heading h1 {
+  @apply text-xl xs:text-2xl sm:text-3xl lg:text-4xl  py-6 font-semibold leading-[3rem] sm:leading-[3.75rem];
 }

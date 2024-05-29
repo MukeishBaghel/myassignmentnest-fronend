@@ -19,7 +19,7 @@ const Footer = () => {
             <div className='flex gap-2 items-center'>
               <Link to={'/'} className='border-2 rounded-full p-1.5'><Facebook className='w-5 h-5' /></Link>
               <Link to={'https://www.instagram.com/myassignmentnest/'} className='border-2 rounded-full p-1.5'><Instagram className='w-5 h-5' /></Link>
-              <Link to={'/'} className='border-2 rounded-full p-1.5'><Linkedin className='w-5 h-5' /></Link>
+              <Link to={'https://www.linkedin.com/in/my-assignment-nest-0b637730b/'} className='border-2 rounded-full p-1.5'><Linkedin className='w-5 h-5' /></Link>
             </div>
           </div>
           <p className='text-sm pr-4 max-sm:hidden'>Disclaimer: The reference papers provided by MyAssignmentnest.com serve as model papers for students and are not to be submitted as it is. These papers are intended to be used for research and reference purposes only.</p>
@@ -33,6 +33,13 @@ const Footer = () => {
           <Link to={'/terms-and-conditions'} className='hover:opacity-50 duration-150 ease-in '>
             Terms And Conditions
           </Link>
+          <Link to={'/refund-policy'} className='hover:opacity-50 duration-150 ease-in '>
+            Refund policy
+          </Link>
+          <Link to={'/fair-use-policy'} className='hover:opacity-50 duration-150 ease-in '>
+            Fair Use Policy
+          </Link>
+
         </div>
         <div className='flex flex-col gap-2 max-sm:text-sm '>
           <h1 className='font-semibold text-lg text-start text-nowrap'>Contact us</h1>

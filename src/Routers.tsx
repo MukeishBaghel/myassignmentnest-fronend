@@ -3,10 +3,13 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import CommonLayout from './components/layouts/CommonLayout'
 import Loader from './components/shared/Loader'
 
+
+const RefundPolicy = lazy(() => import('./pages/policypages/RefundPolicy'));
+const FairUse = lazy(() => import('./pages/policypages/FairUse'));
 const OrderTable = lazy(() => import('./components/admin/OrderTable'));
 const PaymentTable = lazy(() => import('./components/admin/PaymentTable'));
-const TermsAndConditions = lazy(() => import('./pages/TermsAndConditions'));
-const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsAndConditions = lazy(() => import('./pages/policypages/TermsAndConditions'));
+const PrivacyPolicy = lazy(() => import('./pages/policypages/PrivacyPolicy'));
 const AdminLayout = React.lazy(() => import('./components/layouts/AdminLayout'));
 const ComingSoon = lazy(() => import('./pages/ComingSoon'))
 const Home = lazy(() => import('./pages/Home'))
@@ -36,8 +39,13 @@ const Routers = () => {
         <Route path='/signup' element={<SignUp />} />
         {/* <Route path='/reviews' element={<Reviews />} />
         <Route path='/samples' element={<Samples />} /> */}
+
+        {/* policy routes */}
         <Route path='/terms-and-conditions' element={<TermsAndConditions />} />
         <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+        <Route path='/refund-policy' element={<RefundPolicy />} />
+        <Route path='/fair-use-policy' element={<FairUse />} />
+
 
 
         {/* admin routes */}
