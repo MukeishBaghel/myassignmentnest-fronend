@@ -130,10 +130,17 @@ const AssignmentForm = () => {
 
   const onSubmit = async (data: FormFields) => {
 
+    if (!agreeToTerms) {
+      toast.error("Accept term")
+      return
+    }
     localStorage.setItem("formQuery", JSON.stringify(data))
+
+
     if (isTokenExpired()) {
       return navigate('/login')
     }
+
     let accountId = null;
     if (token && userType === "app_user") {
       accountId = decoded_token.accountId
