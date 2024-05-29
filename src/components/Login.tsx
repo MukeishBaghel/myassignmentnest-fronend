@@ -36,6 +36,7 @@ const Login = () => {
     // const 
     useEffect(() => {
         if (token) {
+            toast.error("Already login")
             navigate('/')
         }
     }, [])
@@ -54,8 +55,7 @@ const Login = () => {
     });
 
     const onSubmit = async (data: FormFields) => {
-        console.log('Form Data:', data);
-        console.log(JSON.stringify(data))
+
         setIsLoading(true)
         try {
             const resdata = await fetch(`${import.meta.env.VITE_BASE_URL}/auth/login`,

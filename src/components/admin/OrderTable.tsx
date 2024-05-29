@@ -7,6 +7,7 @@ import GradientButton from '../inputs/GradientButton';
 import Modal from '../inputs/Modal';
 import CreatePayment from './CreatePayment';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 type DataRow = {
     orderId: string,
@@ -56,7 +57,7 @@ const OrderTable = () => {
             name: "order_datetime",
             selector: (row) => (new Date(+row.order_datetime * 1000).toString()),
             sortable: true,
-            style:{fontSize:"12px"}
+            style: { fontSize: "12px" }
         }, {
             name: "order_status",
             selector: (row) => row.order_status,
@@ -70,7 +71,10 @@ const OrderTable = () => {
         {
             name: 'Actions',
             grow: 1,
-            cell: (row) => <GradientButton className='h-10 text-sm px-2 my-2 w-fit text-nowrap' onClick={() => createPayment(row.orderId)}>Create Payment</GradientButton>,
+            cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'>
+                <GradientButton className='h-10 text-sm px-2  w-fit text-nowrap' onClick={() => createPayment(row.orderId)}>Create Payment</GradientButton>
+                <GradientButton className='h-10 text-sm px-2 w-full  text-nowrap' onClick={() => deleteOrder(row.orderId)}>Delete Order</GradientButton>
+            </div>,
             ignoreRowClick: true,
             allowOverflow: true,
             button: true,
@@ -89,6 +93,25 @@ const OrderTable = () => {
             setPaymentId(id)
             setOrderModalOpen()
         }
+    }
+    const deleteOrder = async (id: string) => {
+        alert("Are you sure you want to delete")
+        setPending(true)
+        try {
+            const { data } = await axiosInstance.delete('/order/delete?order_id=' + id)
+            if (data.status === 200) {
+                toast.success("order deleted")
+                window.location.href = "/admin/all-orders"
+            }
+            console.log(data);
+        }
+        catch (err) {
+            console.log(err);
+        }
+        finally {
+            setPending(false)
+        }
+
     }
 
 
@@ -135,7 +158,7 @@ const OrderTable = () => {
                 fixedHeaderScrollHeight='100px'
             />
             <Modal isOpen={isOrderModal} onClose={setOrderModalClose}>
-                <CreatePayment id={paymentId}  />
+                <CreatePayment id={paymentId} />
             </Modal>
         </div>
     )

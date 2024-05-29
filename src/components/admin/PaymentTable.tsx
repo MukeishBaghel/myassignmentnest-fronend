@@ -92,9 +92,9 @@ const PaymentTable = () => {
 
         },
     ];
-    const [isOrderModal, setIsOrderModal] = useState<boolean>(false)
-    const setOrderModalOpen = () => setIsOrderModal(true)
-    const setOrderModalClose = () => setIsOrderModal(false)
+    // const [isOrderModal, setIsOrderModal] = useState<boolean>(false)
+    // const setOrderModalOpen = () => setIsOrderModal(true)
+    // const setOrderModalClose = () => setIsOrderModal(false)
     const [payments, setPayments] = useState([])
     const [pending, setPending] = useState<boolean | undefined>(false)
     const { id } = useParams()

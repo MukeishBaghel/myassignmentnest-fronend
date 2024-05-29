@@ -17,35 +17,35 @@ const Export = ({ onExport }) => <GradientButton onClick={e => onExport(e.target
 const Admin = () => {
   const columns: TableColumn<DataRow>[] = [
     {
-      name: "id",
+      name: "Id",
       selector: (row) => row.id,
       sortable: true,
     },
     {
-      name: "customer_id",
+      name: "Customer Id",
       // width: "10%",
       selector: (row) => row.customer_id,
       sortable: true,
     },
     {
-      name: "email",
+      name: "Email",
       selector: (row) => row.email,
       sortable: true,
     },
     {
-      name: "pages",
-      width: "10%",
+      name: "Pages",
+      width: "5%",
       selector: (row) => row.pages,
       sortable: true,
       center: true
     },
     {
-      name: "phone",
+      name: "Phone",
       selector: (row) => row.phone,
       sortable: true,
     },
     {
-      name: "subject",
+      name: "Subject",
       selector: (row) => row.subject,
       sortable: true,
     },
@@ -55,7 +55,7 @@ const Admin = () => {
       sortable: true,
     },
     {
-      name: "description",
+      name: "Description",
       selector: (row) => row.description,
       sortable: true,
     },
@@ -64,7 +64,7 @@ const Admin = () => {
       selector: (row) => row.create_time
     },
     {
-      name: "reference",
+      name: "Reference",
       selector: (row) => row.reference,
       sortable: true,
     },
@@ -75,10 +75,12 @@ const Admin = () => {
     {
       name: 'Actions',
       grow: 1,
-      cell: (row) => <GradientButton className='h-10 text-sm px-2 my-2 w-fit text-nowrap' onClick={() => createOrder(row.customer_id)}>Create Order</GradientButton>,
+      cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'><GradientButton className='h-10 text-sm mx-auto px-2 w-fit text-nowrap' onClick={() => createOrder(row.customer_id)}>Create Order</GradientButton>
+        <GradientButton className='h-10 text-sm px-2  w-fit mx-auto text-nowrap' onClick={() => deleteQuery(row.customer_id)}>Delete Order</GradientButton></div>,
       ignoreRowClick: true,
       button: true,
       width: "10%",
+      center: true
     },
   ];
   const [queries, setQueries] = useState([])
@@ -97,6 +99,24 @@ const Admin = () => {
     }
     else {
       toast.error("invalid order id")
+    }
+  }
+  const deleteQuery = async (orderId: string) => {
+    alert("Are you sure you want to delete")
+    setPending(true)
+    try {
+      const { data } = await axiosInstance.delete('/customer/query/' + orderId)
+      if (data.status === 200) {
+        toast.success(data.message)
+        window.location.href = '/admin'
+      }
+    }
+    catch (err) {
+      toast.error("Something went wrong")
+      console.log(err);
+    }
+    finally {
+      setPending(false)
     }
   }
 
