@@ -141,7 +141,7 @@ const Admin = () => {
           selectableRowsHighlight
         />
         <Modal isOpen={isOrderModal} onClose={setOrderModalClose}>
-          <OrderForm id={orderId} close={setOrderModalClose} />
+          <OrderForm id={orderId} />
         </Modal>
       </section>
     )

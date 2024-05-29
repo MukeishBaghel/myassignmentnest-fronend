@@ -8,7 +8,7 @@ import GradientButton from '../inputs/GradientButton'
 import Loader from '../shared/Loader'
 import { toast } from 'react-toastify'
 
-const OrderForm = ({ id, close }: { id: string, close: any }) => {
+const OrderForm = ({ id }: { id: string }) => {
 
     const [data, setData] = useState({
         order_name: "",
