@@ -76,7 +76,7 @@ const Admin = () => {
       name: 'Actions',
       grow: 1,
       cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'><GradientButton className='h-10 text-sm mx-auto px-2 w-fit text-nowrap' onClick={() => createOrder(row.customer_id)}>Create Order</GradientButton>
-        <GradientButton className='h-10 text-sm px-2  w-fit mx-auto text-nowrap' onClick={() => deleteQuery(row.customer_id)}>Delete Order</GradientButton></div>,
+        <GradientButton className='h-10 text-sm px-2  w-fit mx-auto text-nowrap' onClick={() => deleteQuery(row.id)}>Delete Order</GradientButton></div>,
       ignoreRowClick: true,
       button: true,
       width: "10%",
@@ -105,7 +105,7 @@ const Admin = () => {
     alert("Are you sure you want to delete")
     setPending(true)
     try {
-      const { data } = await axiosInstance.delete('/customer/query/' + orderId)
+      const { data } = await axiosInstance.delete('/customer/query?query_id' + orderId)
       if (data.status === 200) {
         toast.success(data.message)
         window.location.reload()
