@@ -14,7 +14,7 @@ const OrderForm = ({ id }: { id: string }) => {
         order_name: "",
         description: "",
         customer_id: id,
-        order_type: "FULL"
+        order_type: "MULTIPART"
     })
     const [response, setResponse] = useState<any>("")
     const [isLoading, setIsLoading] = useState<boolean>(false);

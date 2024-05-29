@@ -102,7 +102,8 @@ const PaymentTable = () => {
                 console.log(data);
                 toast.success(data.message)
                 // console.log()
-                setPayments(data.data)
+                // @ts-ignore
+                setPayments([data.data])
             }
             else {
                 toast.error(data.message)
@@ -189,7 +190,7 @@ const PaymentTable = () => {
 
             fetchAllPayments()
         }
-    }, [])
+    }, [id])
     if (pending) {
         return <Loader />
     }
