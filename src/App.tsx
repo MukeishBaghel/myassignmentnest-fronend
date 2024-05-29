@@ -15,7 +15,7 @@ const App = () => {
           newestOnTop={true}
           closeOnClick
           rtl={false}
-          limit={2}
+          limit={1}
           pauseOnFocusLoss={false}
           draggable
           pauseOnHover={false}

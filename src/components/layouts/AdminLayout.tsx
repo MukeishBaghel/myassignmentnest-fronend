@@ -10,10 +10,12 @@ import newlogo from '/assets/images/logo.jpg'
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     const navigate = useNavigate();
-    const { token } = useSelector(selectCurrentUser);
+    const { token, userType } = useSelector(selectCurrentUser);
     const dispatch = useDispatch();
+
+
     const decodedToken: any = useMemo(() => {
-        if (token) {
+        if (token && userType === "app_user") {
             try {
                 return jwtDecode(token);
             } catch (error) {
