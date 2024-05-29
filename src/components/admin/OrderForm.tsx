@@ -65,7 +65,7 @@ const OrderForm = ({ id, close }: { id: string, close: any }) => {
             setIsLoading(false)
         }
     }
-    if (!isLoading) {
+    if (isLoading) {
         <Loader />
     }
 
