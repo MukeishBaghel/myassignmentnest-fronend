@@ -60,6 +60,10 @@ const Admin = () => {
       sortable: true,
     },
     {
+      name: "Creation time",
+      selector: (row) => row.create_time
+    },
+    {
       name: "reference",
       selector: (row) => row.reference,
       sortable: true,
@@ -67,7 +71,6 @@ const Admin = () => {
     {
       name: "File Name",
       selector: (row) => row.file_name,
-
     },
     {
       name: 'Actions',

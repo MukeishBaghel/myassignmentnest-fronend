@@ -1,5 +1,3 @@
-
-
 export type DataRow = {
   id: string;
   customer_id: string;
@@ -10,7 +8,8 @@ export type DataRow = {
   phone: string;
   description: string;
   reference: string;
-  file_name:string
+  file_name: string;
+  create_time: string;
 };
 const data = [
   {
@@ -28,7 +27,6 @@ const data = [
 // const handleButtonClick = (id) => {
 //   console.log('Row ID:', id);
 // };
-
 
 //@ts-ignore
 export function convertArrayOfObjectsToCSV(array) {
