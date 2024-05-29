@@ -50,7 +50,7 @@ const SignUp = () => {
         console.log('Form Data:', data);
         setIsLoading(true)
         try {
-            const resdata = await fetch(`https://2nhv2211-8080.inc1.devtunnels.ms/auth/customer/register`,
+            const resdata = await fetch(`${import.meta.env.VITE_BASE_URL}/auth/customer/register`,
                 {
                     method: "POST",
 
@@ -88,7 +88,7 @@ const SignUp = () => {
         }
 
     };
-    
+
     const handleGoogleLogin = useGoogleLogin({
         flow: 'auth-code',
         onSuccess: async (codeResponse) => {
@@ -104,7 +104,7 @@ const SignUp = () => {
                     if (newAccessToken) {
                         console.log("calling google")
                         setIsLoading(true)
-                        const data = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/auth/google-verification", {
+                        const data = await fetch(`${import.meta.env.VITE_BASE_URL}/auth/google-verification`, {
                             method: "POST",
                             headers: {
                                 "Authorization": 'Bearer ' + newAccessToken

@@ -17,7 +17,7 @@ const CreatePayment = ({ id }: { id: string }) => {
     const CreateOrderPayment = async () => {
         setIsLoading(true)
         try {
-            const res = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/payment/create?order_id=" + id, {
+            const res = await fetch(`${import.meta.env.VITE_BASE_URL}/payment/create?order_id=` + id, {
                 method: "POST",
                 headers: {
                     "Authorization": "JWT " + token,

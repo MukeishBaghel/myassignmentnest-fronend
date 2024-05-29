@@ -3,9 +3,7 @@ import { store } from "../../redux/Store";
 import { selectCurrentUser } from "../../redux/slices/user.slice";
 
 export const axiosInstance = axios.create({
-  baseURL:
-    import.meta.env.VITE_BASE_URL ||
-    "https://2nhv2211-8080.inc1.devtunnels.ms/",
+  baseURL: import.meta.env.VITE_BASE_URL,
   timeout: 10 * 60 * 60 * 1000,
   // headers: {
   //   Accept: "application/json",

@@ -38,7 +38,7 @@ const ContactUs = () => {
     const sendMessage = (data: FormFields) => {
         setIsLoading(true)
         console.log(data)
-        const url = 'https://2nhv2211-8080.inc1.devtunnels.ms/customer/contact'
+        const url = `${import.meta.env.VITE_BASE_URL}/customer/contact`
         fetch(url, {
             method: 'POST',
             headers: {

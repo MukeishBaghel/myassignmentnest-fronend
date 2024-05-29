@@ -38,7 +38,7 @@ const OrderForm = ({ id, close }: { id: string, close: any }) => {
         close()
         setIsLoading(true)
         try {
-            const res = await fetch("https://2nhv2211-8080.inc1.devtunnels.ms/order/create", {
+            const res = await fetch(`${import.meta.env.VITE_BASE_URL}/order/create`, {
                 method: "POST",
                 headers: {
                     "Authorization": "JWT " + token,
@@ -68,7 +68,7 @@ const OrderForm = ({ id, close }: { id: string, close: any }) => {
     // if (!isLoading) {
     //     return <Loader />
     // }
-   
+
     return (
         <div>
             <form onSubmit={(e) => {

@@ -123,7 +123,7 @@ const AssignmentForm = () => {
     const formData = new FormData()
 
     formData.append('query', query);
-console.log(file)
+    console.log(file)
     if (file) {
       formData.append("file", file[0])
     }
@@ -143,7 +143,7 @@ console.log(file)
     }
   };
   const sendQuery = (formData: any) => {
-    const url = 'https://2nhv2211-8080.inc1.devtunnels.ms/customer/query';
+    const url = `${import.meta.env.VITE_BASE_URL}/customer/query`;
     setModelClose()
     setIsLoading(true)
     fetch(url, {
@@ -152,7 +152,7 @@ console.log(file)
       headers: {
         "Authorization": prepareHeader(),
       }
-      
+
     })
       .then(response => {
         if (response.status === 201) {
