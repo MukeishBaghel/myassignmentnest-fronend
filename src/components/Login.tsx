@@ -58,7 +58,7 @@ const Login = () => {
         console.log(JSON.stringify(data))
         setIsLoading(true)
         try {
-            const resdata = await fetch(`${import.meta.env.VITE_BASE_URL}`,
+            const resdata = await fetch(`${import.meta.env.VITE_BASE_URL}/auth/login`,
                 {
                     method: "POST",
 
