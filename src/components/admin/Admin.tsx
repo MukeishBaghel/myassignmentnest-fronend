@@ -108,7 +108,7 @@ const Admin = () => {
       const { data } = await axiosInstance.delete('/customer/query/' + orderId)
       if (data.status === 200) {
         toast.success(data.message)
-        window.location.href = '/admin'
+        window.location.reload()
       }
     }
     catch (err) {

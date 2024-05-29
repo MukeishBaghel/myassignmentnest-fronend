@@ -101,7 +101,8 @@ const OrderTable = () => {
             const { data } = await axiosInstance.delete('/order/delete?order_id=' + id)
             if (data.status === 200) {
                 toast.success("order deleted")
-                window.location.href = "/admin/all-orders"
+                // window.location.href = "/admin/all-orders"
+                window.location.reload()
             }
             console.log(data);
         }
