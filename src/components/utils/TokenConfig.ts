@@ -1,5 +1,3 @@
-import axios from "axios";
-
 const getRefreshToken = async (codeResponse: any, saveDetails: any) => {
   console.log(codeResponse);
   try {
@@ -46,37 +44,32 @@ const getNewAccessToken = async (
       client_secret: "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",
     };
 
-    const response = await axios.post(
-      `https://oauth2.googleapis.com/token`,
-      payloadForAccessToken,
-      {
-        headers: {
-          "Content-Type": "application/json;",
-        },
-      }
-    );
+    const response = await fetch(`https://oauth2.googleapis.com/token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payloadForAccessToken),
+    });
 
-    saveAccessToken(response.data.access_token);
-    return response.data.access_token;
-  } catch (err: any) {
-    if (err.response) {
-      // The request was made and the server responded with a status code
-      // that falls out of the range of 2xx
-      console.log("Error response data:", err.response.data);
-      console.log("Error response status:", err.response.status);
-      console.log("Error response headers:", err.response.headers);
-    } else if (err.request) {
-      // The request was made but no response was received
-      console.log("Error request data:", err.request);
-    } else {
-      // Something happened in setting up the request that triggered an Error
-      console.log("Error message:", err.message);
+    if (!response.ok) {
+      const errorData = await response.json();
+      if (errorData.error) {
+        throw new Error(
+          `Error: ${errorData.error}. ${errorData.error_description}`
+        );
+      } else {
+        throw new Error("Error getting new access token");
+      }
     }
-    console.log("Error config:", err.config);
+
+    const responseData = await response.json();
+    saveAccessToken(responseData.access_token);
+    return responseData.access_token;
+  } catch (err) {
+    console.log("Error getting new access token:", err);
     throw err; // Re-throw the error to be handled by the caller
   }
-  // console.log("Error getting new access token:", err);
-  // throw err; // Re-throw the error to be handled by the caller
 };
 
 export { getRefreshToken, getNewAccessToken };
