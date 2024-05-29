@@ -103,7 +103,9 @@ const PaymentTable = () => {
                 toast.success(data.message)
                 // console.log()
                 // @ts-ignore
-                setPayments([data.data])
+                setPayments((prev) => (
+                    [...prev, data.data]
+                ))
             }
             else {
                 toast.error(data.message)
