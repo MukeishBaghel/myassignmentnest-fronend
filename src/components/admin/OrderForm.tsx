@@ -65,9 +65,9 @@ const OrderForm = ({ id, close }: { id: string, close: any }) => {
             setIsLoading(false)
         }
     }
-    // if (!isLoading) {
-    //     return <Loader />
-    // }
+    if (!isLoading) {
+        <Loader />
+    }
 
     return (
         <div>
@@ -101,7 +101,6 @@ const OrderForm = ({ id, close }: { id: string, close: any }) => {
                 <input type="text" value={paymentId} onChange={(e) => setPaymentId(e.target.value)} placeholder='paymentid' />
                 <button onClick={() => initPayment()} className='pl-10 border border-red-500'>init Payment </button>
             </div> */}
-            {isLoading && <Loader />}
 
         </div>
 
