@@ -131,8 +131,8 @@ const AssignmentForm = () => {
   const onSubmit = async (data: FormFields) => {
 
     if (!agreeToTerms) {
-      toast.error("Accept term")
-      return
+      toast.error("Accept the T&C")
+      return;
     }
     localStorage.setItem("formQuery", JSON.stringify(data))
 
