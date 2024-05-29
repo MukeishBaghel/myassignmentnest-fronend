@@ -4,10 +4,9 @@ const getRefreshToken = async (codeResponse: any, saveDetails: any) => {
     const payload = {
       grant_type: "authorization_code",
       code: codeResponse.code,
-      client_id:
-        "208352236758-jrhfoq6pgbavamflkaiu5hijf1fbo7nb.apps.googleusercontent.com",
-      client_secret: "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",
-      redirect_uri: "http://localhost:3000",
+      client_id: import.meta.env.VITE_GOOGLE_ID,
+      client_secret: import.meta.env.VITE_GOOGLE_SECRET,
+      redirect_uri: import.meta.env.VITE_REDIRECT_URL,
     };
 
     const response = await fetch(`https://oauth2.googleapis.com/token`, {
@@ -39,9 +38,8 @@ const getNewAccessToken = async (
     const payloadForAccessToken = {
       grant_type: "refresh_token",
       refresh_token: tokenCredentials.refresh_token,
-      client_id:
-        "208352236758-jrhfoq6pgbavamflkaiu5hijf1fbo7nb.apps.googleusercontent.com",
-      client_secret: "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",
+      client_id: import.meta.env.VITE_GOOGLE_ID,
+      client_secret: import.meta.env.VITE_GOOGLE_ID,
     };
 
     const response = await fetch(`https://oauth2.googleapis.com/token`, {
