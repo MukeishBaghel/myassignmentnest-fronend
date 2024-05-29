@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const getRefreshToken = async (codeResponse:any, saveDetails:any) => {
+const getRefreshToken = async (codeResponse: any, saveDetails: any) => {
+  console.log(codeResponse);
   try {
     const payload = {
       grant_type: "authorization_code",
@@ -11,27 +12,32 @@ const getRefreshToken = async (codeResponse:any, saveDetails:any) => {
       redirect_uri: "http://localhost:3000",
     };
 
-    const response = await axios.post(
-      `https://oauth2.googleapis.com/token`,
-      payload,
-      {
-        headers: {
-          "Content-Type": "application/json;",
-        },
-      }
-    );
+    const response = await fetch(`https://oauth2.googleapis.com/token`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
 
-    saveDetails(response.data);
-    return response.data;
+    if (!response.ok) {
+      throw new Error("Error getting refresh token");
+    }
+    const responseData = await response.json();
+    saveDetails(responseData);
+    return responseData;
   } catch (err) {
     console.log("Error getting refresh token:", err);
     throw err; // Re-throw the error to be handled by the caller
   }
 };
 
-const getNewAccessToken = async (tokenCredentials:any, saveAccessToken:any) => {
+const getNewAccessToken = async (
+  tokenCredentials: any,
+  saveAccessToken: any
+) => {
   try {
-    console.log(tokenCredentials.refresh_token)
+    console.log(tokenCredentials.refresh_token);
     const payloadForAccessToken = {
       grant_type: "refresh_token",
       refresh_token: tokenCredentials.refresh_token,
@@ -52,7 +58,7 @@ const getNewAccessToken = async (tokenCredentials:any, saveAccessToken:any) => {
 
     saveAccessToken(response.data.access_token);
     return response.data.access_token;
-  } catch (err:any) {
+  } catch (err: any) {
     if (err.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
