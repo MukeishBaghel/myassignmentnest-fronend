@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
   return (
     <>
-      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_KEY || "208352236758-jrhfoq6pgbavamflkaiu5hijf1fbo7nb.apps.googleusercontent.com"}>
+      <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_ID}>
         <Routers />
         <ToastContainer
           position="top-right"

@@ -45,7 +45,7 @@ const CreatePayment = ({ id }: { id: string }) => {
     }
 
     if (isLoading) {
-        <Loader />
+        return <Loader />
     }
     // create payment
     return (

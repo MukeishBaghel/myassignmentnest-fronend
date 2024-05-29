@@ -24,7 +24,7 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         return null;
     }, [token]);
 
-    console.log("first")
+
     useEffect(() => {
 
         if (isTokenExpired()) {

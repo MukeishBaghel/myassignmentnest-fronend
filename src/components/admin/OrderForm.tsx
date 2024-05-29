@@ -64,11 +64,12 @@ const OrderForm = ({ id, close }: { id: string, close: any }) => {
             setIsLoading(false)
         }
     }
-
+    if (isLoading) {
+        return <Loader />
+    }
 
     return (
         <div>
-            {isLoading && <Loader />}
             <form onSubmit={(e) => {
                 createOrder()
                 e.preventDefault()
