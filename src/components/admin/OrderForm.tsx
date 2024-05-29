@@ -35,7 +35,6 @@ const OrderForm = ({ id, close }: { id: string, close: any }) => {
             toast.error("All fields are must")
             return;
         }
-        close()
         setIsLoading(true)
         try {
             const res = await fetch(`${import.meta.env.VITE_BASE_URL}/order/create`, {
@@ -65,12 +64,11 @@ const OrderForm = ({ id, close }: { id: string, close: any }) => {
             setIsLoading(false)
         }
     }
-    if (isLoading) {
-        <Loader />
-    }
+
 
     return (
         <div>
+            {isLoading && <Loader />}
             <form onSubmit={(e) => {
                 createOrder()
                 e.preventDefault()
