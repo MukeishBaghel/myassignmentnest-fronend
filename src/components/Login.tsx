@@ -25,7 +25,7 @@ const LoginSchema = z.object({
     password: z.string().min(6, "Password length must be greater than 6"),
 });
 type FormFields = z.infer<typeof LoginSchema>
-
+// form
 const Login = () => {
     const navigate = useNavigate();
     const { state: prevState } = useLocation();
