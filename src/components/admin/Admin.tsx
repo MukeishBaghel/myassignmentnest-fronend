@@ -107,7 +107,7 @@ const Admin = () => {
     try {
       const res = await axiosInstance.delete('/admin/delete-query?query_id=' + queryId)
       console.log(res)
-      if (res.status === 202) {
+      if (res.status === 200) {
         toast.success(res.data.message)
         setQueries((prev) => {
           const queries = prev.filter((query) => query.id !== queryId)
