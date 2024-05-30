@@ -69,7 +69,7 @@ const SignUp = () => {
                 navigate('/login')
                 return
             }
-            else if (res.ok && res.data && res.data.token) {
+            else if (res.status === 201 && res.data && res.data.token) {
                 toast.success("SignUp Successfully")
                 navigate('/login')
                 return
