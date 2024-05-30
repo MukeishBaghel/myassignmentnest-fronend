@@ -17,7 +17,7 @@ const FakePopUp = () => {
             setShowPopup(true);
             setTimeout(() => {
                 setShowPopup(false);
-            }, 3000); // Display for 3 seconds
+            }, 4000); // Display for 4 seconds
         }, 60 * 1000); // Appear every 60 seconds
 
         // Cleanup function to clear the interval when component unmounts
