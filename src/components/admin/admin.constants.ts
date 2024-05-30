@@ -11,18 +11,6 @@ export type DataRow = {
   file_name: string;
   create_time: string;
 };
-const data = [
-  {
-    id: 1,
-    title: "Beetlejuice",
-    year: "1988",
-  },
-  {
-    id: 2,
-    title: "Ghostbusters",
-    year: "1984",
-  },
-];
 
 // const handleButtonClick = (id) => {
 //   console.log('Row ID:', id);
@@ -31,10 +19,10 @@ const data = [
 //@ts-ignore
 export function convertArrayOfObjectsToCSV(array) {
   let result: string;
-
+  console.log(array);
   const columnDelimiter = ",";
   const lineDelimiter = "\n";
-  const keys = Object.keys(data[0]);
+  const keys = Object.keys(array[0]);
 
   result = "";
   result += keys.join(columnDelimiter);
@@ -45,8 +33,18 @@ export function convertArrayOfObjectsToCSV(array) {
     let ctr = 0;
     keys.forEach((key) => {
       if (ctr > 0) result += columnDelimiter;
+      if (key === "create_time") {
+        const date = new Date(item[key] * 1000);
+        console.log(
+          date.toLocaleDateString() + " : " + date.toLocaleTimeString()
+        );
+        const formattedDate =
+          date.toLocaleDateString() + " : " + date.toLocaleTimeString();
 
-      result += item[key];
+        result += formattedDate;
+      } else {
+        result += item[key];
+      }
 
       ctr++;
     });

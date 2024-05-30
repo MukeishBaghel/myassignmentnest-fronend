@@ -71,11 +71,13 @@ const Login = () => {
             )
             console.log(resdata)
             const res = await resdata.json()
+            console.log(res)
 
             if (resdata.ok && res.data && res.data.token) {
                 dispatch(setCredentials({ token: res.data.token, userType: "app_user" }))
                 toast.success("Login Successfully")
                 navigate(prevState || '/')
+                return;
             }
 
             if (resdata.status === 401) {

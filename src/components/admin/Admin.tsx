@@ -85,6 +85,7 @@ const Admin = () => {
   ];
   const [queries, setQueries] = useState<DataRow[]>([])
   const [pending, setPending] = useState<boolean | undefined>(false)
+  console.log(queries)
   const actionsMemo = React.useMemo(() => <Export onExport={() => downloadCSV(queries)} />, []);
   const [orderId, setOrderId] = useState<string>("")
   const [isOrderModal, setIsOrderModal] = useState<boolean>(false)

@@ -4,6 +4,7 @@ import astridImg from '/assets/images/abhinav.svg'
 import kellyImg from '/assets/images/kelly.svg'
 import yasminImg from '/assets/images/yasmin.svg'
 import clasrkeImg from "/assets/images/clarke.svg"
+import sakshiImg from '/assets/images/sakshi.svg'
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -82,7 +83,7 @@ const Testimonial = () => {
                 </article>
                 <article className=' p-6 w-[518px] bg-testimonial_card cursor-pointer rounded-2xl shadow-testimonial_card_5 absolute z-10 top-[160px] -left-10  hover:bg-white hover:z-[60] duration-200 ease-in-out right-20 hover:shadow-form_shadow group group-hover:opacity-0'>
                     <div className='flex gap-4'>
-                        <img src={astridImg} alt="" className='self-start' />
+                        <img src={sakshiImg} alt="" className='self-start' />
                         <div>
                             <div className='flex items-center justify-between'>
                                 <h1 className='text-2xl font-semibold'>Sakshi</h1>
@@ -179,7 +180,7 @@ const Testimonial = () => {
                     </article></SwiperSlide>
                     <SwiperSlide> <article className=' p-6  bg-[#F7F6FB] h-[260px]'>
                         <div className='flex gap-4'>
-                            <img src={""} alt="" className='self-start' />
+                            <img src={sakshiImg} alt="" className='self-start' />
                             <div>
                                 <div className='flex items-center justify-between'>
                                     <h1 className='text-2xl font-semibold'>Sakshi</h1>

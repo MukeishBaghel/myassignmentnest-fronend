@@ -1,16 +1,19 @@
-import React from 'react'
-import HeroSection from '../ui/sections/HeroSection'
-import HowWork from '../ui/sections/HowWork'
-import TopFeature from '../ui/sections/TopFeature'
-import AssignmentHelping from '../ui/sections/AssignmentHelping'
-import AssignmentForm from '../components/AssignmentForm'
-import ContactUs from '../ui/sections/ContactUs'
-import Testimonial from '../ui/sections/Testimonial'
+import React, { useState, useEffect } from 'react';
+const HeroSection = React.lazy(() => import('../ui/sections/HeroSection'));
+const HowWork = React.lazy(() => import('../ui/sections/HowWork'));
+const TopFeature = React.lazy(() => import('../ui/sections/TopFeature'));
+const AssignmentHelping = React.lazy(() => import('../ui/sections/AssignmentHelping'));
+const AssignmentForm = React.lazy(() => import('../components/AssignmentForm'));
+const ContactUs = React.lazy(() => import('../ui/sections/ContactUs'));
+const Testimonial = React.lazy(() => import('../ui/sections/Testimonial'));
+const FakePopUp = React.lazy(() => import('../components/FakePopUp'));
 
 const Home = () => {
+
     return (
         <>
             <HeroSection />
+            {<FakePopUp />}
             <AssignmentForm />
             <HowWork />
             <TopFeature />
@@ -18,7 +21,7 @@ const Home = () => {
             <Testimonial />
             <ContactUs />
         </>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;
