@@ -61,7 +61,7 @@ const Admin = () => {
     },
     {
       name: "Creation time",
-      selector: (row) => row.create_time
+      selector: (row) => new Date(+ row.create_time * 1000).toString()
     },
     {
       name: "Reference",
@@ -76,14 +76,14 @@ const Admin = () => {
       name: 'Actions',
       grow: 1,
       cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'><GradientButton className='h-10 text-sm mx-auto px-2 w-fit text-nowrap' onClick={() => createOrder(row.customer_id)}>Create Order</GradientButton>
-        <GradientButton className='h-10 text-sm px-2  w-fit mx-auto text-nowrap' onClick={() => deleteQuery(row.id)}>Delete Order</GradientButton></div>,
+        <GradientButton className='h-10 text-sm px-2  w-fit mx-auto text-nowrap bg-white text-red-500 ' onClick={() => deleteQuery(row.id)}>Delete Order</GradientButton></div>,
       ignoreRowClick: true,
       button: true,
       width: "10%",
       center: true
     },
   ];
-  const [queries, setQueries] = useState([])
+  const [queries, setQueries] = useState<DataRow[]>([])
   const [pending, setPending] = useState<boolean | undefined>(false)
   const actionsMemo = React.useMemo(() => <Export onExport={() => downloadCSV(queries)} />, []);
   const [orderId, setOrderId] = useState<string>("")
@@ -105,14 +105,21 @@ const Admin = () => {
     alert("Are you sure you want to delete")
     setPending(true)
     try {
-      const { data } = await axiosInstance.delete('/customer/query?query_id' + orderId)
-      if (data.status === 200) {
-        toast.success(data.message)
-        window.location.reload()
+      const res = await axiosInstance.delete('/customer/query?query_id=' + orderId)
+      console.log(res)
+      if (res.status === 202) {
+        toast.success(res.data.message)
+        setQueries((prev) => {
+          const queries = prev.filter((query) => query.id !== orderId)
+          return queries;
+        })
+      }
+      else {
+        toast.error("Unable to process the request")
       }
     }
     catch (err) {
-      toast.error("Something went wrong")
+      toast.error("Invalid Id or Server error")
       console.log(err);
     }
     finally {

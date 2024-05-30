@@ -30,13 +30,13 @@ const OrderTable = () => {
             allowOverflow: true,
         },
         {
-            name: "description",
+            name: "Description",
             // width: "10%",
             selector: (row) => row.description,
             sortable: true,
         },
         {
-            name: "order_name",
+            name: "Order name",
             selector: (row) => row.order_name,
             sortable: true,
         },
@@ -47,19 +47,19 @@ const OrderTable = () => {
         //     sortable: true,
         // },
         {
-            name: "order_type",
+            name: "Order type",
             selector: (row) => row.order_type,
             sortable: true,
 
         },
 
         {
-            name: "order_datetime",
+            name: "Order datetime",
             selector: (row) => (new Date(+row.order_datetime * 1000).toString()),
             sortable: true,
             style: { fontSize: "12px" }
         }, {
-            name: "order_status",
+            name: "Order status",
             selector: (row) => row.order_status,
             sortable: true,
         },
@@ -73,7 +73,7 @@ const OrderTable = () => {
             grow: 1,
             cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'>
                 <GradientButton className='h-10 text-sm px-2  w-fit text-nowrap' onClick={() => createPayment(row.orderId)}>Create Payment</GradientButton>
-                <GradientButton className='h-10 text-sm px-2 w-full  text-nowrap' onClick={() => deleteOrder(row.orderId)}>Delete Order</GradientButton>
+                <GradientButton className='h-10 text-sm px-2 w-full bg-white text-red-500  text-nowrap' onClick={() => deleteOrder(row.orderId)}>Delete Order</GradientButton>
             </div>,
             ignoreRowClick: true,
             allowOverflow: true,
@@ -84,7 +84,7 @@ const OrderTable = () => {
     const [isOrderModal, setIsOrderModal] = useState<boolean>(false)
     const setOrderModalOpen = () => setIsOrderModal(true)
     const setOrderModalClose = () => setIsOrderModal(false)
-    const [orders, setOrders] = useState([])
+    const [orders, setOrders] = useState<DataRow[]>([])
     const [pending, setPending] = useState<boolean | undefined>(false)
     const [paymentId, setPaymentId] = useState<string>("")
 
@@ -98,13 +98,19 @@ const OrderTable = () => {
         alert("Are you sure you want to delete")
         setPending(true)
         try {
-            const { data } = await axiosInstance.delete('/order/delete?order_id=' + id)
-            if (data.status === 200) {
-                toast.success("order deleted")
+            const res = await axiosInstance.delete('/order/delete?order_id=' + id)
+            if (res.status === 202) {
+                toast.success(res.data.message)
                 // window.location.href = "/admin/all-orders"
-                window.location.reload()
+                setOrders((prev) => {
+                    const orders = prev.filter((order) => order.orderId !== id)
+                    return orders
+                })
+                // window.location.reload()
             }
-            console.log(data);
+            else {
+                toast.error("Unable to process the request")
+            }
         }
         catch (err) {
             console.log(err);
