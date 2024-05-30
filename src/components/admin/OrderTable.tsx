@@ -50,7 +50,7 @@ const OrderTable = () => {
             name: "Order datetime",
             selector: (row) => (new Date(+row.order_datetime * 1000).toString()),
             sortable: true,
-            style: { fontSize: "12px" }
+            // style: { fontSize: "12px" }
         }, {
             name: "Order status",
             selector: (row) => row.order_status,
@@ -63,10 +63,10 @@ const OrderTable = () => {
         {
             name: 'Actions',
             grow: 1,
-            cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'>
+            cell: (row) => <>{row?.order_status !== "COMPLETED" && <div className='flex flex-col gap-2 items-center justify-center my-1'>
                 <GradientButton className='h-10 text-sm px-2  w-fit text-nowrap' onClick={() => createPayment(row.orderId)}>Create Payment</GradientButton>
                 <GradientButton className='h-10 text-sm px-2 w-full bg-white text-red-500  text-nowrap' onClick={() => deleteOrder(row.orderId)}>Delete Order</GradientButton>
-            </div>,
+            </div>}</>,
             ignoreRowClick: true,
             allowOverflow: true,
             button: true,
