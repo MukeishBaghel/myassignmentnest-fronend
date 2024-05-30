@@ -63,20 +63,19 @@ const SignUp = () => {
             )
             console.log(resdata)
             const res = await resdata.json()
+
             if (resdata.status === 400) {
                 toast.error("User already exist")
                 navigate('/login')
                 return
             }
-            // console.log(jwtDecode(res.data.token))
-            if (res.data && res.data.token) {
-                localStorage.setItem("customer_id", res.data.accountId);
+            else if (res.ok && res.data && res.data.token) {
                 toast.success("SignUp Successfully")
                 navigate('/login')
                 return
             }
             else {
-                toast.error("Credentials are not valid")
+                toast.error("Invalid Credentials")
             }
             // console.log(res.status)
         }

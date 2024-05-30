@@ -101,16 +101,16 @@ const Admin = () => {
       toast.error("invalid order id")
     }
   }
-  const deleteQuery = async (orderId: string) => {
+  const deleteQuery = async (queryId: string) => {
     alert("Are you sure you want to delete")
     setPending(true)
     try {
-      const res = await axiosInstance.delete('/customer/query?query_id=' + orderId)
+      const res = await axiosInstance.delete('/admin/delete-query?query_id=' + queryId)
       console.log(res)
       if (res.status === 202) {
         toast.success(res.data.message)
         setQueries((prev) => {
-          const queries = prev.filter((query) => query.id !== orderId)
+          const queries = prev.filter((query) => query.id !== queryId)
           return queries;
         })
       }

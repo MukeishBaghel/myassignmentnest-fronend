@@ -346,7 +346,7 @@ const AssignmentForm = () => {
                     <FormTextField title='Reference' value={newFormData.reference as string} readOnly />
                   </div>
                 </div>
-                <FormTextField title='File Name' value={fileName as string} readOnly />
+                <FormTextField title='File Name' value={fileName as string} readOnly placeholder={fileName ? "" : "No file selected"} />
                 <br />
                 <GradientButton onClick={() => formData ? sendQuery(formData) : null}>Submit & Connect with Experts</GradientButton>
                 <GradientButton className=''> <Link to={"https://wa.me/message/TWMAGNZXPVLQG1"} >Get instant Quotation now</Link></GradientButton>

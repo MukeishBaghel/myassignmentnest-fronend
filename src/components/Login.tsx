@@ -71,15 +71,20 @@ const Login = () => {
             )
             console.log(resdata)
             const res = await resdata.json()
-            console.log(jwtDecode(res.data.token))
-            if (res.data && res.data.token) {
+
+            if (resdata.ok && res.data && res.data.token) {
                 dispatch(setCredentials({ token: res.data.token, userType: "app_user" }))
                 toast.success("Login Successfully")
                 navigate(prevState || '/')
-
             }
+
+            if (resdata.status === 401) {
+                reset()
+                return toast.error("Invalid credentials")
+            }
+
             else {
-                toast.error("Invalid Credentials")
+                toast.error("Internal Server Error")
                 reset()
             }
             // console.log(res.status)
