@@ -18,7 +18,7 @@ const FakePopUp = () => {
             setTimeout(() => {
                 setShowPopup(false);
             }, 3600); // Display for 3.6 seconds
-        }, 50 * 1000); // Appear every 50 seconds
+        }, 5 * 1000); // Appear every 50 seconds
 
         // Cleanup function to clear the interval when component unmounts
         return () => {
@@ -33,7 +33,7 @@ const FakePopUp = () => {
     const msgWithId = msg.message ? msg.message.replace("user ID", `user ID ${msg.userid}`) : '';
 
     return (
-        <div className={`fixed sm:bottom-40 z-[1001] rounded-lg sm:left-10 text-white bg-primary-200 sm:max-w-[300px] py-2 ease-in duration-1000 max-sm:top-4 h-fit ${showPopup ? "-translate-y-[40%] opacity-100" : "translate-y-[20%] opacity-0"}`}>
+        <div className={`fixed sm:bottom-40 z-[1001]  rounded-lg sm:left-10 text-white bg-primary-200 sm:max-w-[300px] py-2 ease-in duration-1000 max-sm:top-10 h-fit ${showPopup ? "-translate-y-[40%] opacity-100" : "translate-y-[20%] opacity-0"}`}>
             <div className='flex gap-2'>
                 <img src={successvid} alt="" className='w-20 h-20 self-start' />
                 <div className='text-sm pt-2 pr-2'>
