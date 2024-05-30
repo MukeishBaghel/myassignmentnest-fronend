@@ -61,15 +61,12 @@ const SignUp = () => {
                     body: JSON.stringify(data),
                 }
             )
-            console.log(resdata)
-            const res = await resdata.json()
-
             if (resdata.status === 400) {
                 toast.error("User already exist")
                 navigate('/login')
                 return
             }
-            else if (res.status === 201 && res.data && res.data.token) {
+            else if (resdata.status === 201) {
                 toast.success("SignUp Successfully")
                 navigate('/login')
                 return
