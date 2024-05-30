@@ -33,7 +33,6 @@ const OrderTable = () => {
             name: "Description",
             // width: "10%",
             selector: (row) => row.description,
-            sortable: true,
         },
         {
             name: "Order name",
@@ -46,12 +45,6 @@ const OrderTable = () => {
         //     selector: (row) => row.customer_id,
         //     sortable: true,
         // },
-        {
-            name: "Order type",
-            selector: (row) => row.order_type,
-            sortable: true,
-
-        },
 
         {
             name: "Order datetime",
@@ -61,7 +54,6 @@ const OrderTable = () => {
         }, {
             name: "Order status",
             selector: (row) => row.order_status,
-            sortable: true,
         },
         // {
         //     name: "modification_datetime",
@@ -131,7 +123,7 @@ const OrderTable = () => {
                 const { data } = await axiosInstance.get('/order/get')
                 if (data) {
                     console.log(data);
-                    setOrders(data.data)
+                    setOrders(data.data.reverse())
                 }
                 console.log(data);
             }

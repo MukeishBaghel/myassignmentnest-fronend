@@ -166,7 +166,7 @@ const PaymentTable = () => {
                 const { data } = await axiosInstance.get('/payment/get-all-payment')
                 if (data) {
                     console.log(data);
-                    setPayments(data.data)
+                    setPayments(data.data.reverse())
                 }
                 else {
                     toast.error(data.message)
@@ -185,7 +185,7 @@ const PaymentTable = () => {
             try {
                 const { data } = await axiosInstance.get(`/payment/get-by-order?order_id=${id}`)
                 if (data) {
-                    setPayments(data.data)
+                    setPayments(data.data.reverse())
                 }
                 console.log(data);
             }

@@ -201,6 +201,7 @@ const AssignmentForm = () => {
         if (response.status === 201) {
           toast.success("Form Submitted Successfully")
           localStorage.removeItem("formQuery")
+          setFileName(null)
           reset();
         }
         else {

@@ -25,12 +25,10 @@ const Admin = () => {
       name: "Customer Id",
       // width: "10%",
       selector: (row) => row.customer_id,
-      sortable: true,
     },
     {
       name: "Email",
       selector: (row) => row.email,
-      sortable: true,
     },
     {
       name: "Pages",
@@ -42,12 +40,10 @@ const Admin = () => {
     {
       name: "Phone",
       selector: (row) => row.phone,
-      sortable: true,
     },
     {
       name: "Subject",
       selector: (row) => row.subject,
-      sortable: true,
     },
     {
       name: "Deadline",
@@ -57,16 +53,16 @@ const Admin = () => {
     {
       name: "Description",
       selector: (row) => row.description,
-      sortable: true,
     },
     {
       name: "Creation time",
-      selector: (row) => new Date(+ row.create_time * 1000).toString()
+      selector: (row) => new Date(+ row.create_time * 1000).toString(),
+      sortable: true,
+
     },
     {
       name: "Reference",
       selector: (row) => row.reference,
-      sortable: true,
     },
     {
       name: "File Name",
