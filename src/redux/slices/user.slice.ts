@@ -27,6 +27,7 @@ const userSlice = createSlice({
       state.userType = null;
       state.refresh_token = null;
       window.location.href = "/";
+      localStorage.clear();
       if (state.userType && state.userType === "google_user") googleLogout();
     },
   },
