@@ -22,7 +22,7 @@ const Footer = () => {
               <Link to={'https://www.linkedin.com/in/my-assignment-nest-0b637730b/'} className='border-2 rounded-full p-1.5'><Linkedin className='w-5 h-5' /></Link>
             </div>
           </div>
-          <p className='text-sm pr-4 max-sm:hidden'>Disclaimer: The reference papers provided by MyAssignmentnest.com serve as model papers for students and are not to be submitted as it is. These papers are intended to be used for research and reference purposes only.</p>
+          {/* <p className='text-sm pr-4 max-sm:hidden'>Disclaimer: The reference papers provided by MyAssignmentnest.com serve as model papers for students and are not to be submitted as it is. These papers are intended to be used for research and reference purposes only.</p> */}
 
         </div>
         <div className='flex flex-col gap-2 max-sm:text-sm max-lg:justify-self-end'>
@@ -70,7 +70,7 @@ const Footer = () => {
         </div>
 
       </section>
-      <p className='text-sm pr-4 pt-5 text-white sm:hidden'>Disclaimer: The reference papers provided by MyAssignmentnest.com serve as model papers for students and are not to be submitted as it is. These papers are intended to be used for research and reference purposes only.</p>
+      <p className='text-sm  pt-5 text-white text-center'>Disclaimer: The reference papers provided by MyAssignmentnest.com serve as model papers for students and are not to be submitted as it is. These papers are intended to be used for research and reference purposes only.</p>
     </footer>
   )
 }
