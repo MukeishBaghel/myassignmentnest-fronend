@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import Modal from '../inputs/Modal'
 import GradientButton from '../inputs/GradientButton'
 import Button from '../inputs/Button'
+import FakePopUp from '../FakePopUp'
 
 const CommonLayout = ({ children }: { children: React.ReactNode }) => {
   const [isModelOpen, setIsModelOpen] = useState<boolean>(false)
@@ -13,6 +14,7 @@ const CommonLayout = ({ children }: { children: React.ReactNode }) => {
   const setModelOpen = () => setIsModelOpen(true)
   return (
     <>
+      <FakePopUp />
       <div className='fixed top-0 left-0 w-full z-[999]'>
         <Navbar />
       </div>
