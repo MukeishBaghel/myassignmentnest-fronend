@@ -9,12 +9,12 @@ import { logOut } from './redux/slices/user.slice';
 
 const App = () => {
   const dispatch = useDispatch();
-  useEffect(() => {
-    if (isTokenExpired()) {
-      dispatch(logOut())
-      toast.info("Session expired")
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (isTokenExpired()) {
+  //     dispatch(logOut())
+  //     toast.info("Session expired")
+  //   }
+  // }, [])
   return (
     <>
       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_ID}>
