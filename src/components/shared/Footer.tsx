@@ -43,7 +43,7 @@ const Footer = () => {
         </div>
         <div className='flex flex-col gap-2 max-sm:text-sm max-xl:justify-self-start'>
           <h1 className='font-semibold text-lg text-start '>Contact us</h1>
-          <Link to={"mailto:support@myassignmentnest.com"} className='flex items-center gap-1 flex-wrap'>
+          <Link to={"mailto:support@myassignmentnest.com"} className='flex items-center gap-1 '>
             <Mail className='w-4 h-4'/>:
             <span className='hover:opacity-50 duration-150 ease-in truncate max-sm:max-w-[160px]'>
               support@myassignmentnest.com
