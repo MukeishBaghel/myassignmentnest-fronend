@@ -77,7 +77,6 @@ const Login = () => {
                 dispatch(setCredentials({ token: res.data.token, userType: "app_user" }))
                 toast.success("Login Successfully")
                 navigate(prevState || '/')
-                localStorage.removeItem("formQuery")
                 return;
             }
 
