@@ -6,15 +6,18 @@ import 'react-toastify/dist/ReactToastify.css';
 import isTokenExpired from './constants/Token.expire';
 import { useDispatch } from 'react-redux';
 import { logOut } from './redux/slices/user.slice';
+import { useNavigate } from 'react-router-dom';
 
 const App = () => {
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   if (isTokenExpired()) {
-  //     dispatch(logOut())
-  //     toast.info("Session expired")
-  //   }
-  // }, [])
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (isTokenExpired()) {
+      dispatch(logOut())
+      toast.info("Session expired")
+      navigate('/')
+    }
+  }, [])
   return (
     <>
       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_ID}>
