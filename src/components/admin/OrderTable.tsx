@@ -87,30 +87,28 @@ const OrderTable = () => {
         }
     }
     const deleteOrder = async (id: string) => {
-        alert("Are you sure you want to delete")
-        setPending(true)
-        try {
-            const res = await axiosInstance.delete('/order/delete?order_id=' + id)
-            if (res.status === 202) {
-                toast.success(res.data.message)
-                // window.location.href = "/admin/all-orders"
-                setOrders((prev) => {
-                    const orders = prev.filter((order) => order.orderId !== id)
-                    return orders
-                })
-                // window.location.reload()
+        if (confirm("Are you sure you want to delete?")) {
+            setPending(true)
+            try {
+                const res = await axiosInstance.delete('/order/delete?order_id=' + id)
+                if (res.status === 202) {
+                    toast.success(res.data.message)
+                    setOrders((prev) => {
+                        const orders = prev.filter((order) => order.orderId !== id)
+                        return orders
+                    })
+                }
+                else {
+                    toast.error("Unable to process the request")
+                }
             }
-            else {
-                toast.error("Unable to process the request")
+            catch (err) {
+                console.log(err)
+            }
+            finally {
+                setPending(false)
             }
         }
-        catch (err) {
-            console.log(err);
-        }
-        finally {
-            setPending(false)
-        }
-
     }
 
 

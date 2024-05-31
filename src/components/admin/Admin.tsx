@@ -99,30 +99,32 @@ const Admin = () => {
     }
   }
   const deleteQuery = async (queryId: string) => {
-    alert("Are you sure you want to delete")
-    setPending(true)
-    try {
-      const res = await axiosInstance.delete('/admin/delete-query?query_id=' + queryId)
-      console.log(res)
-      if (res.status === 200) {
-        toast.success(res.data.message)
-        setQueries((prev) => {
-          const queries = prev.filter((query) => query.id !== queryId)
-          return queries;
-        })
+    if (confirm("Are you sure you want to delete?")) {
+      setPending(true)
+      try {
+        const res = await axiosInstance.delete('/admin/delete-query?query_id=' + queryId)
+        console.log(res)
+        if (res.status === 200) {
+          toast.success(res.data.message)
+          setQueries((prev) => {
+            const queries = prev.filter((query) => query.id !== queryId)
+            return queries;
+          })
+        }
+        else {
+          toast.error("Unable to process the request")
+        }
       }
-      else {
-        toast.error("Unable to process the request")
+      catch (err) {
+        toast.error("Invalid Id or Server error")
+        console.log(err);
       }
-    }
-    catch (err) {
-      toast.error("Invalid Id or Server error")
-      console.log(err);
-    }
-    finally {
-      setPending(false)
+      finally {
+        setPending(false)
+      }
     }
   }
+
 
   console.log(queries)
   useEffect(() => {
