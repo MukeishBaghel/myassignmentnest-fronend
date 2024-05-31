@@ -38,7 +38,7 @@ const FormSchema = z.object({
   }),
   pages: z.number({
     message: "Value must be greater than 0"
-  }).gte(0),
+  }).gte(0).int(),
   reference: z.optional(z.nullable(z.array(z.string()).or(z.string()))),
   description: z.string().min(1, {
     message: "Try to briefly explain your Assignment"
@@ -83,7 +83,7 @@ const AssignmentForm = () => {
   } = useForm<FormFields>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      pages: 1,
+      pages: 10,
       phone: "",
     }
   });
@@ -250,7 +250,7 @@ const AssignmentForm = () => {
               })} error={errors.deadline?.message} />
               <FormTextField title='Enter the total Pages' {...register("pages", {
                 valueAsNumber: true,
-              })} error={errors.pages?.message} type='number' min={1} />
+              })} error={errors.pages?.message} type='number' />
 
             </div>
             <div className='flex flex-col gap-12'>
@@ -269,7 +269,6 @@ const AssignmentForm = () => {
                       style={{ height: "100%", outline: "none" }}
                       defaultCountry="IN"
                       limitMaxLength
-
                     />
                   </Suspense>
 
