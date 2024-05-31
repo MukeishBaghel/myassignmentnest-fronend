@@ -12,8 +12,9 @@ const App = () => {
   useEffect(() => {
     if (isTokenExpired()) {
       dispatch(logOut())
+      toast.info("Session expired")
     }
-  },[])
+  }, [])
   return (
     <>
       <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_ID}>
