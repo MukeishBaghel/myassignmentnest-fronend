@@ -4,19 +4,21 @@ import { useEffect } from 'react';
 import { Slide, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import isTokenExpired from './constants/Token.expire';
-import { useDispatch } from 'react-redux';
-import { logOut } from './redux/slices/user.slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { logOut, selectCurrentUser } from './redux/slices/user.slice';
 import { useNavigate } from 'react-router-dom';
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { token } = useSelector(selectCurrentUser)
   useEffect(() => {
-    if (isTokenExpired()) {
+    if (!!token && isTokenExpired()) {
       dispatch(logOut())
       toast.info("Session expired")
       navigate('/')
     }
+
   }, [])
   return (
     <>

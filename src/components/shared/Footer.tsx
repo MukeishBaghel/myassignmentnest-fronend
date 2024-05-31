@@ -6,7 +6,7 @@ import gatewayimg from '/assets/images/gatewayimg.jpeg'
 
 const Footer = () => {
   return (
-    <footer className='bg-primary_100 p-2 sm:p-12 '>
+    <footer className='bg-primary_100 px-2 py-10 sm:p-12 '>
       <section className=' grid grid-cols-2   gap-y-6 sm:gap-10 md:gap-14 xl:grid-cols-4 justify-items-center place-content-between align-middle  text-primary'>
         <div className='flex flex-col gap-6 '>
           <h1 className='text-xl sm:text-2xl md:text-3xl font-semibold'>
