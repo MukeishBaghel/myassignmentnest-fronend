@@ -25,10 +25,14 @@ const Admin = () => {
       name: "Type",
       // width: "10%",
       selector: (row) => row.type,
+      sortable: true,
+
     },
     {
       name: "Email",
       selector: (row) => row.customer_email,
+      sortable: true,
+
     },
     {
       name: "Pages",
@@ -44,6 +48,7 @@ const Admin = () => {
     {
       name: "Subject",
       selector: (row) => row.subject,
+
     },
     {
       name: "Deadline",
@@ -57,6 +62,7 @@ const Admin = () => {
     {
       name: "customer name",
       selector: (row) => row.customer_name,
+      sortable: true,
     },
     {
       name: "Creation time",
@@ -75,7 +81,7 @@ const Admin = () => {
     {
       name: 'Actions',
       grow: 1,
-      cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'><GradientButton className='h-10 text-sm mx-auto px-2 w-fit text-nowrap' onClick={() => createOrder(row.customer_email, row.customer_name)}>Create Order</GradientButton>
+      cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'><GradientButton className='h-10 text-sm mx-auto px-2 w-fit text-nowrap' onClick={() => createOrder(row.customer_email, row.customer_name, row.description)}>Create Order</GradientButton>
         <GradientButton className='h-10 text-sm px-2  w-fit mx-auto text-nowrap bg-white text-red-500 ' onClick={() => deleteQuery(row.id)}>Delete Order</GradientButton></div>,
       ignoreRowClick: true,
       button: true,
@@ -90,14 +96,16 @@ const Admin = () => {
   const [orderId, setOrderId] = useState<string>("")
   const [isOrderModal, setIsOrderModal] = useState<boolean>(false)
   const [customerName, setCustomerName] = useState<string>("")
+  const [description, setDescription] = useState<string>("")
 
   const setOrderModalOpen = () => setIsOrderModal(true)
   const setOrderModalClose = () => setIsOrderModal(false)
 
-  const createOrder = (email: string, customer_name: string) => {
+  const createOrder = (email: string, customer_name: string, description: string) => {
     if (email) {
       setOrderId(email)
       setCustomerName(customer_name)
+      setDescription(description)
       setOrderModalOpen()
     }
     else {
@@ -173,7 +181,7 @@ const Admin = () => {
           selectableRowsHighlight
         />
         <Modal isOpen={isOrderModal} onClose={setOrderModalClose}>
-          <OrderForm mail={orderId} customer_name={customerName} />
+          <OrderForm mail={orderId} customer_name={customerName} description={description} />
         </Modal>
       </section>
     )

@@ -8,12 +8,12 @@ import GradientButton from '../inputs/GradientButton'
 import Loader from '../shared/Loader'
 import { toast } from 'react-toastify'
 
-const OrderForm = ({ mail, customer_name }: { mail: string, customer_name: string }) => {
+const OrderForm = ({ mail, customer_name, description }: { mail: string, customer_name: string, description: string }) => {
 
     const [data, setData] = useState({
         order_name: customer_name,
-        description: "",
-        mail: mail,
+        description: description,
+        customer_email: mail,
         order_type: "MULTIPART"
     })
     const [response, setResponse] = useState<any>("")
@@ -75,11 +75,11 @@ const OrderForm = ({ mail, customer_name }: { mail: string, customer_name: strin
                 e.preventDefault()
             }} className='flex flex-col container  mx-auto gap-8 px-4  w-[280px] sm:w-[350px] pt-6'>
                 <h1 className='text-center font-medium text-2xl gradient-text sm:text-3xl'>Create Order</h1>
-                <FormTextField title='Order name' className='border cursor-not-allowed' type="text" placeholder='ordername' value={data.order_name} id='order_name' readOnly name='order_name' onChange={(e) => handleOnChange(e)} />
+                <FormTextField title='Customer name' className='border cursor-not-allowed' type="text" placeholder='ordername' value={data.order_name} id='order_name' readOnly name='order_name' onChange={(e) => handleOnChange(e)} />
 
-                <FormTextField title='Description' className='border' type="text" value={data.description} id='description' name='description' onChange={(e) => handleOnChange(e)} />
+                <FormTextField title='Description' className='border' type="text" value={data.description || description} id='description' name='description' onChange={(e) => handleOnChange(e)} />
 
-                <FormTextField readOnly title='CustomerID' className='border cursor-not-allowed' type="text" value={data.mail || mail} id='mail' name="mail" />
+                <FormTextField readOnly title='Customer Email' className='border cursor-not-allowed' type="text" value={data.customer_email || mail} id='customer_email' name="customer_email" />
 
                 <div className='border border-[#ADADAD] relative z-0  rounded-[4px] font-[Nunito] h-12'>
                     <input className=' w-full z-10 bg-transparent  px-2 outline-none h-12  placeholder:text-base resize-none' readOnly value={"MULTIPART"} id='order_type' name="order_type" >
