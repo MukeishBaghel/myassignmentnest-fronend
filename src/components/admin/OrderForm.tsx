@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 const OrderForm = ({ mail, customer_name, description }: { mail: string, customer_name: string, description: string }) => {
 
     const [data, setData] = useState({
-        order_name: customer_name,
+        customer_name: customer_name,
         description: description,
         customer_email: mail,
         order_type: "MULTIPART"
@@ -75,7 +75,7 @@ const OrderForm = ({ mail, customer_name, description }: { mail: string, custome
                 e.preventDefault()
             }} className='flex flex-col container  mx-auto gap-8 px-4  w-[280px] sm:w-[350px] pt-6'>
                 <h1 className='text-center font-medium text-2xl gradient-text sm:text-3xl'>Create Order</h1>
-                <FormTextField title='Customer name' className='border cursor-not-allowed' type="text" placeholder='ordername' value={data.order_name} id='order_name' readOnly name='order_name' onChange={(e) => handleOnChange(e)} />
+                <FormTextField title='Customer Name' className='border cursor-not-allowed' type="text" placeholder='customer name' value={data.customer_name} id='customer_name' readOnly name='customer_name' onChange={(e) => handleOnChange(e)} />
 
                 <FormTextField title='Description' className='border' type="text" value={data.description || description} id='description' name='description' onChange={(e) => handleOnChange(e)} />
 
