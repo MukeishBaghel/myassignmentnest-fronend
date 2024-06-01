@@ -251,6 +251,7 @@ const AssignmentForm = () => {
               <div className='flex items-center gap-4 w-full '>
                 <FormTextField title='Enter the total Pages / words' className='' {...register("pages", {
                   valueAsNumber: true,
+                  required: true
                 })} error={errors.pages?.message} type='number' />
                 <select className='bg-transparent  px-2 outline-none  border rounded-[4px] font-[Nunito] border-[#ADADAD] h-12  placeholder:text-base ' {...register("type")} onChange={handleReferenceChange}>
                   <option defaultValue={"PAGE"} value={"PAGE"}>page</option>

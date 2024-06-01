@@ -15,6 +15,9 @@ const CreatePayment = ({ id }: { id: string }) => {
     const navigate = useNavigate()
 
     const CreateOrderPayment = async () => {
+        if (amount < 1) {
+            return toast.error("Invalid amount")
+        }
         setIsLoading(true)
         try {
             const res = await fetch(`${import.meta.env.VITE_BASE_URL}/payment/create?order_id=` + id, {
@@ -51,7 +54,7 @@ const CreatePayment = ({ id }: { id: string }) => {
     return (
         <div className='w-full max-w-5xl px-4 sm:px-10 space-y-8'>
             <h1 className='text-3xl sm:text-4xl gradient-text text-center'>Create Payment</h1>
-            <FormTextField title='Enter Amount' className='border' type="number" placeholder='amount' defaultValue={0} min={0} value={amount} onChange={(e) => setAmount(parseInt(e.target.value))} />
+            <FormTextField title='Enter Amount' className='border' type="number" placeholder='amount' min={1} value={amount} onChange={(e) => setAmount(parseInt(e.target.value))} />
             <FormTextField title='Order Id' className='border' type="text" placeholder='id' value={id} readOnly />
             <GradientButton className='text-lg sm:text-xl w-fit mx-auto px-8' onClick={() => CreateOrderPayment()}>Create Payment</GradientButton>
         </div>
