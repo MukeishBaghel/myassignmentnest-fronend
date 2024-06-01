@@ -28,7 +28,7 @@ const Admin = () => {
     },
     {
       name: "Email",
-      selector: (row) => row.email,
+      selector: (row) => row.customer_email,
     },
     {
       name: "Pages",
@@ -75,7 +75,7 @@ const Admin = () => {
     {
       name: 'Actions',
       grow: 1,
-      cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'><GradientButton className='h-10 text-sm mx-auto px-2 w-fit text-nowrap' onClick={() => createOrder(row.email, row.customer_name)}>Create Order</GradientButton>
+      cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'><GradientButton className='h-10 text-sm mx-auto px-2 w-fit text-nowrap' onClick={() => createOrder(row.customer_email, row.customer_name)}>Create Order</GradientButton>
         <GradientButton className='h-10 text-sm px-2  w-fit mx-auto text-nowrap bg-white text-red-500 ' onClick={() => deleteQuery(row.id)}>Delete Order</GradientButton></div>,
       ignoreRowClick: true,
       button: true,

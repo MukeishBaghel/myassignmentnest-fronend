@@ -11,6 +11,7 @@ export type DataRow = {
   file_name: string;
   create_time: string;
   customer_name: string;
+  customer_email: string;
 };
 
 // const handleButtonClick = (id) => {
