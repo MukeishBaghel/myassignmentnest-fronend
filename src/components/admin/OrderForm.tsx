@@ -31,7 +31,7 @@ const OrderForm = ({ mail, customer_name, description }: { mail: string, custome
 
     const createOrder = async () => {
         console.log(data);
-        if (!data.order_name || !data.mail || !data.order_name || !data.order_type || !data.description) {
+        if (!data.customer_name || !data.customer_email || !data.order_type || !data.description) {
             toast.error("All fields are must")
             return;
         }
