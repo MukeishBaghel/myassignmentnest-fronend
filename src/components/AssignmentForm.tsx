@@ -24,15 +24,18 @@ const MAX_UPLOAD_SIZE = 1024 * 1024 * 10; // 10MB
 
 
 const FormSchema = z.object({
-  email: z.string().email({
+  customer_email: z.string().email({
     message: "Please enter a valid email address.",
   }).trim().toLowerCase(),
-  subject: z.string().min(1, "subject is required"),
+  subject: z.string().min(1, "Subject is required"),
   phone: z.string({
     required_error: "Phone number is required",
   }).min(10, { // Ensure at least 1 character is provided (can be adjusted based on your requirements)
     message: "Invalid Phone number",
   }),
+  customer_name: z.string().min(1, {
+    message: "Name is missing"
+  }).max(30),
   type: z.string(),
   deadline: z.date({
     required_error: "date is required"
@@ -230,12 +233,12 @@ const AssignmentForm = () => {
         <h1 className='text-xl lg:text-2xl text-center font-semibold text-secondary-200'>Receive immediate assistance from genuine experts, no AI involved.</h1>
         <form className='mt-16 ' onSubmit={handleSubmit(onSubmit)}>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-20 lg:gap-32'>
-            <div className='flex flex-col gap-12'>
+            <div className='flex flex-col gap-10'>
               {
-                email ? <FormTextField title='Your Email address'{...register("email")} className='cursor-not-allowed' value={email || ""} readOnly={email ?? false} />
-                  : <FormTextField title='Enter Email address'{...register("email")} error={errors.email?.message} />
+                email ? <FormTextField title='Your Email address'{...register("customer_email")} className='cursor-not-allowed' value={email || ""} readOnly={email ?? false} />
+                  : <FormTextField title='Enter Email address'{...register("customer_email")} error={errors.customer_email?.message} />
               }
-
+              <FormTextField title='Your Name'{...register("customer_name")} error={errors.customer_name?.message} />
               <FormTextField title='Enter Subject / course code' {...register("subject")} error={errors.subject?.message} />
               <FormTextField title='Deadline' type='date' min={today.toISOString().split('T')[0]} {...register("deadline", {
                 valueAsDate: true,
@@ -256,7 +259,7 @@ const AssignmentForm = () => {
               </div>
 
             </div>
-            <div className='flex flex-col gap-12'>
+            <div className='flex flex-col gap-10'>
 
               <div>
                 <div className='border border-[#ADADAD] relative z-0  rounded-[4px] font-[Nunito] h-12 flex items-center px-4'>
@@ -307,7 +310,7 @@ const AssignmentForm = () => {
                   <label htmlFor="fileUpload" {...register("files")} className='cursor-pointer max-w-[200px] inline-block border-2 rounded border-purple-500 m-1'>
                     <div className='px-2 py-1'>
                       {!fileName && <>
-                        <p className="font-semibold text-primary-200 flex gap-2"><span>Upload File </span><span className='text-black'><UploadCloud className='w-6 text-secondary-foreground' /></span></p> <p className="text-xs text-gray-500 dark:text-gray-400 truncate">SVG, PNG, JPG, PDf, XLSX</p>
+                        <p className="font-semibold text-primary-200 flex gap-2"><span>Upload File </span><span className='text-black'><UploadCloud className='w-6 text-secondary-foreground' /></span></p> <p className="text-xs text-gray-500 dark:text-gray-400 truncate">SVG, PNG, JPG, PDF, XLSX</p>
                         <p className="text-xs text-gray-500 dark:text-gray-400 truncate">Max Size: 10 MB</p></>}
                       {fileName && <p className=" text-sm text-gray-700 w-[180px] truncate">{fileName}</p>}
 
@@ -338,20 +341,20 @@ const AssignmentForm = () => {
               <div className='flex flex-col space-y-4 mt-8'>
                 <div className='grid grid-cols-2 gap-4 '>
                   <div className='space-y-4'>
-                    <FormTextField title='Email address' value={newFormData?.email} readOnly />
+                    <FormTextField title='Email address' value={newFormData?.customer_email} readOnly />
                     <FormTextField title='Deadline' type='text' value={newFormData?.deadline as any} readOnly />
                     <FormTextField title='Total Pages' value={newFormData?.pages} readOnly />
-                  <FormTextField title='type' value={newFormData?.type} readOnly />
+                    <FormTextField title='type' value={newFormData?.type} readOnly />
                   </div>
 
                   <div className='space-y-4'>
                     <FormTextField title='Subject' value={newFormData.subject} readOnly />
                     <FormTextField title='Phone' value={newFormData.phone} readOnly />
                     <FormTextField title='Reference' value={newFormData.reference as string} readOnly />
-                  <FormTextField title='File Name' value={fileName as string} readOnly placeholder={fileName ? "" : "No file selected"} />
+                    <FormTextField title='File Name' value={fileName as string} readOnly placeholder={fileName ? "" : "No file selected"} />
                   </div>
-                <div>
-                </div>
+                  <div>
+                  </div>
                 </div>
                 <br />
                 <GradientButton onClick={() => formData ? sendQuery(formData) : null}>Submit & Connect with Experts</GradientButton>

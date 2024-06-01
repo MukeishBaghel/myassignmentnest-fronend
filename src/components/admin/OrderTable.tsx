@@ -12,8 +12,8 @@ import { toast } from 'react-toastify';
 type DataRow = {
     orderId: string,
     description: string,
-    order_name: string,
-    customer_id: string,
+    customer_name: string,
+    customer_email: string,
     order_type: string,
     order_status: string,
     order_datetime: string,
@@ -35,24 +35,24 @@ const OrderTable = () => {
             selector: (row) => row.description,
         },
         {
-            name: "Order name",
-            selector: (row) => row.order_name,
+            name: "Customer Name",
+            selector: (row) => row.customer_name,
             sortable: true,
         },
-        // {
-        //     name: "customer_id",
-        //     width: "10%",
-        //     selector: (row) => row.customer_id,
-        //     sortable: true,
-        // },
+        {
+            name: "Customer Email",
+            width: "10%",
+            selector: (row) => row.customer_email,
+            sortable: true,
+        },
 
         {
-            name: "Order datetime",
+            name: "Order Datetime",
             selector: (row) => (new Date(+row.order_datetime * 1000).toString()),
             sortable: true,
             // style: { fontSize: "12px" }
         }, {
-            name: "Order status",
+            name: "Order Status",
             selector: (row) => row.order_status,
         },
         // {

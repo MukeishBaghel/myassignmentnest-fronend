@@ -55,6 +55,10 @@ const Admin = () => {
       selector: (row) => row.description,
     },
     {
+      name: "customer name",
+      selector: (row) => row.customer_name,
+    },
+    {
       name: "Creation time",
       selector: (row) => new Date(+ row.create_time * 1000).toString(),
       sortable: true,
@@ -71,7 +75,7 @@ const Admin = () => {
     {
       name: 'Actions',
       grow: 1,
-      cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'><GradientButton className='h-10 text-sm mx-auto px-2 w-fit text-nowrap' onClick={() => createOrder(row.email)}>Create Order</GradientButton>
+      cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'><GradientButton className='h-10 text-sm mx-auto px-2 w-fit text-nowrap' onClick={() => createOrder(row.email, row.customer_name)}>Create Order</GradientButton>
         <GradientButton className='h-10 text-sm px-2  w-fit mx-auto text-nowrap bg-white text-red-500 ' onClick={() => deleteQuery(row.id)}>Delete Order</GradientButton></div>,
       ignoreRowClick: true,
       button: true,
@@ -85,13 +89,15 @@ const Admin = () => {
   const actionsMemo = React.useMemo(() => <Export onExport={() => downloadCSV(queries)} />, []);
   const [orderId, setOrderId] = useState<string>("")
   const [isOrderModal, setIsOrderModal] = useState<boolean>(false)
+  const [customerName, setCustomerName] = useState<string>("")
 
   const setOrderModalOpen = () => setIsOrderModal(true)
   const setOrderModalClose = () => setIsOrderModal(false)
 
-  const createOrder = (email: string) => {
+  const createOrder = (email: string, customer_name: string) => {
     if (email) {
       setOrderId(email)
+      setCustomerName(customer_name)
       setOrderModalOpen()
     }
     else {
@@ -167,7 +173,7 @@ const Admin = () => {
           selectableRowsHighlight
         />
         <Modal isOpen={isOrderModal} onClose={setOrderModalClose}>
-          <OrderForm id={orderId} />
+          <OrderForm mail={orderId} customer_name={customerName} />
         </Modal>
       </section>
     )

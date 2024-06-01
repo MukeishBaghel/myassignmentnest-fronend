@@ -110,7 +110,7 @@ const Writer = () => {
 
     return (
         <section className='container  py-20 max-w-7xl px-4 sm:px-10 relative' id=''>
-            <h1 className='text-4xl leading-[3rem] max-md:text-center md:text-5xl md:leading-[3.75rem] lg:text-6xl xl:text-7xl lg:!leading-[4.5rem] font-[500] text-center bg-primary_100 bg-clip-text text-transparent lg:px-20'>Carrier
+            <h1 className='text-4xl leading-[3rem] max-md:text-center md:text-5xl md:leading-[3.75rem] lg:text-6xl xl:text-7xl lg:!leading-[4.5rem] font-[500] text-center bg-primary_100 bg-clip-text text-transparent lg:px-20'>Career
             </h1>
             <p className='text-[#8C8888] text-center py-6 text-lg lg:text-2xl font-normal '>Be a part of our Journey</p>
             <form onSubmit={handleSubmit(sendMessage)}>
@@ -133,6 +133,7 @@ const Writer = () => {
                                 rules={{
                                     required: "Phone number is required", // Set error message directly
                                 }}
+                                
                                 international={true}
                                 style={{ height: "100%", outline: "none" }}
                                 defaultCountry="IN"
@@ -144,7 +145,7 @@ const Writer = () => {
                     <label htmlFor="resumeUpload" className='cursor-pointer md:h-11  !mt-0  inline-block border px-4 w-fit border-black'>
 
                         {!fileName && <div className='flex  flex-col md:flex-row items-center gap-1 h-full'>
-                            <p className="text-secondary-foreground  gap-2 "><span>Resume</span></p> <p className="text-xs text-gray-500 dark:text-gray-400 truncate">(format: PDf</p>
+                            <p className="text-secondary-foreground  gap-2 "><span>Resume</span></p> <p className="text-xs text-gray-500 dark:text-gray-400 truncate">(format: PDF</p>
                             <p className="text-xs text-gray-500 dark:text-gray-400 truncate max-sm:hidden">[Max Size: 10 MB])</p></div>}
                         {fileName && <div className='flex  items-center  h-full flex-wrap '>
                             <p className=" text-sm text-gray-700  truncate ">{fileName}</p>

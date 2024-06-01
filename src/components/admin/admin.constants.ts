@@ -10,6 +10,7 @@ export type DataRow = {
   reference: string;
   file_name: string;
   create_time: string;
+  customer_name: string;
 };
 
 // const handleButtonClick = (id) => {
