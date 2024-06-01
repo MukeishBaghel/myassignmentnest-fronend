@@ -1,6 +1,6 @@
 export type DataRow = {
   id: string;
-  customer_id: string;
+  type: string;
   email: string;
   subject: string;
   deadline: string;

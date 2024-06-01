@@ -22,9 +22,9 @@ const Admin = () => {
       sortable: true,
     },
     {
-      name: "Customer Id",
+      name: "Type",
       // width: "10%",
-      selector: (row) => row.customer_id,
+      selector: (row) => row.type,
     },
     {
       name: "Email",
@@ -71,7 +71,7 @@ const Admin = () => {
     {
       name: 'Actions',
       grow: 1,
-      cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'><GradientButton className='h-10 text-sm mx-auto px-2 w-fit text-nowrap' onClick={() => createOrder(row.customer_id)}>Create Order</GradientButton>
+      cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'><GradientButton className='h-10 text-sm mx-auto px-2 w-fit text-nowrap' onClick={() => createOrder(row.email)}>Create Order</GradientButton>
         <GradientButton className='h-10 text-sm px-2  w-fit mx-auto text-nowrap bg-white text-red-500 ' onClick={() => deleteQuery(row.id)}>Delete Order</GradientButton></div>,
       ignoreRowClick: true,
       button: true,
@@ -89,9 +89,9 @@ const Admin = () => {
   const setOrderModalOpen = () => setIsOrderModal(true)
   const setOrderModalClose = () => setIsOrderModal(false)
 
-  const createOrder = (orderId: string) => {
-    if (orderId) {
-      setOrderId(orderId)
+  const createOrder = (email: string) => {
+    if (email) {
+      setOrderId(email)
       setOrderModalOpen()
     }
     else {

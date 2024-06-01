@@ -1,5 +1,6 @@
 import React from 'react';
 import HeroSection from '../ui/sections/HeroSection';
+import Writer from '../ui/sections/Writer';
 const HowWork = React.lazy(() => import('../ui/sections/HowWork'));
 const TopFeature = React.lazy(() => import('../ui/sections/TopFeature'));
 const AssignmentHelping = React.lazy(() => import('../ui/sections/AssignmentHelping'));
@@ -14,6 +15,7 @@ const Home = () => {
             <HeroSection />
             <AssignmentForm />
             <HowWork />
+            <Writer />
             <TopFeature />
             <AssignmentHelping />
             <Testimonial />

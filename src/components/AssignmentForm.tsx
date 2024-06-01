@@ -33,6 +33,7 @@ const FormSchema = z.object({
   }).min(10, { // Ensure at least 1 character is provided (can be adjusted based on your requirements)
     message: "Invalid Phone number",
   }),
+  type: z.string(),
   deadline: z.date({
     required_error: "date is required"
   }),
@@ -134,33 +135,29 @@ const AssignmentForm = () => {
       toast.error("Accept the T&C")
       return;
     }
-    localStorage.setItem("formQuery", JSON.stringify(data))
+    console.log(data);
+    // localStorage.setItem("formQuery", JSON.stringify(data))
 
+    // let accountId = null;
+    // if (token && userType === "app_user") {
+    //   accountId = decoded_token.accountId
+    // }
+    // const userId = localStorage.getItem("customer_id");
 
-    if (isTokenExpired()) {
-      return navigate('/login')
-    }
+    // if (userId && userType === "google_user") {
+    //   accountId = userId
+    // }
 
-    let accountId = null;
-    if (token && userType === "app_user") {
-      accountId = decoded_token.accountId
-    }
-    const userId = localStorage.getItem("customer_id");
-
-    if (userId && userType === "google_user") {
-      accountId = userId
-    }
-
-    console.log(data)
-    if (!accountId) {
-      toast.error("Invalid user")
-      return;
-    }
+    // console.log(data)
+    // if (!accountId) {
+    //   toast.error("Invalid user")
+    //   return;
+    // }
 
     const { files: file, ...values } = data;
-    const query = JSON.stringify({
-      ...values, customer_id: accountId
-    });
+    const query = JSON.stringify(
+      values
+    );
 
     setNewFormData(data)
 
@@ -192,15 +189,14 @@ const AssignmentForm = () => {
     fetch(url, {
       method: 'POST',
       body: formData,
-      headers: {
-        "Authorization": prepareHeader(),
-      }
+      // headers: {
+      //   "Authorization": prepareHeader(),
+      // }
 
     })
       .then(response => {
         if (response.status === 201) {
           toast.success("Form Submitted Successfully")
-          localStorage.removeItem("formQuery")
           setFileName(null)
           reset();
         }
@@ -248,9 +244,16 @@ const AssignmentForm = () => {
                   message: "date is required"
                 }
               })} error={errors.deadline?.message} />
-              <FormTextField title='Enter the total Pages' {...register("pages", {
-                valueAsNumber: true,
-              })} error={errors.pages?.message} type='number' />
+
+              <div className='flex items-center gap-4 w-full '>
+                <FormTextField title='Enter the total Pages / words' className='' {...register("pages", {
+                  valueAsNumber: true,
+                })} error={errors.pages?.message} type='number' />
+                <select className='bg-transparent  px-2 outline-none  border rounded-[4px] font-[Nunito] border-[#ADADAD] h-12  placeholder:text-base ' {...register("type")} onChange={handleReferenceChange}>
+                  <option defaultValue={"PAGE"} value={"PAGE"}>page</option>
+                  <option value="WORD">word</option>
+                </select>
+              </div>
 
             </div>
             <div className='flex flex-col gap-12'>
@@ -338,15 +341,18 @@ const AssignmentForm = () => {
                     <FormTextField title='Email address' value={newFormData?.email} readOnly />
                     <FormTextField title='Deadline' type='text' value={newFormData?.deadline as any} readOnly />
                     <FormTextField title='Total Pages' value={newFormData?.pages} readOnly />
+                  <FormTextField title='type' value={newFormData?.type} readOnly />
                   </div>
 
                   <div className='space-y-4'>
                     <FormTextField title='Subject' value={newFormData.subject} readOnly />
                     <FormTextField title='Phone' value={newFormData.phone} readOnly />
                     <FormTextField title='Reference' value={newFormData.reference as string} readOnly />
+                  <FormTextField title='File Name' value={fileName as string} readOnly placeholder={fileName ? "" : "No file selected"} />
                   </div>
+                <div>
                 </div>
-                <FormTextField title='File Name' value={fileName as string} readOnly placeholder={fileName ? "" : "No file selected"} />
+                </div>
                 <br />
                 <GradientButton onClick={() => formData ? sendQuery(formData) : null}>Submit & Connect with Experts</GradientButton>
                 <GradientButton className=''> <Link to={"https://wa.me/message/TWMAGNZXPVLQG1"} >Get instant Quotation now</Link></GradientButton>

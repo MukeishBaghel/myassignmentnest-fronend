@@ -16,7 +16,7 @@ const FormTextField: React.ForwardRefRenderFunction<HTMLInputElement, FormTextFi
             <div className=' border border-[#ADADAD] relative z-0 h-12 rounded-[4px] font-[Nunito]'>
                 <input
                     ref={ref}
-                    className={cn(`w-full bg-transparent px-4 outline-none h-12 placeholder:text-base ${className}`)}
+                    className={cn(`w-full bg-transparent px-4 outline-none h-12 placeholder:text-base `,className)}
                     placeholder={placeholder}
                     type={type}
                     {...props}
