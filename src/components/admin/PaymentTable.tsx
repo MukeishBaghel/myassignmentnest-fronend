@@ -30,17 +30,23 @@ const PaymentTable = () => {
             name: "Payment Id",
             selector: (row) => row.id,
             sortable: true,
+            center: true
+
         },
         {
             name: "Paypal Id",
             // width: "10%",
             selector: (row) => row.paypalId,
             sortable: true,
+            center: true
+
         },
         {
             name: "Payment Status",
             selector: (row) => row.payment_status,
             sortable: true,
+            center: true
+
         },
         {
             name: "Payment Date",
@@ -52,7 +58,9 @@ const PaymentTable = () => {
                 return new Date(+row.payment_date * 1000).toString()
             },
             sortable: true,
-            style: { fontSize: "14px" }
+            style: { fontSize: "14px" },
+            center: true
+
         },
         {
             name: "Approve Link",

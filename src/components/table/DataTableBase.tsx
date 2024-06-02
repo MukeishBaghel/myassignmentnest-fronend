@@ -8,29 +8,38 @@ const sortIcon = <ArrowDown />;
 const selectProps = { indeterminate: (isIndeterminate: boolean) => isIndeterminate };
 
 const customStyles = {
-    rows: {
+    // rows: {
 
-    },
+    // },
     headCells: {
         style: {
-            paddingLeft: '8px', // override the cell padding for head cells
-            paddingRight: '8px',
-            fontSize: "1.2rem",
-        
+            paddingLeft: '4px', // override the cell padding for head cells
+            paddingRight: '4px',
+            fontSize: "1rem",
+            '&:not(:last-of-type)': {
+                borderRightStyle: 'solid',
+                borderRightWidth: '1px',
+                borderRightColor: "#dadada",
+            },
+        },
+    },
+    headRow: {
+        style: {
+            borderTopStyle: 'solid',
+            borderTopWidth: '1px',
+            borderTopColor: "#dadada",
         },
     },
     cells: {
         style: {
-            paddingLeft: '8px', // override the cell padding for data cells
-            paddingRight: '8px',
-            fontSize: "1rem",
+            fontSize: ".875rem",
+            '&:not(:last-of-type)': {
+                borderRightStyle: 'solid',
+                borderRightWidth: '1px',
+                borderRightColor: "#dadada",
+            },
         },
-        highlightOnHoverStyle: {
-            // backgroundColor: 'rgb(230, 244, 244)',
-            // borderBottomColor: '#FFFFFF',
-            // borderRadius: '25px',
-            // outline: '10px solid #FFFFFF',
-        },
+
     },
 
 };
@@ -38,7 +47,6 @@ const customStyles = {
 
 
 export function DataTableBase<T>(props: TableProps<T>): JSX.Element {
-
     return (
         <DataTable
             pagination
@@ -47,6 +55,7 @@ export function DataTableBase<T>(props: TableProps<T>): JSX.Element {
             selectableRows
             sortIcon={sortIcon}
             dense
+            // @ts-ignore
             customStyles={customStyles}
             {...props}
         />

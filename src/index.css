@@ -141,3 +141,4 @@ input[type="number"] {
 .policy-heading h1 {
   @apply text-xl xs:text-2xl sm:text-3xl lg:text-4xl  py-6 font-semibold leading-[3rem] sm:leading-[3.75rem];
 }
+

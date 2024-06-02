@@ -10,9 +10,10 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Modal from '../inputs/Modal';
 import OrderForm from './OrderForm';
+import { Delete, DeleteIcon, ScrollText, Trash2 } from 'lucide-react';
 
 // @ts-ignore
-const Export = ({ onExport }) => <GradientButton onClick={e => onExport(e.target.value)} className='shadow-none' bgClassName='shadow-none'>Export</GradientButton>;
+const Export = ({ onExport }) => <GradientButton onClick={e => onExport(e.target.value)} className='shadow-none mb-4' bgClassName='shadow-none'>Export</GradientButton>;
 
 const Admin = () => {
   const columns: TableColumn<DataRow>[] = [
@@ -20,69 +21,107 @@ const Admin = () => {
       name: "Id",
       selector: (row) => row.id,
       sortable: true,
+      center: true,
+      compact: true
     },
     {
       name: "Type",
       // width: "10%",
       selector: (row) => row.type,
       sortable: true,
+      center: true,
+      compact: true
+
 
     },
     {
       name: "Email",
       selector: (row) => row.customer_email,
       sortable: true,
+      center: true,
+      compact: true
+
 
     },
     {
       name: "Pages",
       width: "5%",
       selector: (row) => row.pages,
+      compact: true,
       sortable: true,
-      center: true
+      center: true,
     },
     {
       name: "Phone",
       selector: (row) => row.phone,
+      center: true,
+      compact: true
+
     },
     {
       name: "Subject",
       selector: (row) => row.subject,
+      center: true,
+      compact: true
 
     },
     {
       name: "Deadline",
       selector: (row) => row.deadline,
       sortable: true,
+      center: true,
+      compact: true
+
+
     },
     {
       name: "Description",
       selector: (row) => row.description,
+      center: true,
+      compact: true
+
+
     },
     {
       name: "customer name",
       selector: (row) => row.customer_name,
       sortable: true,
+      center: true,
+      compact: true
+
+
     },
     {
       name: "Creation time",
       selector: (row) => new Date(+ row.create_time * 1000).toString(),
       sortable: true,
+      center: true,
+      compact: true
+
+
 
     },
     {
       name: "Reference",
       selector: (row) => row.reference,
+      center: true,
+      compact: true
+
+
     },
     {
       name: "File Name",
       selector: (row) => row.file_name,
+      center: true,
+      compact: true
+
+
     },
     {
       name: 'Actions',
       grow: 1,
-      cell: (row) => <div className='flex flex-col gap-2 items-center justify-center my-1'><GradientButton className='h-10 text-sm mx-auto px-2 w-fit text-nowrap' onClick={() => createOrder(row.customer_email, row.customer_name, row.description)}>Create Order</GradientButton>
-        <GradientButton className='h-10 text-sm px-2  w-fit mx-auto text-nowrap bg-white text-red-500 ' onClick={() => deleteQuery(row.id)}>Delete Order</GradientButton></div>,
+      cell: (row) => <div className='flex  gap-2 items-center justify-center my-1'><button className=' text-sm mx-auto px-2 w-fit text-nowrap bg-green-500 rounded-xl p-2 active:scale-95 hover:opacity-85' onClick={() => createOrder(row.customer_email, row.customer_name, row.description)}><ScrollText className='text-white' /></button>
+        <button className='h-10 text-sm px-2  w-fit mx-auto text-nowrap bg-red-500 text-white rounded-xl active:scale-95 hover:opacity-85' onClick={() => deleteQuery(row.id)}><Trash2 /></button></div>,
       ignoreRowClick: true,
       button: true,
       width: "10%",
@@ -91,13 +130,13 @@ const Admin = () => {
   ];
   const [queries, setQueries] = useState<DataRow[]>([])
   const [pending, setPending] = useState<boolean | undefined>(false)
-  console.log(queries)
-  const actionsMemo = React.useMemo(() => <Export onExport={() => downloadCSV(queries)} />, []);
   const [orderId, setOrderId] = useState<string>("")
   const [isOrderModal, setIsOrderModal] = useState<boolean>(false)
   const [customerName, setCustomerName] = useState<string>("")
   const [description, setDescription] = useState<string>("")
 
+  console.log(queries)
+  const actionsMemo = React.useMemo(() => <Export onExport={() => downloadCSV(queries)} />, [queries]);
   const setOrderModalOpen = () => setIsOrderModal(true)
   const setOrderModalClose = () => setIsOrderModal(false)
 
@@ -162,13 +201,14 @@ const Admin = () => {
     fetchUsersWithQuery()
   }, [])
 
+
   if (pending) {
     return <Loader />
   }
   if (queries && queries.length !== 0) {
     return (
       <section className='px-4'>
-        <h1 className='gradient-text text-3xl pt-4 sm:text-4xl font-semibold  text-center tracking-wider'>All Queries</h1>
+        <h1 className='gradient-text text-3xl pt-4 sm:text-4xl font-semibold  text-center tracking-wider mb-10'>All Queries</h1>
         <DataTableBase
           columns={columns}
           data={queries}
@@ -178,6 +218,7 @@ const Admin = () => {
           responsive={true}
           striped
           title="All queries"
+          clearSelectedRows={true}
           selectableRowsHighlight
         />
         <Modal isOpen={isOrderModal} onClose={setOrderModalClose}>

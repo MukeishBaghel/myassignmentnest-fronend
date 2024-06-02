@@ -8,6 +8,10 @@ import Modal from '../inputs/Modal';
 import CreatePayment from './CreatePayment';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import styled from 'styled-components';
+import Button from '../inputs/Button';
+import TextField from '../inputs/TextField';
+import { ScrollText, Text, Trash2, X } from 'lucide-react';
 
 type DataRow = {
     orderId: string,
@@ -26,34 +30,50 @@ const OrderTable = () => {
             // selector: (row) => row.orderId,
             sortable: true,
             cell: (row) => <button className='h-10 text-sm px-2 my-2 w-fit text-nowrap'><Link to={`/admin/order-payment/${row.orderId}`}>{row.orderId}</Link></button>,
-            ignoreRowClick: false,
-            allowOverflow: true,
+            center: true,
+            compact: true
+
         },
         {
             name: "Description",
             // width: "10%",
             selector: (row) => row.description,
+            center: true,
+            compact: true
+
         },
         {
             name: "Customer Name",
             selector: (row) => row.customer_name,
             sortable: true,
+            center: true,
+            compact: true
+
         },
         {
             name: "Customer Email",
             width: "10%",
             selector: (row) => row.customer_email,
             sortable: true,
+            center: true,
+            compact: true
+
         },
 
         {
             name: "Order Datetime",
             selector: (row) => (new Date(+row.order_datetime * 1000).toString()),
             sortable: true,
+            center: true,
+            compact: true
+
             // style: { fontSize: "12px" }
         }, {
             name: "Order Status",
             selector: (row) => row.order_status,
+            sortable: true,
+            center: true,
+            compact: true,
         },
         // {
         //     name: "modification_datetime",
@@ -62,23 +82,26 @@ const OrderTable = () => {
         // },
         {
             name: 'Actions',
-            grow: 1,
-            cell: (row) => <>{row?.order_status !== "COMPLETED" && <div className='flex flex-col gap-2 items-center justify-center my-1'>
-                <GradientButton className='h-10 text-sm px-2  w-fit text-nowrap' onClick={() => createPayment(row.orderId)}>Create Payment</GradientButton>
-                <GradientButton className='h-10 text-sm px-2 w-full bg-white text-red-500  text-nowrap' onClick={() => deleteOrder(row.orderId)}>Delete Order</GradientButton>
+            cell: (row) => <>{row?.order_status !== "COMPLETED" && <div className='flex gap-2 items-center justify-center my-1'>
+                <Button className='h-10 text-sm px-2  w-fit text-nowrap bg-yellow-500 rounded-xl active:scale-95 hover:opacity-85' onClick={() => createPayment(row.orderId)}><ScrollText /></Button>
+                <Button className='h-10 text-sm px-2 w-full bg-red-500 text-white text-nowrap rounded-xl active:scale-95 hover:opacity-85' onClick={() => deleteOrder(row.orderId)}><Trash2 /></Button>
             </div>}</>,
             ignoreRowClick: true,
             allowOverflow: true,
             button: true,
-            width: "15%"
+            width: "13%"
+
         },
     ];
-    const [isOrderModal, setIsOrderModal] = useState<boolean>(false)
-    const setOrderModalOpen = () => setIsOrderModal(true)
-    const setOrderModalClose = () => setIsOrderModal(false)
-    const [orders, setOrders] = useState<DataRow[]>([])
-    const [pending, setPending] = useState<boolean | undefined>(false)
+    const [isOrderModal, setIsOrderModal] = useState<boolean>(false);
+    const setOrderModalOpen = () => setIsOrderModal(true);
+    const setOrderModalClose = () => setIsOrderModal(false);
+    const [orders, setOrders] = useState<DataRow[]>([]);
+    const [pending, setPending] = useState<boolean | undefined>(false);
     const [paymentId, setPaymentId] = useState<string>("")
+    const [filterText, setFilterText] = useState<string>('');
+    const [resetPaginationToggle, setResetPaginationToggle] = useState<boolean>(false);
+
 
     const createPayment = (id: string): void => {
         if (id) {
@@ -110,7 +133,14 @@ const OrderTable = () => {
             }
         }
     }
-
+    const handleFilterTextChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setResetPaginationToggle(!resetPaginationToggle);
+        setFilterText(e.target.value);
+    };
+    const filteredOrders = orders.filter(order =>
+        order.customer_name.toLowerCase().includes(filterText.toLowerCase()) ||
+        order.customer_email.toLowerCase().includes(filterText.toLowerCase())
+    );
 
     useEffect(() => {
         console.log(orders);
@@ -135,6 +165,8 @@ const OrderTable = () => {
         fetchUsersWithQuery()
     }, [])
 
+
+
     if (pending) {
         return <Loader />
     }
@@ -143,16 +175,25 @@ const OrderTable = () => {
     }
     return (
         <div className='px-4'>
-            <h1 className='gradient-text text-3xl sm:text-4xl font-semibold py-10 text-center tracking-wider'>All Orders</h1>
+            <h1 className='gradient-text text-3xl sm:text-4xl font-semibold pb-10 text-center tracking-wider'>All Orders</h1>
             <DataTableBase
                 columns={columns}
-                data={orders}
+                data={filteredOrders}
                 // actions={actionsMemo}
                 progressPending={pending}
                 progressComponent={<Loader />}
                 responsive={true}
                 striped
                 fixedHeaderScrollHeight='100px'
+                subHeader
+                subHeaderComponent={
+                    <FilterComponent
+                        filterText={filterText}
+                        onFilter={handleFilterTextChange}
+                        onClear={() => setFilterText('')}
+                    />
+                }
+
             />
             <Modal isOpen={isOrderModal} onClose={setOrderModalClose}>
                 <CreatePayment id={paymentId} />
@@ -162,3 +203,25 @@ const OrderTable = () => {
 }
 
 export default OrderTable
+
+
+const FilterComponent = ({ filterText, onFilter, onClear }: { filterText: string, onFilter: any, onClear: any }) => {
+
+
+    return (
+        <>
+            <TextField
+                id="search"
+                type="text"
+                placeholder="Filter By Name / Email"
+                aria-label="Search Input"
+                value={filterText}
+                onChange={onFilter}
+                className='mb-4'
+            />
+            <Button type="button" onClick={onClear} className='bg-primary-200 p-1 rounded-lg'>
+                <X />
+            </Button>
+        </>
+    )
+}
