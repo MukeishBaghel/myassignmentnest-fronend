@@ -135,7 +135,6 @@ const Admin = () => {
   const [customerName, setCustomerName] = useState<string>("")
   const [description, setDescription] = useState<string>("")
 
-  console.log(queries)
   const actionsMemo = React.useMemo(() => <Export onExport={() => downloadCSV(queries)} />, [queries]);
   const setOrderModalOpen = () => setIsOrderModal(true)
   const setOrderModalClose = () => setIsOrderModal(false)
@@ -156,7 +155,6 @@ const Admin = () => {
       setPending(true)
       try {
         const res = await axiosInstance.delete('/admin/delete-query?query_id=' + queryId)
-        console.log(res)
         if (res.status === 200) {
           toast.success(res.data.message)
           setQueries((prev) => {
@@ -170,7 +168,6 @@ const Admin = () => {
       }
       catch (err) {
         toast.error("Invalid Id or Server error")
-        console.log(err);
       }
       finally {
         setPending(false)
@@ -179,7 +176,6 @@ const Admin = () => {
   }
 
 
-  console.log(queries)
   useEffect(() => {
 
     const fetchUsersWithQuery = async () => {
@@ -192,7 +188,6 @@ const Admin = () => {
       }
       catch (err) {
         toast.error("Something went wrong")
-        console.log(err);
       }
       finally {
         setPending(false)

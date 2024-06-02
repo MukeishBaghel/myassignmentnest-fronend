@@ -121,7 +121,6 @@ const AssignmentForm = () => {
 
   useEffect(() => {
     const savedFormData = localStorage.getItem('formQuery');
-    console.log(savedFormData)
     if (savedFormData) {
       const parsedData = JSON.parse(savedFormData);
       reset(parsedData);
@@ -138,7 +137,6 @@ const AssignmentForm = () => {
       toast.error("Accept the T&C")
       return;
     }
-    console.log(data);
     // localStorage.setItem("formQuery", JSON.stringify(data))
 
     // let accountId = null;
@@ -167,14 +165,11 @@ const AssignmentForm = () => {
     const formData = new FormData()
 
     formData.append('query', query);
-    console.log(file)
     if (file) {
       formData.append("file", file[0])
     }
     setFormData(formData)
-    console.log(formData.forEach((key, value) => {
-      console.log(key, value)
-    }))
+
 
     setModelOpen()
   }
@@ -208,7 +203,6 @@ const AssignmentForm = () => {
         }
         return response.text()
       })
-      .then(data => console.log(data))
       .catch((error) => {
         console.error('Error:', error)
         toast.error("Something went wrong")

@@ -1,5 +1,4 @@
 const getRefreshToken = async (codeResponse: any, saveDetails: any) => {
-  console.log(codeResponse);
   try {
     const payload = {
       grant_type: "authorization_code",
@@ -24,7 +23,6 @@ const getRefreshToken = async (codeResponse: any, saveDetails: any) => {
     saveDetails(responseData);
     return responseData;
   } catch (err) {
-    console.log("Error getting refresh token:", err);
     throw err; // Re-throw the error to be handled by the caller
   }
 };
@@ -34,7 +32,6 @@ const getNewAccessToken = async (
   saveAccessToken: any
 ) => {
   try {
-    console.log(tokenCredentials.refresh_token);
     const payloadForAccessToken = {
       grant_type: "refresh_token",
       refresh_token: tokenCredentials.refresh_token,
@@ -65,7 +62,6 @@ const getNewAccessToken = async (
     saveAccessToken(responseData.access_token);
     return responseData.access_token;
   } catch (err) {
-    console.log("Error getting new access token:", err);
     throw err; // Re-throw the error to be handled by the caller
   }
 };

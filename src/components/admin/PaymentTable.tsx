@@ -112,7 +112,6 @@ const PaymentTable = () => {
         try {
             const { data } = await axiosInstance.get('/payment/initiate?payment_id=' + id)
             if (data) {
-                console.log(data);
                 toast.success(data.message)
                 // console.log()
                 // @ts-ignore
@@ -127,10 +126,9 @@ const PaymentTable = () => {
             else {
                 toast.error(data.message)
             }
-            console.log(data);
         }
         catch (err) {
-            console.log(err);
+            toast.error("Error while initiating payment");
         }
         finally {
             setPending(false)
@@ -140,7 +138,6 @@ const PaymentTable = () => {
         setPending(true)
         try {
             const { data } = await axiosInstance.get('/payment/refresh-payment?payment_id=' + id)
-            console.log(data)
             if (data) {
                 // @ts-ignore
                 setPayments((prev) => {
@@ -156,10 +153,8 @@ const PaymentTable = () => {
             else {
                 toast.error(data.message)
             }
-            console.log(data);
         }
         catch (err) {
-            console.log(err);
         }
         finally {
             setPending(false)
@@ -173,16 +168,13 @@ const PaymentTable = () => {
             try {
                 const { data } = await axiosInstance.get('/payment/get-all-payment')
                 if (data) {
-                    console.log(data);
                     setPayments(data.data.reverse())
                 }
                 else {
                     toast.error(data.message)
                 }
-                console.log(data);
             }
             catch (err) {
-                console.log(err);
             }
             finally {
                 setPending(false)
@@ -195,11 +187,9 @@ const PaymentTable = () => {
                 if (data) {
                     setPayments(data.data.reverse())
                 }
-                console.log(data);
             }
             catch (err) {
                 toast.error((AxiosError && isAxiosError(err) && err.message) || "Something went wrong")
-                console.log(err);
             }
             finally {
                 setPending(false)

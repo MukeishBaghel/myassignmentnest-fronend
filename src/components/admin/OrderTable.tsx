@@ -125,8 +125,8 @@ const OrderTable = () => {
                     toast.error("Unable to process the request")
                 }
             }
-            catch (err) {
-                console.log(err)
+            catch (err: any) {
+                toast.error("Server side error")
             }
             finally {
                 setPending(false)
@@ -143,20 +143,18 @@ const OrderTable = () => {
     );
 
     useEffect(() => {
-        console.log(orders);
 
         const fetchUsersWithQuery = async () => {
             setPending(true)
             try {
                 const { data } = await axiosInstance.get('/order/get')
                 if (data) {
-                    console.log(data);
                     setOrders(data.data.reverse())
                 }
-                console.log(data);
+
             }
             catch (err) {
-                console.log(err);
+                toast.error("Server side error")
             }
             finally {
                 setPending(false)

@@ -30,7 +30,6 @@ const CreatePayment = ({ id }: { id: string }) => {
                 body: JSON.stringify({ amount: parsedAmount })
             });
             const resdata = await res.json();
-            console.log(resdata);
             if (res.ok) {
                 toast.success(resdata.message);
                 navigate(`/admin/order-payment/${id}`);
@@ -39,7 +38,6 @@ const CreatePayment = ({ id }: { id: string }) => {
             }
         } catch (error) {
             toast.error("Something went wrong");
-            console.log(error);
         } finally {
             setIsLoading(false);
         }

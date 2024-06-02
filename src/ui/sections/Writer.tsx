@@ -51,7 +51,6 @@ const Writer = () => {
     });
 
     const sendMessage = (data: FormFields) => {
-        console.log(data)
         const { file: wrong, ...values } = data
         const formData = new FormData()
         const query = JSON.stringify(values)
@@ -60,9 +59,6 @@ const Writer = () => {
         // @ts-ignore
         formData.append("resume", file)
 
-        console.log(formData.forEach((key, value) => {
-            console.log(key, value)
-        }))
 
         setIsLoading(true)
         const url = `${import.meta.env.VITE_BASE_URL}/write/send`
@@ -75,7 +71,6 @@ const Writer = () => {
 
         })
             .then(response => {
-                console.log(response)
                 if (response.status === 200) {
                     toast.success("Form Submitted Successfully")
                     // reset();
@@ -86,7 +81,6 @@ const Writer = () => {
                 reset()
                 return response.text()
             })
-            .then(data => console.log(data))
             .catch((error) => {
                 console.error('Error:', error)
                 toast.error("Something went wrong")
@@ -133,7 +127,7 @@ const Writer = () => {
                                 rules={{
                                     required: "Phone number is required", // Set error message directly
                                 }}
-                                
+
                                 international={true}
                                 style={{ height: "100%", outline: "none" }}
                                 defaultCountry="IN"

@@ -47,7 +47,6 @@ const SignUp = () => {
     }
 
     const onSubmit = async (data: FormFields) => {
-        console.log('Form Data:', data);
         setIsLoading(true)
         try {
             const resdata = await fetch(`${import.meta.env.VITE_BASE_URL}/auth/customer/register`,
@@ -77,7 +76,6 @@ const SignUp = () => {
             // console.log(res.status)
         }
         catch (error) {
-            console.log(error)
             toast.error("Something went wrong")
         }
         finally {
@@ -90,7 +88,7 @@ const SignUp = () => {
         flow: 'auth-code',
         onSuccess: async (codeResponse) => {
             try {
-                console.log(codeResponse);
+                (codeResponse);
 
                 if (codeResponse.scope.includes('https://mail.google.com/')) {
 
@@ -99,7 +97,6 @@ const SignUp = () => {
                     const newAccessToken = await getNewAccessToken(refreshToken, saveAccessToken);
 
                     if (newAccessToken) {
-                        console.log("calling google")
                         setIsLoading(true)
                         const data = await fetch(`${import.meta.env.VITE_BASE_URL}/auth/google-verification`, {
                             method: "POST",
@@ -107,7 +104,6 @@ const SignUp = () => {
                                 "Authorization": 'Bearer ' + newAccessToken
                             }
                         });
-                        console.log(data)
                         if (data.ok) {
                             toast.success("Login successfully");
                             navigate(prevState || '/');
@@ -121,7 +117,6 @@ const SignUp = () => {
                     toast.error('Please give required permission to read emails!');
                 }
             } catch (err) {
-                console.log(err);
                 toast.error("Something went wrong");
             }
             finally {

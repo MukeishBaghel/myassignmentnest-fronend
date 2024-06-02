@@ -13,7 +13,10 @@ const App = () => {
   const navigate = useNavigate();
   const { token } = useSelector(selectCurrentUser)
   useEffect(() => {
-    if (!!token && isTokenExpired()) {
+    if (token === null) {
+      return
+    }
+    else if (!!token && isTokenExpired()) {
       dispatch(logOut())
       toast.info("Session expired")
       navigate('/')

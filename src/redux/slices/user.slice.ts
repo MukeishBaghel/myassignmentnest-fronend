@@ -8,7 +8,6 @@ const initialState: UserState = {
   userType: null,
   refresh_token: null,
 };
-console.log(initialState);
 
 const userSlice = createSlice({
   name: "user",

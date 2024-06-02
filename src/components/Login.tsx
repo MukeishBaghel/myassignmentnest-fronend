@@ -40,7 +40,6 @@ const Login = () => {
             navigate('/')
         }
     }, [])
-    console.log(token)
     const {
         register,
         handleSubmit,
@@ -69,9 +68,7 @@ const Login = () => {
                     body: JSON.stringify(data),
                 }
             )
-            console.log(resdata)
             const res = await resdata.json()
-            console.log(res)
 
             if (resdata.ok && res.data && res.data.token) {
                 dispatch(setCredentials({ token: res.data.token, userType: "app_user" }))
@@ -92,7 +89,6 @@ const Login = () => {
             // console.log(res.status)
         }
         catch (error) {
-            console.log(error)
             toast.error("Something went wrong")
         }
         finally {
@@ -113,7 +109,6 @@ const Login = () => {
         flow: 'auth-code',
         onSuccess: async (codeResponse) => {
             try {
-                console.log(codeResponse);
 
                 const refreshToken = await getRefreshToken(codeResponse, saveAuthDetails);
                 const newAccessToken = await getNewAccessToken(refreshToken, saveAccessToken);
@@ -126,7 +121,6 @@ const Login = () => {
                             "Authorization": 'Bearer ' + newAccessToken
                         }
                     });
-                    console.log(data);
                     if (data.ok) {
                         localStorage.setItem("customer_id", data.accountId);
                         toast.success("Login successfully");
@@ -139,7 +133,6 @@ const Login = () => {
                     toast.error('Failed to retrieve new access token');
                 }
             } catch (err) {
-                console.log(err);
                 toast.error("Something went wrong");
             } finally {
                 setIsLoading(false);

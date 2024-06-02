@@ -30,7 +30,6 @@ const OrderForm = ({ mail, customer_name, description }: { mail: string, custome
     const { token } = useSelector(selectCurrentUser)
 
     const createOrder = async () => {
-        console.log(data);
         if (!data.customer_name || !data.customer_email || !data.order_type || !data.description) {
             toast.error("All fields are must")
             return;
@@ -46,7 +45,6 @@ const OrderForm = ({ mail, customer_name, description }: { mail: string, custome
                 body: JSON.stringify(data)
             })
             const resdata = await res.json()
-            console.log(response)
             if (res.ok) {
                 setResponse(resdata.data.order)
                 toast.success("Order created")

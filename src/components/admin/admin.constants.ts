@@ -21,7 +21,6 @@ export type DataRow = {
 //@ts-ignore
 export function convertArrayOfObjectsToCSV(array) {
   let result: string;
-  console.log(array);
   const columnDelimiter = ",";
   const lineDelimiter = "\n";
   const keys = Object.keys(array[0]);
@@ -37,9 +36,7 @@ export function convertArrayOfObjectsToCSV(array) {
       if (ctr > 0) result += columnDelimiter;
       if (key === "create_time") {
         const date = new Date(item[key] * 1000);
-        console.log(
-          date.toLocaleDateString() + " : " + date.toLocaleTimeString()
-        );
+     
         const formattedDate =
           date.toLocaleDateString() + " : " + date.toLocaleTimeString();
 

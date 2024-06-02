@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from 'react-router-dom'
 
 const Profile = () => {
     const location = useLocation();
-    console.log(location);
     const navigate = useNavigate();
 
     return (

@@ -37,7 +37,6 @@ const ContactUs = () => {
 
     const sendMessage = (data: FormFields) => {
         setIsLoading(true)
-        console.log(data)
         const url = `${import.meta.env.VITE_BASE_URL}/customer/contact`
         fetch(url, {
             method: 'POST',
@@ -48,7 +47,6 @@ const ContactUs = () => {
 
         })
             .then(response => {
-                console.log(response)
                 if (response.status === 202) {
                     toast.success("Form Submitted Successfully")
                     // reset();
@@ -59,7 +57,6 @@ const ContactUs = () => {
                 reset()
                 return response.text()
             })
-            .then(data => console.log(data))
             .catch((error) => {
                 console.error('Error:', error)
                 toast.error("Something went wrong")
