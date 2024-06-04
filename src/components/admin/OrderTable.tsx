@@ -29,7 +29,7 @@ const OrderTable = () => {
             name: "orderId",
             // selector: (row) => row.orderId,
             sortable: true,
-            cell: (row) => <button className='h-10 text-sm px-2 my-2 w-fit text-nowrap'><Link to={`/admin/order-payment/${row.orderId}`}>{row.orderId}</Link></button>,
+            cell: (row) => <button className='h-10 text-sm px-2 my-2 w-fit text-nowrap underline text-primary-200'><Link to={`/admin/order-payment/${row.orderId}`}>{row.orderId}</Link></button>,
             center: true,
             compact: true
 

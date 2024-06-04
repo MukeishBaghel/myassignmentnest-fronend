@@ -28,8 +28,10 @@ const AdminLayout = ({ children }: { children: React.ReactNode }) => {
 
 
     useEffect(() => {
-
-        if (isTokenExpired()) {
+        if (token === null) {
+            navigate('/');
+        }
+       else if (token && isTokenExpired()) {
             dispatch(logOut())
             toast.info("Session Expired")
             navigate('/');

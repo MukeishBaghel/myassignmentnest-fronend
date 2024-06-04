@@ -8,7 +8,7 @@ import Loader from '../shared/Loader'
 import { useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { Copy } from 'lucide-react'
+import { Copy, MousePointer2, Repeat, RotateCcw } from 'lucide-react'
 import { AxiosError, isAxiosError } from 'axios'
 
 type DataRow = {
@@ -87,8 +87,11 @@ const PaymentTable = () => {
             cell: (row) => <>
                 {
                     row.payment_status.toLowerCase() === "pending" ?
-                        <GradientButton className={`h-10 text-sm px-2 my-2 w-fit `} onClick={() => initiatePayment(row.id)}>Initiate Payment</GradientButton> :
-                        <GradientButton className={`h-10 text-sm px-2 my-2 w-fit `} onClick={() => refreshPayment(row.id)}>Refresh Payment</GradientButton>
+                        <button className={`h-10 text-sm px-2 my-2 w-fit bg-yellow-400 text-white rounded-lg active:scale-95 `} onClick={() => initiatePayment(row.id)}><MousePointer2 /></button> :
+                        row.payment_status.toLowerCase() !== "completed" ? <div className='space-x-2'>
+                            <button className={`h-10 text-sm px-2 my-2 w-fit bg-sky-400 text-white rounded-lg active:scale-95`} onClick={() => refreshPayment(row.id)}><RotateCcw /></button>
+                            <button className={`h-10 text-sm px-2 my-2 w-fit bg-blue-500 rounded-lg text-white active:scale-95`} onClick={() => resendPayment(row.id)}><Repeat /></button>
+                        </div> : <p>Received</p>
                 }
             </>,
 
@@ -134,6 +137,31 @@ const PaymentTable = () => {
             setPending(false)
         }
     }
+
+    const resendPayment = async (id: string) => {
+        setPending(true)
+        try {
+            const res = await axiosInstance.get('/payment/send-mail?payment_id=' + id)
+            if (res.data) {
+                // console.log()
+                console.log(res.data);
+                toast.success(res.data.message)
+            }
+            else if (res.status === 400) {
+                toast.error("Payment already done or server error ")
+            }
+            else {
+                toast.error(res.data.message)
+            }
+        }
+        catch (err) {
+            toast.error("Internal Server Error")
+        }
+        finally {
+            setPending(false)
+        }
+    }
+
     const refreshPayment = async (id: string) => {
         setPending(true)
         try {
@@ -160,7 +188,6 @@ const PaymentTable = () => {
             setPending(false)
         }
     }
-
 
     useEffect(() => {
         const fetchAllPayments = async () => {

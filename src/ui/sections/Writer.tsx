@@ -70,6 +70,7 @@ const Writer = () => {
                 console.log(response);
                 if (response.status === 200) {
                     setFile(null)
+                    setFileName(null)
                     toast.success("Form Submitted Successfully")
                     reset()
                     return
