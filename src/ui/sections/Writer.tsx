@@ -64,11 +64,7 @@ const Writer = () => {
         const url = `${import.meta.env.VITE_BASE_URL}/write/send`
         fetch(url, {
             method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data),
-
+            body: formData,
         })
             .then(response => {
                 if (response.status === 200) {
@@ -86,6 +82,7 @@ const Writer = () => {
                 toast.error("Something went wrong")
             }).finally(() => setIsLoading(false))
     }
+    
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
@@ -103,12 +100,12 @@ const Writer = () => {
     };
 
     return (
-        <section className='container  py-20 max-w-7xl px-4 sm:px-10 relative' id=''>
+        <section className='container  py-20 max-w-7xl px-4 sm:px-10 relative overflow-x-hidden' id=''>
             <h1 className='text-4xl leading-[3rem] max-md:text-center md:text-5xl md:leading-[3.75rem] lg:text-6xl xl:text-7xl lg:!leading-[4.5rem] font-[500] text-center bg-primary_100 bg-clip-text text-transparent lg:px-20'>Career
             </h1>
             <p className='text-[#8C8888] text-center py-6 text-lg lg:text-2xl font-normal '>Be a part of our Journey</p>
             <form onSubmit={handleSubmit(sendMessage)}>
-                <div className='grid grid-cols-2 gap-x-10 sm:gap-x-20 lg:gap-x-40 gap-y-20 mt-10 overflow-x-hidden'>
+                <div className='grid grid-cols-2 gap-x-10 sm:gap-x-20 lg:gap-x-40 gap-y-20 mt-10 '>
 
                     <TextField placeholder='Name' {...register("name",
                         {
