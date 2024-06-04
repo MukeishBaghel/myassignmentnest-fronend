@@ -67,14 +67,22 @@ const Writer = () => {
             body: formData,
         })
             .then(response => {
+                console.log(response);
                 if (response.status === 200) {
+                    setFile(null)
                     toast.success("Form Submitted Successfully")
+                    reset()
+                    return
                     // reset();
                 }
+                else if (response.status === 400) {
+                    toast.info("Resume Required")
+                    return
+                }
+
                 else {
                     toast.error("Invalid data format")
                 }
-                reset()
                 return response.text()
             })
             .catch((error) => {
@@ -82,7 +90,7 @@ const Writer = () => {
                 toast.error("Something went wrong")
             }).finally(() => setIsLoading(false))
     }
-    
+
     const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
