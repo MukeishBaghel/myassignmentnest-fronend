@@ -2,6 +2,7 @@ import React, { lazy, Suspense, useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import CommonLayout from './components/layouts/CommonLayout'
 import Loader from './components/shared/Loader'
+// import Location from './components/layouts/Location';
 
 
 const RefundPolicy = lazy(() => import('./pages/policypages/RefundPolicy'));
@@ -13,6 +14,7 @@ const PrivacyPolicy = lazy(() => import('./pages/policypages/PrivacyPolicy'));
 const AdminLayout = React.lazy(() => import('./components/layouts/AdminLayout'));
 const ComingSoon = lazy(() => import('./pages/ComingSoon'))
 const Home = lazy(() => import('./pages/Home'))
+const Location = lazy(() => import('./pages/Location'))
 const Profile = lazy(() => import('./pages/Profile'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 const Login = lazy(() => import('./pages/Login'))
@@ -34,6 +36,7 @@ const Routers = () => {
 
         {/* public routes */}
         <Route path='/' index element={<CommonLayout><Home /></CommonLayout>} />
+        <Route path='/location/:location' element={<CommonLayout><Location/></CommonLayout>} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
