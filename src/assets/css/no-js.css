@@ -1,19 +1,42 @@
-.carousel-slider > div { display:none; }
-.carousel-slider > div:first-child { display:block; }
-.carousel-slider .slick-slide {
-	float:none;
-	width:auto;
+.carousel-slider>div {
+	display: block;
 }
 
-.animation { visibility:visible; }
+.carousel-slider>div:first-child {
+	display: block;
+}
 
-.navbar.navbar-corporate { position:absolute; }
+.carousel-slider .slick-slide {
+	float: none;
+	width: auto;
+}
 
-.post-format-video iframe, .post-format-audio iframe { background-color:#f4f4f4; }
+.carousel-slider {
+	display: flex;
+	overflow: hidden;
+}
+
+.slide {
+	min-width: 100%;
+	transition: transform 0.3s ease-in-out;
+}
+
+.animation {
+	visibility: visible;
+}
+
+.navbar.navbar-corporate {
+	position: absolute;
+}
+
+.post-format-video iframe,
+.post-format-audio iframe {
+	background-color: #f4f4f4;
+}
 
 .affa-client-conference {
-	max-width:360px;
-	padding:0;
-	margin-right:auto;
-	margin-left:auto;
+	width: 300px;
+	padding: 0;
+	margin-right: auto;
+	margin-left: auto;
 }

@@ -1,10 +1,50 @@
 import { useLocation } from "react-router-dom";
 import { testimonials } from "../constants/StaticData";
 import "../assets/css/index.css";
+import img1 from "../assets/images/content/bg/1.jpg";
+
 const Location = () => {
   const experts = [
     {
       id: 1,
+      name: "Elijah Bickett",
+      profileImage:
+        "https://www.newassignmenthelpaus.com/assets/images/writers/666993914d1aa_elijah bickett.jpeg",
+      ratingImage:
+        "https://www.newassignmenthelpaus.com/assets/images/common/5_star.png",
+      profileLink:
+        "https://www.newassignmenthelpaus.com/experts-profile/elijah-bickett",
+      subjectLink:
+        "https://www.newassignmenthelpaus.com/computer-science-assignment-help",
+      subject: "Computer Science",
+      description: `I have been working in this field for the past 9 years and have delivered the best possible computer science assignments. With my Doctorate in Computer Science, I'm your best bet <a class="viewBtn" href="https://www.newassignmenthelpaus.com/experts-profile/elijah-bickett" tabindex="0">...Continue</a>`,
+      experience: "9+ years",
+      completedOrders: "543 completed Orders",
+      ordersInProgress: "4 Orders in Progress",
+      hireLink:
+        "https://www.newassignmenthelpaus.com/order-now.php?writer=72b32a1f754ba1c09b3695e0cb6cde7f",
+    },
+    {
+      id: 2,
+      name: "Elijah Bickett",
+      profileImage:
+        "https://www.newassignmenthelpaus.com/assets/images/writers/666993914d1aa_elijah bickett.jpeg",
+      ratingImage:
+        "https://www.newassignmenthelpaus.com/assets/images/common/5_star.png",
+      profileLink:
+        "https://www.newassignmenthelpaus.com/experts-profile/elijah-bickett",
+      subjectLink:
+        "https://www.newassignmenthelpaus.com/computer-science-assignment-help",
+      subject: "Computer Science",
+      description: `I have been working in this field for the past 9 years and have delivered the best possible computer science assignments. With my Doctorate in Computer Science, I'm your best bet <a class="viewBtn" href="https://www.newassignmenthelpaus.com/experts-profile/elijah-bickett" tabindex="0">...Continue</a>`,
+      experience: "9+ years",
+      completedOrders: "543 completed Orders",
+      ordersInProgress: "4 Orders in Progress",
+      hireLink:
+        "https://www.newassignmenthelpaus.com/order-now.php?writer=72b32a1f754ba1c09b3695e0cb6cde7f",
+    },
+    {
+      id: 3,
       name: "Elijah Bickett",
       profileImage:
         "https://www.newassignmenthelpaus.com/assets/images/writers/666993914d1aa_elijah bickett.jpeg",
@@ -116,12 +156,12 @@ const Location = () => {
   console.log(searchedLocation);
 
   return (
-    <div id="body-wrap">
+    <div id="body-wrap" className="bg-white">
       {/* <nav
           id="navigation"
           className="navbar navbar-conference navbar-landing navbar-affix scrollspy"
         >
-          <div className="container">
+          <div className="Container">
             <div className="navbar-brand">
               <a href="index.html">
                 <img
@@ -146,8 +186,8 @@ const Location = () => {
         </nav> */}
 
       <header id="header" className="header-conference affa-bg-img text-white">
-        <div className="header-overlay bg-color-overlay90">
-          <div className="container">
+        <div className="header-overlay bg-color-overlay90" >
+          <div className="Container">
             <div className="row">
               <div className="col-md-6">
                 <div className="header-txt header-banner">
@@ -232,9 +272,9 @@ const Location = () => {
                     className="affa-form-signup form-conference"
                   >
                     <div className="submit-status"></div>
-                    <input type="text" name="name" placeholder="Name" />
-                    <input type="text" name="email" placeholder="Email" />
-                    <input type="submit" name="submit" value="Sign Up Now!" />
+                    <input type="text" className="form-input" name="name" placeholder="Name" />
+                    <input type="text" className="form-input" name="email" placeholder="Email" />
+                    <input type="submit" className="submit-button" name="submit" value="Sign Up Now!" />
                   </form>
                 </div>
               </div>
@@ -242,8 +282,8 @@ const Location = () => {
           </div>
         </div>
         <figure
-          className="bg-img-base"
-          style={{ backgroundImage: "url(images/content/bg/1.jpg)" }}
+          className="bg-img-base loaded"
+          style={{ backgroundImage: `url(${img1})` }}
         ></figure>
       </header>
 
@@ -252,7 +292,7 @@ const Location = () => {
           id="speakers"
           className="padding-top40-sm padding-top30 padding-bottom0-sm padding-bottom10"
         >
-          <div className="container">
+          <div className="Container">
             <div className="post-heading-left-conference">
               <h2>Online Assignment Help in Australia</h2>
               <p>
@@ -297,7 +337,7 @@ const Location = () => {
           id="features"
           className="padding-top40-sm padding-top50 padding-bottom10-sm padding-bottom20"
         >
-          <div className="container">
+          <div className="Container">
             <div className="post-heading-left-conference">
               <h2>Our Top Work Features</h2>
               <p>
@@ -397,7 +437,7 @@ const Location = () => {
 
       <div className="affa-bg-white padding-top0-sm padding-top0">
         <div id="schedule" className="padding-top40-sm padding-top50">
-          <div className="container">
+          <div className="Container">
             <div className="post-heading-left-conference">
               <h2>How Our Online Assignment Help Services Work?</h2>
               <p>
@@ -465,7 +505,7 @@ const Location = () => {
                           type="submit"
                           name="submit"
                           value="Book Now!"
-                          className="mb-5"
+                          className="mb-5 submit-button"
                         />
                       </div>
                     </div>
@@ -482,7 +522,7 @@ const Location = () => {
           id="spotlight"
           className="padding-top40-sm padding-top50 padding-bottom0-sm padding-bottom10"
         >
-          <div className="container">
+          <div className="Container">
             <div className="row">
               <div className="col-md-12 col-lg-12 col-xl-12">
                 <div className="text-center-sm padding-top40-lg padding-top70-xl margin-bottom40">
@@ -509,39 +549,39 @@ const Location = () => {
           id="clients"
           className="padding-top20-sm padding-top20 padding-bottom20-sm padding-bottom20"
         >
-          <div className="container">
-            <h3 className="text-center-sm margin-bottom40-sm margin-bottom50">
+          <div className="Container">
+            <h3 className="text-center-sm margin-bottom40-sm margin-bottom50 carousel-title">
               Our excellent sponsors make LeadPro Conference possible:
             </h3>
             <div className="carousel-slider clients-conference-slider">
               <div className="slick-slide">
                 <figure className="affa-client-conference">
-                  <img src="images/content/clients/1.png" alt="Logo" />
+                  <img src="/src/assets/images/content/clients/1.png" alt="Logo" />
                 </figure>
               </div>
               <div className="slick-slide">
                 <figure className="affa-client-conference">
-                  <img src="images/content/clients/2.png" alt="Logo" />
+                  <img src="/src/assets/images/content/clients/2.png" alt="Logo" />
                 </figure>
               </div>
               <div className="slick-slide">
                 <figure className="affa-client-conference">
-                  <img src="images/content/clients/3.png" alt="Logo" />
+                  <img src="/src/assets/images/content/clients/3.png" alt="Logo" />
                 </figure>
               </div>
               <div className="slick-slide">
                 <figure className="affa-client-conference">
-                  <img src="images/content/clients/4.png" alt="Logo" />
+                  <img src="/src/assets/images/content/clients/4.png" alt="Logo" />
                 </figure>
               </div>
               <div className="slick-slide">
                 <figure className="affa-client-conference">
-                  <img src="images/content/clients/5.png" alt="Logo" />
+                  <img src="/src/assets/images/content/clients/5.png" alt="Logo" />
                 </figure>
               </div>
               <div className="slick-slide">
                 <figure className="affa-client-conference">
-                  <img src="images/content/clients/3.png" alt="Logo" />
+                  <img src="/src/assets/images/content/clients/3.png" alt="Logo" />
                 </figure>
               </div>
             </div>
@@ -550,7 +590,7 @@ const Location = () => {
       </div>
 
       <section className="order-by-whatsapp">
-        <div className="container">
+        <div className="Container">
           <div className="title">
             <strong>Get 35% OFF </strong>on Your First Order!
           </div>
@@ -1247,19 +1287,19 @@ const Location = () => {
       </section>
 
       <section className="testimonials">
-        <div className="container">
+        <div className="Container">
           <div className="heading">
             <p>Customers Testimonials (4.9/5)</p>
           </div>
           <ul className="testimonials-carousel slick-initialized slick-slider">
-            <button
+            {/* <button
               className="slick-prev slick-arrow slick-disabled"
               aria-label="Previous"
               type="button"
               aria-disabled="true"
             >
               Previous
-            </button>
+            </button> */}
             <div className="slick-list draggable">
               <div
                 className="slick-track"
@@ -1302,14 +1342,14 @@ const Location = () => {
                 ))}
               </div>
             </div>
-            <button
+            {/* <button
               className="slick-next slick-arrow"
               aria-label="Next"
               type="button"
               aria-disabled="false"
             >
               Next
-            </button>
+            </button> */}
           </ul>
         </div>
       </section>
@@ -1320,8 +1360,8 @@ const Location = () => {
           id="pricing"
           className="padding-top40-sm padding-top50 padding-bottom0-sm padding-bottom10"
         >
-          {/* .container */}
-          <div className="container">
+          {/* .Container */}
+          <div className="Container">
             <div className="post-heading-left-conference">
               {/* heading */}
               <h2>2018 Conference Pricing</h2>
@@ -1476,14 +1516,14 @@ const Location = () => {
             </div>
             {/* .tbl-pricing end */}
           </div>
-          {/* .container end */}
+          {/* .Container end */}
         </div>
         {/* #pricing end */}
       </div>
 
       <div className="affa-bg-grey padding-top30-sm padding-top30 padding-bottom830-sm padding-bottom30">
-        {/* .container */}
-        <div className="container">
+        {/* .Container */}
+        <div className="Container">
           <div className="post-heading-left">
             {/* heading */}
             <p>What is our mission?</p>
@@ -1512,7 +1552,7 @@ const Location = () => {
             </a>
           </div>
         </div>
-        {/* .container end */}
+        {/* .Container end */}
       </div>
 
       <div className="affa-bg-grey padding-top40-sm padding-top0 padding-bottom40-sm padding-bottom50">
@@ -1521,8 +1561,8 @@ const Location = () => {
           id="faqs"
           className="padding-top40-sm padding-top50 padding-bottom10-sm padding-bottom20"
         >
-          {/* .container */}
-          <div className="container">
+          {/* .Container */}
+          <div className="Container">
             <div className="post-heading-left-conference">
               {/* heading */}
               <h2>Frequently Asked Questions</h2>
@@ -1560,7 +1600,7 @@ const Location = () => {
             </div>
             {/* .row end */}
           </div>
-          {/* .container end */}
+          {/* .Container end */}
         </div>
         {/* #faqs end */}
       </div>
@@ -1568,10 +1608,10 @@ const Location = () => {
       <div
         id="contact"
         className="affa-bg-grey bg-img padding-top80-sm padding-top100 padding-bottom40-sm padding-bottom60"
-        style={{ backgroundImage: "url(images/content/bg/maps.png)" }}
+        style={{ backgroundImage: "url(/src/assets/images/content/bg/maps.png)" }}
       >
-        {/* .container */}
-        <div className="container">
+        {/* .Container */}
+        <div className="Container">
           {/* .row */}
           <div className="row">
             <div className="col-md-6 col-xl-5">
@@ -1585,7 +1625,7 @@ const Location = () => {
                 <input type="text" name="email" placeholder="Your Email" />
                 <textarea name="message" placeholder="Your Message"></textarea>
                 <div className="form-submit">
-                  <input type="submit" name="submit" value="Send Message" />
+                  <input type="submit" name="submit" className="submit-button" value="Send Message" />
                 </div>
               </form>
             </div>
@@ -1623,20 +1663,17 @@ const Location = () => {
           </div>
           {/* .row end */}
         </div>
-        {/* .container end */}
+        {/* .Container end */}
       </div>
 
-      <footer id="footer" className="footer-conference footer-landing">
-        {/* .footer-nav */}
+      {/* <footer id="footer" className="footer-conference footer-landing">
         <div className="footer-nav affa-bg-color text-white">
-          {/* .container */}
-          <div className="container">
+          <div className="Container">
             <div className="footer-logo">
               <img
                 src="https://myassignmentnest.com/assets/images/logo.jpg"
                 alt="Logo"
               />
-              {/* logo */}
             </div>
 
             <div className="footer-copyright">
@@ -1646,11 +1683,9 @@ const Location = () => {
                   myassignmentnest
                 </a>
               </p>
-              {/* copyright text */}
             </div>
 
             <ul className="footer-socials">
-              {/* socials */}
               <li>
                 <a href="#" title="Facebook">
                   <i className="ion ion-social-facebook"></i>
@@ -1678,10 +1713,8 @@ const Location = () => {
               </li>
             </ul>
           </div>
-          {/* .container end */}
         </div>
-        {/* .footer-nav end */}
-      </footer>
+      </footer> */}
     </div>
   );
 };
