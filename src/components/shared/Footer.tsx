@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../inputs/Button";
 import { Link } from "react-router-dom";
 import {
@@ -7,14 +7,16 @@ import {
   Linkedin,
   Mail,
   Phone,
-  PhoneCall,
-  PhoneIcon,
 } from "lucide-react";
 import gatewayimg from "/assets/images/gatewayimg.jpeg";
-import { Countries } from "../../constants/StaticData";
+import axios from "axios";
+// import { Countries } from "../../constants/StaticData";
+const BASE_URL = import.meta.env.VITE_BASE_URL2;
+
 
 const Footer = () => {
   const [showCitiesBykey, setShowCitiesBykey] = useState<number>(-1);
+  const [countries, setCountries] = useState<[]>([]);
 
   const handleClick = (key: number) => {
     if (key === showCitiesBykey) {
@@ -24,6 +26,16 @@ const Footer = () => {
 
     setShowCitiesBykey(key);
   };
+
+  useEffect(() => {
+    (async function () {
+      
+      const response = await axios(`${BASE_URL}/api/pages`);
+      setCountries(response.data.data)
+      
+    })();
+  }, []);
+
   return (
     <footer className="bg-primary_100 px-2 py-10 sm:p-12 ">
       <section className=" grid grid-cols-2   gap-y-6 sm:gap-10 md:gap-14 xl:grid-cols-4 justify-items-center place-content-between align-middle  text-primary">
@@ -132,7 +144,7 @@ const Footer = () => {
         </div>
       </section>
       <div className="flex relative justify-center">
-        {Countries.map((country, key) => (
+        {countries.map((country, key) => (
           <div key={key}>
             <div
               className="flex mx-4 text-white text-xl"
@@ -143,11 +155,17 @@ const Footer = () => {
             </div>
             {showCitiesBykey === key && (
               <div className="absolute flex flex-wrap left-0  bg-white rounded-sm shadow-xl  text-black p-4 ">
-                <h1 className="text-lg font-bold mr-4">Assignment Help {`${country.name} >>`}</h1>
-                {country.cities.map((city) => (
-                  <Link className="mx-4" to={`/location/${city}`} onClick={()=>setShowCitiesBykey(-1)}>
+                <h1 className="text-lg font-bold mr-4">
+                  Assignment Help {`${country.name} >>`}
+                </h1>
+                {country.pages.map((page) => (
+                  <Link
+                    className="mx-4"
+                    to={`/location/${page.page_url}`}
+                    onClick={() => setShowCitiesBykey(-1)}
+                  >
                     <p>
-                      {city} 
+                      {page.location}
                       <span className="ml-4">|</span>
                     </p>
                   </Link>

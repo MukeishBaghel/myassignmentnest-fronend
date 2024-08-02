@@ -2,8 +2,37 @@ import { useLocation } from "react-router-dom";
 import { testimonials } from "../constants/StaticData";
 import "../assets/css/index.css";
 import img1 from "../assets/images/content/bg/1.jpg";
-
+import { useEffect, useState } from "react";
+import axios from "axios";
+const BASE_URL = import.meta.env.VITE_BASE_URL2;
+type PageData = {
+  country_id: string;
+  location: string;
+  page_url: string;
+  hero_title: string;
+  hero_sub_title: string;
+  section_1_title_1: string;
+  section_1_content_1: string;
+  section_1_title_2: string;
+  section_1_content_2: string;
+  conference_pricing_text: string;
+  sponsor_section_text: string;
+};
 const Location = () => {
+  const [pageData, setPageData] = useState<PageData>({
+    country_id: "",
+    location: "",
+    page_url: "",
+    hero_title: "",
+    hero_sub_title: "",
+    section_1_title_1: "",
+    section_1_content_1: "",
+    section_1_title_2: "",
+    section_1_content_2: "",
+    conference_pricing_text: "",
+    sponsor_section_text: "",
+  });
+
   const experts = [
     {
       id: 1,
@@ -153,7 +182,12 @@ const Location = () => {
   const urlPath = useLocation();
   const urlPathArr = urlPath.pathname.split("/");
   const searchedLocation = urlPathArr[urlPathArr.length - 1];
-  console.log(searchedLocation);
+  useEffect(() => {
+    (async function () {
+      const response = await axios(`${BASE_URL}/api/page/${searchedLocation}`);
+      setPageData(response.data.data);
+    })();
+  }, [urlPath]);
 
   return (
     <div id="body-wrap" className="bg-white">
@@ -186,16 +220,13 @@ const Location = () => {
         </nav> */}
 
       <header id="header" className="header-conference affa-bg-img text-white">
-        <div className="header-overlay bg-color-overlay90" >
+        <div className="header-overlay bg-color-overlay90">
           <div className="Container">
             <div className="row">
               <div className="col-md-6">
                 <div className="header-txt header-banner">
-                  <h1>Assignment Help Australia</h1>
-                  <p>
-                    Australia's No.1 Assignment Writing Services Providing
-                    Website
-                  </p>
+                  <h1>{pageData.hero_title}</h1>
+                  <p>{pageData.hero_sub_title}</p>
                   <ul>
                     <li>
                       Plagiarism &amp; Error Free Assignments By Subject Experts
@@ -272,9 +303,24 @@ const Location = () => {
                     className="affa-form-signup form-conference"
                   >
                     <div className="submit-status"></div>
-                    <input type="text" className="form-input" name="name" placeholder="Name" />
-                    <input type="text" className="form-input" name="email" placeholder="Email" />
-                    <input type="submit" className="submit-button" name="submit" value="Sign Up Now!" />
+                    <input
+                      type="text"
+                      className="form-input"
+                      name="name"
+                      placeholder="Name"
+                    />
+                    <input
+                      type="text"
+                      className="form-input"
+                      name="email"
+                      placeholder="Email"
+                    />
+                    <input
+                      type="submit"
+                      className="submit-button"
+                      name="submit"
+                      value="Sign Up Now!"
+                    />
                   </form>
                 </div>
               </div>
@@ -294,39 +340,10 @@ const Location = () => {
         >
           <div className="Container">
             <div className="post-heading-left-conference">
-              <h2>Online Assignment Help in Australia</h2>
-              <p>
-                Finding Online Assignment Help is the most important and tough
-                job as every student needs to complete their subject on time.
-                We, the team of Australian writers, are strongly committed to
-                delivering online academic writing services at affordable prices
-                for Australian university students. With our top-notch academic
-                writers, you can take our services from any Australian city. We
-                have assisted several college-goers so far in getting good
-                grades in the subjects they find difficult to understand. If you
-                need any help with your assignments, then our writers are there
-                for you. Trust us up to the hilt, and we bet you won't regret
-                your decision ever. We have a team of highly experienced
-                PhD-certified professional writers with excellent academic
-                backgrounds in their respective subject fields.
-              </p>
-              <h3>
-                Best Assignment Help Services By the Team Of Qualified Educators
-              </h3>
-              <p>
-                All our expert writers who deliver the academic papers to
-                students have earned their degrees from top institutions in
-                Australia, and have been handpicked carefully to provide the
-                best writing services to scholars who often suffer from poor
-                grades due to time constraints, language problems, and lack of
-                knowledge. If you think that taking our services will be a
-                better deal for you to score high grades, then we can truly make
-                it a reality for you. It's time to ace your academic career by
-                availing the Best Assignment Help Service from our skilled
-                writers. Our company is committed to providing 100%
-                plagiarism-free documents that are unique, informative, and
-                error-free for university students.
-              </p>
+              <h2>{pageData.section_1_title_1}</h2>
+              <p>{pageData.section_1_content_1}</p>
+              <h3>{pageData.section_1_title_2}</h3>
+              <p>{pageData.section_1_content_2}</p>
             </div>
           </div>
         </div>
@@ -528,10 +545,11 @@ const Location = () => {
                 <div className="text-center-sm padding-top40-lg padding-top70-xl margin-bottom40">
                   <div className="post-heading-left-conference margin-bottom30-sm margin-bottom40">
                     <h2>Get assignment help to Score A+ Grades in the exam</h2>
-                    <p>
-                      Nam elementum lorem eget ante suscipit, nec dictum augue
-                      convallis.
-                    </p>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: pageData.sponsor_section_text,
+                      }}
+                    />
                   </div>
                   <p>
                     If finding the best assignment help became a tough job for
@@ -556,32 +574,50 @@ const Location = () => {
             <div className="carousel-slider clients-conference-slider">
               <div className="slick-slide">
                 <figure className="affa-client-conference">
-                  <img src="/src/assets/images/content/clients/1.png" alt="Logo" />
+                  <img
+                    src="/src/assets/images/content/clients/1.png"
+                    alt="Logo"
+                  />
                 </figure>
               </div>
               <div className="slick-slide">
                 <figure className="affa-client-conference">
-                  <img src="/src/assets/images/content/clients/2.png" alt="Logo" />
+                  <img
+                    src="/src/assets/images/content/clients/2.png"
+                    alt="Logo"
+                  />
                 </figure>
               </div>
               <div className="slick-slide">
                 <figure className="affa-client-conference">
-                  <img src="/src/assets/images/content/clients/3.png" alt="Logo" />
+                  <img
+                    src="/src/assets/images/content/clients/3.png"
+                    alt="Logo"
+                  />
                 </figure>
               </div>
               <div className="slick-slide">
                 <figure className="affa-client-conference">
-                  <img src="/src/assets/images/content/clients/4.png" alt="Logo" />
+                  <img
+                    src="/src/assets/images/content/clients/4.png"
+                    alt="Logo"
+                  />
                 </figure>
               </div>
               <div className="slick-slide">
                 <figure className="affa-client-conference">
-                  <img src="/src/assets/images/content/clients/5.png" alt="Logo" />
+                  <img
+                    src="/src/assets/images/content/clients/5.png"
+                    alt="Logo"
+                  />
                 </figure>
               </div>
               <div className="slick-slide">
                 <figure className="affa-client-conference">
-                  <img src="/src/assets/images/content/clients/3.png" alt="Logo" />
+                  <img
+                    src="/src/assets/images/content/clients/3.png"
+                    alt="Logo"
+                  />
                 </figure>
               </div>
             </div>
@@ -1448,48 +1484,11 @@ const Location = () => {
                 </h2>
                 <div className="inner-box">
                   <div className="left-content common-scrollbar">
-                    <p>
-                      <b>New Assignment Help Company</b> is recognized as a
-                      trusted name when it comes to providing academic writing
-                      services at affordable prices. The reason behind our
-                      growing popularity is our ability to understand students'
-                      problems which they go through during their academic
-                      careers. That's where we come with a team of Australia's
-                      best academic writers. We offer top-notch service in
-                      Australia so that scholars can take a sigh of relief and
-                      lessen their burden of writing lengthy documents. We know
-                      how important it is to submit plagiarism-free work to your
-                      professor, and that's why we always do extensive research
-                      on the given topic and write from scratch. To help you
-                      assess the quality of our write-ups, we provide a free
-                      Turnitin report as well. So, what are you mulling over?
-                      Don't procrastinate just contact our assignment assistance
-                      team today. Here, you are sure to climb the ladder of
-                      success by scoring your dream grades!
-                    </p>
-                    <h3 className="heading">
-                      Access Our Assignment Writing Service For Instant
-                      Alleviation From Your Academic Burdens
-                    </h3>
-                    <p>
-                      The stress of scoring high grades and performing well in
-                      studies has adversely impacted their lives. We understand
-                      that other than preparing for assignment writing, students
-                      have to study for examinations, take part in
-                      extracurricular activities, and do part-time jobs as well
-                      to earn a living. With so much to do in 24 hours, they
-                      find it difficult to get the best team of writers who can
-                      provide them best writing services in order to improve
-                      their grades and bring down their confidence level. Our
-                      Company is a highly-trusted name in the world of the
-                      academic writing industry as we have been assisting
-                      students at all scholastic levels for many years so that
-                      they can get best assignment writing service from experts.
-                      We have hired the most sought-after team of
-                      subject-oriented writers so that we can cover all the
-                      important subjects that students feel are tricky to deal
-                      with.
-                    </p>
+                    <p
+                      dangerouslySetInnerHTML={{
+                        __html: pageData.conference_pricing_text,
+                      }}
+                    />
                   </div>
                   <div className="right-side">
                     <div className="inner-flex">
@@ -1608,7 +1607,9 @@ const Location = () => {
       <div
         id="contact"
         className="affa-bg-grey bg-img padding-top80-sm padding-top100 padding-bottom40-sm padding-bottom60"
-        style={{ backgroundImage: "url(/src/assets/images/content/bg/maps.png)" }}
+        style={{
+          backgroundImage: "url(/src/assets/images/content/bg/maps.png)",
+        }}
       >
         {/* .Container */}
         <div className="Container">
@@ -1625,7 +1626,12 @@ const Location = () => {
                 <input type="text" name="email" placeholder="Your Email" />
                 <textarea name="message" placeholder="Your Message"></textarea>
                 <div className="form-submit">
-                  <input type="submit" name="submit" className="submit-button" value="Send Message" />
+                  <input
+                    type="submit"
+                    name="submit"
+                    className="submit-button"
+                    value="Send Message"
+                  />
                 </div>
               </form>
             </div>
