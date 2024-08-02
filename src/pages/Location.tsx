@@ -4,6 +4,8 @@ import "../assets/css/index.css";
 import img1 from "../assets/images/content/bg/1.jpg";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useParams } from 'react-router-dom';
+
 const BASE_URL = import.meta.env.VITE_BASE_URL2;
 type PageData = {
   country_id: string;
@@ -179,15 +181,14 @@ const Location = () => {
     },
   ];
 
-  const urlPath = useLocation();
-  const urlPathArr = urlPath.pathname.split("/");
-  const searchedLocation = urlPathArr[urlPathArr.length - 1];
+  const { '*': location } = useParams();
+  
   useEffect(() => {
     (async function () {
-      const response = await axios(`${BASE_URL}/api/page/${searchedLocation}`);
+      const response = await axios(`${BASE_URL}/api/page/${location}`);
       setPageData(response.data.data);
     })();
-  }, [urlPath]);
+  }, [location]);
 
   return (
     <div id="body-wrap" className="bg-white">

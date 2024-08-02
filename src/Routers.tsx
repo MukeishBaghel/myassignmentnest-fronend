@@ -36,7 +36,7 @@ const Routers = () => {
 
         {/* public routes */}
         <Route path='/' index element={<CommonLayout><Home /></CommonLayout>} />
-        <Route path='/location/:location' element={<CommonLayout><Location/></CommonLayout>} />
+        <Route path='/location/*' element={<CommonLayout><Location/></CommonLayout>} />
         <Route path='/profile' element={<Profile />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<SignUp />} />
